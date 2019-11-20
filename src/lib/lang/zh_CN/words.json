@@ -1,0 +1,28 @@
+{
+  "title": {},
+  "placeholders": {
+    "bold": "粗体",
+    "del": "删除线",
+    "underline": "下划线",
+    "italic": "斜体",
+    "quote": "引用",
+    "bookmark": "标记",
+    "superscript": "上角标",
+    "subscript": "下角标",
+    "h1": "标题1",
+    "h2": "标题2",
+    "h3": "标题3",
+    "h4": "标题4",
+    "h5": "标题5",
+    "h6": "标题6",
+    "align-left": "左对齐",
+    "align-center": "居中对齐",
+    "align-right": "右对齐",
+    "ol": "",
+    "ul": "",
+    "hr": "",
+    "link": "http://",
+    "inlineCode": "行内代码",
+    "code": ""
+  }
+}
