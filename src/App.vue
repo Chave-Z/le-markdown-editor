@@ -24,5 +24,8 @@ export default {
   color: #2c3e50;
   // margin: 0;
   // padding: 0;
+  width: 1100px;
+  height: 500px;
+  margin: 50px auto;
 }
 </style>

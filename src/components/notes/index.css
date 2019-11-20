@@ -11,10 +11,11 @@ body{
 
 .md-comtaniner{
   width: 100%;
-  height: 600px;
-  margin: 0;
+  height: 100%;
+  margin: 0 auto;
   padding: 0;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
 }
 
 .le-note-toolbar{
@@ -25,19 +26,20 @@ body{
   left: 0;
   z-index: 10;
   text-align: left;
-  padding-left: 5px;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #f2f6fc;
+  border-radius: 4px 4px 0 0;
 }
 
 .le-note-tools{
   padding: 0;
   margin: 0;
   list-style: none;
+  margin-left: 5px;
 }
 
 .le-note-tools > li{
   margin: 0;
-  padding: 5px 1px;
+  padding: 4px 0px;
   display: inline-block;
   position: relative;
 }
@@ -110,23 +112,59 @@ body{
   width: 100%;
   margin: 0;
   padding: 0;
-  height: auto;
   zoom: 1;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
+
+/** 预览打开、关闭动画**/
+.le-note-right-animation-enter-active {
+  -webkit-animation:fadeInRight 1s .2s ease both;
+  -moz-animation:fadeInRight 1s .2s ease both;}
+  @-webkit-keyframes fadeInRight{
+  0%{opacity:0;
+  -webkit-transform:translateX(20px)}
+  100%{opacity:1;
+  -webkit-transform:translateX(0)}
+  }
+  @-moz-keyframes fadeInRight{
+  0%{opacity:0;
+  -moz-transform:translateX(20px)}
+  100%{opacity:1;
+  -moz-transform:translateX(0)}
+}
+.le-note-right-animation-leave-active {
+  -webkit-animation:fadeOutRight 1s .2s ease both;
+  -moz-animation:fadeOutRight 1s .2s ease both;}
+  @-webkit-keyframes fadeOutRight{
+  0%{opacity:1;
+  -webkit-transform:translateX(0)}
+  100%{opacity:0;
+  -webkit-transform:translateX(20px)}
+  }
+  @-moz-keyframes fadeOutRight{
+  0%{opacity:1;
+  -moz-transform:translateX(0)}
+  100%{opacity:0;
+  -moz-transform:translateX(20px)}
+}
+/** 预览打开、关闭动画**/
 
 .le-note-container > div{
   margin: 0;
   padding: 0;
   display: block;
   width: 50%;
+  height: 100%;
   position: absolute;
   left: 0;
+  font-size: 18px;
 }
 
 .le-note-container .le-note-right{
+  border-left: 1px solid #999;
   text-align: left;
   left: 50%;
-  margin-left: 6px;
 }
 
 #my-textarea{
@@ -134,15 +172,24 @@ body{
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  height: 600px;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding: 0;
+  border: none;
+  resize:none; /*取消拉伸*/
+  outline: none;
+  box-sizing: border-box;
+  padding: 8px 25px 15px 25px;
+  color: #666;
 }
 
 .markdown-body{
   width: 100%;
-  height: 600px;
-  border: 1px solid #999;
+  height: 100%;
   overflow: auto;
+  background-color: rgb(251, 251, 251);
+  box-sizing: border-box;
+  padding: 8px 25px 15px 25px;
 }
 

@@ -7,19 +7,27 @@
 </style>
 <template>
   <div class="md-comtaniner">
-    <toolbar @operate="operate"
+    <toolbar ref="toolbar"
+             @operate="operate"
              @insertImg="insertImg"
-             @insertTable="insertTable"></toolbar>
-    <div class="le-note-container">
+             @insertTable="insertTable"
+             @preview="preview"
+             @fullScreen="fullScreen"></toolbar>
+    <div class="le-note-container"
+         :style="{height:containerHeight + 'px','margin-top':toolBarHeight + 'px'}">
       <div class="le-note-left">
         <textarea id="my-textarea"
-                  :style="{'margin-top':toolBarHeight + 'px'}"
-                  v-model="orign"></textarea></div>
-      <div class="le-note-right">
-        <div class="markdown-body"
-             :style="{'padding-top': toolBarHeight + 'px'}"
-             v-html="html"></div>
-      </div>
+                  v-model="orign"
+                  :style="{fontSize:config.font.textArea}"
+                  placeholder="Coding now..."></textarea></div>
+      <transition name="le-note-right-animation">
+        <div class="le-note-right"
+             v-show="previewFlag">
+          <div class="markdown-body"
+               :style="{fontSize:config.font.mdBody}"
+               v-html="html"></div>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -36,8 +44,15 @@ export default {
   },
   data () {
     return {
-      toolBarHeight: 35,
+      mdSize: {
+        width: '1000px',
+        height: '400px'
+      },
+      config: config,
+      toolBarHeight: 38,
+      containerHeight: 365,
       placeholders: '', // 占位符
+      previewFlag: true,
       orign: '',
       html: '',
       history: [''],
@@ -62,6 +77,12 @@ export default {
       // }
       this.html = md.render(val);
     }
+    // ,toolBarHeight: function () {
+    // this.$nextTick(() => {
+    //   this.toolBarHeight = document.getElementsByClassName('le-note-toolbar')[0].clientHeight;
+    //   console.log(this.toolBarHeight)
+    // })
+    // }
   },
   methods: {
     operate (type) {
@@ -75,6 +96,14 @@ export default {
     insertTable (tableInfo) {
       // 添加表格
       insertTable(this, tableInfo);
+    },
+    preview (flag) {
+      // 开关实时预览
+      this.previewFlag = flag
+      document.getElementsByClassName('le-note-left')[0].style.width = this.previewFlag ? '50%' : '100%'
+    },
+    fullScreen () {
+      // 全屏 待添加
     },
     initLang () {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
@@ -120,13 +149,10 @@ export default {
     this.initLang()
   },
   mounted () {
-    // 监听 工具栏的高度
-    this.toolBarHeight = `${document.getElementsByClassName('le-note-toolbar')[0].offsetHeight}`;
-    const that = this;
-    window.onresize = function temp () {
-      that.toolBarHeight = `${document.getElementsByClassName('le-note-toolbar')[0].offsetHeight}`;
-    };
-
+    // 监听 工具栏的高度 有问题 待修改
+    let mdHeight = document.getElementsByClassName('md-comtaniner')[0].offsetHeight
+    // this.toolBarHeight = document.getElementsByClassName('le-note-toolbar')[0].clientHeight;
+    this.containerHeight = (mdHeight || 400) - this.toolBarHeight
     var dropbox = document.querySelector('#my-textarea');
     dropbox.addEventListener('dragenter', this.onDrag, false);
     dropbox.addEventListener('dragover', this.onDrag, false);

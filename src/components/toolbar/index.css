@@ -88,6 +88,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
+  color: #8a8383;
 }
 .dialog-container {
   position: relative;
@@ -166,4 +167,11 @@ a:-webkit-any-link {
   display: inline-block;
   text-decoration: none;
   text-align: center;
+}
+
+
+@media (max-width: 1100px) {
+  /* body{
+
+  } */
 }

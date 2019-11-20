@@ -3,6 +3,10 @@ import zh_CN from './lang/zh_CN/words.json'
 const config = {
   langList: ['en', 'zh_CN'],
   words: { en, zh_CN },
+  font: {
+    textArea: '16px',
+    mdBody: '16px'
+  },
   toolbars: {
     bold: true,
     italic: true,
