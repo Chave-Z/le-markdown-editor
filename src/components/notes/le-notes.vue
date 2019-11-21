@@ -12,17 +12,24 @@
              @insertImg="insertImg"
              @insertTable="insertTable"
              @preview="preview"
-             @fullScreen="fullScreen"></toolbar>
+             @fullScreen="fullScreen"
+             :toolbars="config.toolbars"></toolbar>
+
     <div class="le-note-container"
          :style="{height:containerHeight + 'px','margin-top':toolBarHeight + 'px'}">
       <div class="le-note-left">
         <textarea id="my-textarea"
                   v-model="orign"
                   :style="{fontSize:config.font.textArea}"
-                  placeholder="Coding now..."></textarea></div>
+                  placeholder="输入数据..."></textarea></div>
       <transition name="le-note-right-animation">
         <div class="le-note-right"
+             :style="fullStyle"
              v-show="previewFlag">
+          <a href="javascript:;"
+             v-if="fullScreenFlag"
+             @click="fullScreen()">
+            <i class="fa fa-window-close-o"></i></a>
           <div class="markdown-body"
                :style="{fontSize:config.font.mdBody}"
                v-html="html"></div>
@@ -36,6 +43,7 @@ import toolbar from '../toolbar/toolbar.vue'
 import { insertImg, insertTable, simpleClick } from '../../lib/core/toolbar_click'
 import md from '../../lib/core/markdown'
 import config from '../../lib/config'
+import flowchart from 'flowchart.js'
 import 'highlight.js/styles/github.css'
 export default {
   name: 'le-notes',
@@ -44,15 +52,17 @@ export default {
   },
   data () {
     return {
+      config: config,
       mdSize: {
         width: '1000px',
         height: '400px'
       },
-      config: config,
+      fullStyle: "",
       toolBarHeight: 38,
       containerHeight: 365,
       placeholders: '', // 占位符
       previewFlag: true,
+      fullScreenFlag: false,
       orign: '',
       html: '',
       history: [''],
@@ -76,6 +86,22 @@ export default {
       //   }, 10);
       // }
       this.html = md.render(val);
+      // console.log(this.html);
+      // 暂时没找到更好的办法 先做个延迟吧
+      setTimeout(function () {
+        document.querySelectorAll('.md-flowchart').forEach(element => {
+          try {
+            let code = element.textContent
+            console.log(element);
+            let chart = flowchart.parse(code)
+            element.textContent = ''
+            chart.drawSVG(element)
+          }
+          catch (e) {
+            element.outerHTML = `<pre>error: ${e}</pre>`
+          }
+        })
+      }, 100)
     }
     // ,toolBarHeight: function () {
     // this.$nextTick(() => {
@@ -103,7 +129,18 @@ export default {
       document.getElementsByClassName('le-note-left')[0].style.width = this.previewFlag ? '50%' : '100%'
     },
     fullScreen () {
-      // 全屏 待添加
+      this.preview(true)
+      // 全屏
+      this.fullScreenFlag = !this.fullScreenFlag
+      this.fullStyle = this.fullScreenFlag ? {
+        width: document.documentElement.clientWidth + 'px',
+        height: document.documentElement.clientHeight + 'px',
+        top: '0',
+        left: '0',
+        position: 'fixed',
+        'z-index': '500'
+      } : "";
+      console.log(this.fullStyle);
     },
     initLang () {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';

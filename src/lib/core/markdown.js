@@ -1,3 +1,5 @@
+
+var flow = require('./flow-plugin.js')
 var hljs = require('highlight.js') // https://highlightjs.org/
 // 通常的默认值们
 var sub = require('markdown-it-sub')
@@ -6,7 +8,7 @@ var katex = require('markdown-it-katex')
 var deflist = require('markdown-it-deflist')
 var taskLists = require('markdown-it-task-lists'); // 任务清单
 var toc = require('markdown-it-toc') // @[toc](Title)
-var emoji = require('markdown-it-emoji');
+var emoji = require('markdown-it-emoji')
 var footnote = require('markdown-it-footnote')
 var container = require('markdown-it-container')
 var abbr = require('markdown-it-abbr')
@@ -21,11 +23,10 @@ var md = require('markdown-it')({
       try {
         return '<pre class="hljs"><code>' +
           hljs.highlight(lang, str, true).value +
-          '</code></pre>';
+          '</code></pre>'
       } catch (__) { }
     }
-
-    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
   }
 }).use(emoji)
   .use(deflist)
@@ -42,5 +43,6 @@ var md = require('markdown-it')({
   .use(footnote)
   .use(abbr)
   .use(toc)
+  .use(flow)
 
 export default md

@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.5.11",
+    "flowchart.js": "^1.12.0",
     "highlight.js": "^9.16.2",
     "markdown-it": "^10.0.0",
     "markdown-it-abbr": "^1.0.4",
@@ -24,7 +24,8 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-task-lists": "^2.1.1",
-    "markdown-it-toc": "^1.1.0"
+    "markdown-it-toc": "^1.1.0",
+    "vue": "^2.5.11"
   },
   "browserslist": [
     "> 1%",

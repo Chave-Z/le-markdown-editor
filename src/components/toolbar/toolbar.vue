@@ -4,64 +4,64 @@
 <template>
   <div class="le-note-toolbar">
     <ul class="le-note-tools">
-      <li><a href="javascript:;"
+      <li v-if="toolbars.undo"><a href="javascript:;"
            title="撤销（Ctrl+Z）"
            unselectable="on"
            @click.stop="toolbarClick('undo')"><i class="fa fa-undo"
              name="undo"
              unselectable="on"></i></a></li>
-      <li><a href="
+      <li v-if="toolbars.redo"><a href="
                javascript:;"
            title="重做（Ctrl+Y）"
            unselectable="on"
            @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"
              name="redo"
              unselectable="on"></i></a></li>
-      <li class="divider"
+      <li  v-if="toolbars.redo || toolbars.undo" class="divider"
           unselectable="on">|</li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.bold"><a href="javascript:;"
            title="粗体(Ctrl+B)"
            unselectable="on"
            @click.stop="toolbarClick('bold')"><i class="fa fa-bold"
              name="bold"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.del"><a href="javascript:;"
            title="删除线"
            unselectable="on"
            @click.stop="toolbarClick('del')"><i class="fa fa-strikethrough"
              name="del"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.underline"><a href="javascript:;"
            title="下划线"
            unselectable="on"
            @click.stop="toolbarClick('underline')"><i class="fa fa-underline"
              name="underline"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.italic"><a href="javascript:;"
            title="斜体"
            unselectable="on"
            @click.stop="toolbarClick('italic')"><i class="fa fa-italic"
              name="italic"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.quote"><a href="javascript:;"
            title="引用"
            unselectable="on"
            @click.stop="toolbarClick('quote')"><i class="fa fa-quote-left"
              name="quote"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.bookmark"><a href="javascript:;"
            title="标记"
            unselectable="on"
            @click.stop="toolbarClick('bookmark')"><i class="fa fa-bookmark"
              name="bookmark"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.superscript"><a href="javascript:;"
            title="上角标"
            unselectable="on"
            @click.stop="toolbarClick('superscript')"><i class="fa fa-superscript"
              name="superscript"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.subscript"><a href="javascript:;"
            title="下角标"
            unselectable="on"
            @click.stop="toolbarClick('subscript')"><i class="fa fa-subscript"
@@ -84,37 +84,37 @@
                style="font-size:24px;margin-top: -10px;">a</i></a></li> -->
       <li class="divider"
           unselectable="on">|</li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h1"><a href="javascript:;"
            title="标题1"
            unselectable="on"
            @click.stop="toolbarClick('h1')"><i class="fa tools-bold"
              name="h1"
              unselectable="on">H1</i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h2"><a href="javascript:;"
            title="标题2"
            unselectable="on"
            @click.stop="toolbarClick('h2')"><i class="fa tools-bold"
              name="h2"
              unselectable="on">H2</i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h3"><a href="javascript:;"
            title="标题3"
            unselectable="on"
            @click.stop="toolbarClick('h3')"><i class="fa tools-bold"
              name="h3"
              unselectable="on">H3</i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h4"><a href="javascript:;"
            title="标题4"
            unselectable="on"
            @click.stop="toolbarClick('h4')"><i class="fa tools-bold"
              name="h4"
              unselectable="on">H4</i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h5"><a href="javascript:;"
            title="标题5"
            unselectable="on"
            @click.stop="toolbarClick('h5')"><i class="fa tools-bold"
              name="h5"
              unselectable="on">H5</i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.h6"><a href="javascript:;"
            title="标题6"
            unselectable="on"
            @click.stop="toolbarClick('h6')"><i class="fa tools-bold"
@@ -122,45 +122,45 @@
              unselectable="on">H6</i></a></li>
       <li class="divider"
           unselectable="on">|</li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.alignLeft"><a href="javascript:;"
            title="居左"
            unselectable="on"
            @click.stop="toolbarClick('align-left')"><i class="fa fa-align-left"
              name="align-left"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.alignCenter"><a href="javascript:;"
            title="居中"
            unselectable="on"
            @click.stop="toolbarClick('align-center')"><i class="fa fa-align-center"
              name="align-center"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.alignRight"><a href="javascript:;"
            title="居右"
            unselectable="on"
            @click.stop="toolbarClick('align-right')"><i class="fa fa-align-right"
              name="align-right"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.ol"><a href="javascript:;"
            title="有序列表"
            unselectable="on"
            @click.stop="toolbarClick('ol')"><i class="fa fa-list-ol"
              name="list-ol"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.ul"><a href="javascript:;"
            title="无序列表"
            unselectable="on"
            @click.stop="toolbarClick('ul')"><i class="fa fa-list-ul"
              name="list-ul"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
-           title="横线"
+      <li v-if="toolbars.hr"><a href="javascript:;"
+           title="分割线"
            unselectable="on"
            @click.stop="toolbarClick('hr')"><i class="fa fa-minus"
              name="hr"
              unselectable="on"></i></a></li>
       <li class="divider"
           unselectable="on">|</li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.link"><a href="javascript:;"
            title="链接"
            unselectable="on"
            @click.stop="toolbarClick('link')"><i class="fa fa-link"
@@ -171,31 +171,31 @@
              unselectable="on"><i class="fa fa-anchor"
                name="reference-link"
                unselectable="on"></i></a></li> -->
-      <li><a href="javascript:;"
-           title="添加图片"
-           unselectable="on"
-           @click.stop="insertImgFlag = true"><i class="fa fa-picture-o"
-             name="image"
-             unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.inlineCode"><a href="javascript:;"
            title="行内代码"
            unselectable="on"
            @click.stop="toolbarClick('inlineCode')"><i class="fa fa-code"
              name="code"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.code"><a href="javascript:;"
            title="预格式文本 / 代码块（缩进风格）"
            unselectable="on"
            @click.stop="toolbarClick('code')"><i class="fa fa-file-code-o"
              name="preformatted-text"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.image"><a href="javascript:;"
+           title="添加图片"
+           unselectable="on"
+           @click.stop="insertImgFlag = true"><i class="fa fa-picture-o"
+             name="image"
+             unselectable="on"></i></a></li>
+      <li v-if="toolbars.table"><a href="javascript:;"
            title="添加表格"
            unselectable="on"><i class="fa fa-table"
              name="table"
              unselectable="on"
              @click.stop="insertTableFlag = true"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.time"><a href="javascript:;"
            title="日期时间"
            unselectable="on"><i class="fa fa-clock-o"
              name="datetime"
@@ -222,7 +222,7 @@
            unselectable="on"><i class="fa fa-terminal"
              name="goto-line"
              unselectable="on"></i></a></li> -->
-      <li><a href="javascript:;"
+      <li v-if="toolbars.preview"><a href="javascript:;"
            :title="previewFlag ? '关闭实时预览' : '打开实时预览'"
            unselectable="on"
            @click.stop="preview()">
@@ -230,13 +230,13 @@
              'fa fa-eye':!previewFlag}"
              name="preview"
              unselectable="on"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.fullScreen"><a href="javascript:;"
            title="全窗口预览HTML（按 Shift + ESC还原）"
            unselectable="on"><i class="fa fa-desktop"
              name="fullScreen"
              unselectable="on"
              @click.stop="fullScreen()"></i></a></li>
-      <li><a href="javascript:;"
+      <li v-if="toolbars.clear"><a href="javascript:;"
            title="清空"
            unselectable="on"><i class="fa fa-eraser"
              name="clear"
@@ -366,6 +366,7 @@
 
 export default {
   name: 'le-toolbar',
+  props:['toolbars'],
   data () {
     return {
       insertImgFlag: false,

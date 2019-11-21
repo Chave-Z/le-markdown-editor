@@ -15,7 +15,7 @@ body{
   margin: 0 auto;
   padding: 0;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 12px 0px;
 }
 
 .le-note-toolbar{
@@ -26,7 +26,7 @@ body{
   left: 0;
   z-index: 10;
   text-align: left;
-  border-bottom: 1px solid #f2f6fc;
+  border-bottom: 1px solid #e6e8ea;
   border-radius: 4px 4px 0 0;
 }
 
@@ -161,10 +161,29 @@ body{
   font-size: 18px;
 }
 
+.le-note-container .le-note-left{
+  transition: width 0.5s;
+  -moz-transition: width 0.5s;	/* Firefox 4 */
+  -webkit-transition: width 0.5s;	/* Safari 和 Chrome */
+  -o-transition: width 0.5s;	/* Opera */
+}
+
 .le-note-container .le-note-right{
   border-left: 1px solid #999;
   text-align: left;
   left: 50%;
+  margin-left: -1px;
+  margin-top: -1px;
+}
+.le-note-right > a{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 600;
+}
+
+.le-note-right > a .fa{
+  font-size: 20px;
 }
 
 #my-textarea{
@@ -193,3 +212,7 @@ body{
   padding: 8px 25px 15px 25px;
 }
 
+.md-flowchart svg{
+  width: 100% !important;
+  height: 100% !important;
+}
