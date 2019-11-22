@@ -17,7 +17,8 @@
            @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"
              name="redo"
              unselectable="on"></i></a></li>
-      <li  v-if="toolbars.redo || toolbars.undo" class="divider"
+      <li v-if="toolbars.redo || toolbars.undo"
+          class="divider"
           unselectable="on">|</li>
       <li v-if="toolbars.bold"><a href="javascript:;"
            title="粗体(Ctrl+B)"
@@ -366,7 +367,7 @@
 
 export default {
   name: 'le-toolbar',
-  props:['toolbars'],
+  props: ['toolbars'],
   data () {
     return {
       insertImgFlag: false,

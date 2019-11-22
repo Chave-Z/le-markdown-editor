@@ -8,8 +8,8 @@ const config = {
     mdBody: '16px'
   },
   toolbars: {
-    undo:false,
-    redo:false,
+    undo: false,
+    redo: false,
     bold: true,
     del: true,
     underline: true,
@@ -33,11 +33,11 @@ const config = {
     link: true,
     inlineCode: true,
     code: true,
-    image:true,
-    table:true,
-    time:false,
-    clear:false,
-    fullscreen: true,
+    image: true,
+    table: true,
+    time: false,
+    clear: false,
+    fullScreen: true,
     preview: true
   }
 }
