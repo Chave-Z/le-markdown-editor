@@ -1,8 +1,127 @@
+@[TOC](导航)
+Markdown 语法简介
+# 字符效果、分隔线
+----
+
+~~删除~~
+
+*斜体字*      _斜体字_
+
+**粗体**  __粗体__
+
+***粗斜体*** ___粗斜体___
+
+上标：X<sup>2</sup>，X^2^
+下标：O<sub>2</sub>， X~2~
+
+**缩写(同HTML的abbr标签)**
+
+The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
+
+# 引用
+
+> 引用文本
+
+# 锚点与链接 Links
+[普通链接](https://gitee.com/Chave-Z/vue-md-editor/)
+
+[普通链接带标题](https://gitee.com/Chave-Z/vue-md-editor/ "普通链接带标题")
+
+直接链接：<https://gitee.com/Chave-Z/vue-md-editor>
+
+# 代码高亮
+
+## 行内代码
+
+
+执行命令：`Inline code...`
+
+## 缩进风格
+
+    <toolbar ref="toolbar">
+    </toolbar>
+
+## JS代码
+```javascript
+function test() {
+	console.log("Hello world!");
+}
+```
+
+## HTML 代码 HTML codes
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <mate charest="utf-8" />
+        <title>Hello world!</title>
+    </head>
+    <body>
+        <h1 class="text-xxl">Hello world!</h1>
+    </body>
+</html>
+```
+# 图片 Images
+## 图片 Image
+
+![markdown](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png)
+## 图片加链接 (Image + Link)
+
+[![](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png)](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png "markdown")
+
+---
+
+# 列表 Lists
+
+## 无序列表（减号）Unordered Lists (-)
+
+- 列表一
+- 列表二
+- 列表三
+
+## 无序列表（星号）Unordered Lists (*)
+
+* 列表一
+* 列表二
+* 列表三
+
+## 无序列表（加号和嵌套）Unordered Lists (+)
++ 列表一
++ 列表二
+    + 列表二-1
+    + 列表二-2
+    + 列表二-3
++ 列表三
+    * 列表一
+    * 列表二
+    * 列表三
+
+## 有序列表 Ordered Lists (-)
+
+1. 第一行
+2. 第二行
+3. 第三行
+
+# GFM task list
+
+- [x] GFM task list 1
+- [x] GFM task list 2
+- [ ] GFM task list 3
+    - [ ] GFM task list 3-1
+    - [ ] GFM task list 3-2
+    - [ ] GFM task list 3-3
+- [ ] GFM task list 4
+    - [ ] GFM task list 4-1
+    - [ ] GFM task list 4-2
+
+----
+
+# 绘制表格
+
 | 标题 | 标题 |
 | ------------ | ------------ |
 | 内容内容  | 内容内容 |
 | 内容 | 内容 |
-
 
 | 标题 | 标题 |
 | :------------ | :------------ |
@@ -14,37 +133,33 @@
 | 内容内容内容内容 | 内容内容内容内容 |
 | 内容 | 内容 |
 
-
 | 标题 | 标题 |
 | ------------: | ------------: |
 | 内容内容内容内容 | 内容内容内容内容 |
 | 内容 | 内容 |
+----
 
+# Emoji表情
+访问 [webfx](https://www.webfx.com/tools/emoji-cheat-sheet/) 参考更多使用方法。
 
+:sunny: :umbrella: :cloud: :snowflake: :snowman: :zap: :cyclone:  :foggy: :ocean: :cat: :dog:
+# LaTeX 公式
 
-```flow
-st=>start: Start|past:>http://www.google.com[blank]
-e=>end: End:>http://www.google.com
-op1=>operation: My Operation|past
-op2=>operation: Stuff|current
-sub1=>subroutine: My Subroutine|invalid
-cond=>condition: Yes
-or No?|approved:>http://www.google.com
-c2=>condition: Good idea|rejected
-io=>inputoutput: catch something...|request
-para=>parallel: parallel tasks
+`$` 表示行内公式： 
 
-st->op1(right)->cond
-cond(yes, right)->c2
-cond(no)->para
-c2(true)->io->e
-c2(false)->e
+质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
 
-para(path1, bottom)->sub1(left)->op1
-para(path2, right)->op2->e
+`$$ `表示整行公式：
 
-st@>op1({"stroke":"Red"})@>cond({"stroke":"Red","stroke-width":6,"arrow-end":"classic-wide-long"})@>c2({"stroke":"Red"})@>op2({"stroke":"Red"})@>e({"stroke":"Red"})
-```
+$$\sum_{i=1}^n a_i=0$$
+
+$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$
+
+$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+
+访问 [MathJax](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference) 参考更多使用方法。
+
+# 流程图
 
 ```flow
 start=>start: 开始
@@ -59,3 +174,28 @@ start->loginInfo->verifyLogin->isSuccess
 isSuccess(yes)->respondSuccess->end
 isSuccess(no)->responseFailure->end
 ```
+
+# 视频、音频
+
+<video id="video"
+           controls=""
+           preload="none"
+           width="100%"
+           poster="http://media.w3.org/2010/05/sintel/poster.png">
+    <source id="mp4"
+              src="http://media.w3.org/2010/05/sintel/trailer.mp4"
+              type="video/mp4">
+</video>
+
+<audio id="audio"
+        controls=""
+        preload="none">
+    <source id="mp3"
+          src="http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_849867&response=res&type=convert_url&">
+</audio>
+
+# 脚注
+生成一个脚注1[^footnote].
+生成一个脚注2[^foot].
+[^footnote]: 这里是 **脚注** 的 *内容*.
+ [^foot]:这里是**脚注2**的*内容*.

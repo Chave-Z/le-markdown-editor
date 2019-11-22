@@ -247,116 +247,127 @@
              unselectable="on"><i class="fa fa-search"
                name="search"
                unselectable="on"></i></a></li> -->
-      <li class="divider"
+      <li v-if="toolbars.download"
+          class="divider"
           unselectable="on">|</li>
-      <li><a href="javascript:;"
-           title=""
+      <li v-if="toolbars.download"><a href="javascript:;"
+           title="下载"
            unselectable="on"><i class="fa fa-download"
              name="download"
              unselectable="on"></i></a></li>
     </ul>
     <!-- 添加网络图片 -->
     <transition name="slide-fade">
-      <div class="dropbox p-3"
-           v-if="insertImgFlag">
-        <div class="dialog-header"
-             style="cursor: move;"><strong class="dialog-title">添加图片</strong>
-        </div>
-        <a href="javascript:;"
-           class="fa fa-close dialog-close"
-           @click="insertImgFlag = false"></a>
-        <div class="dialog-container">
-          <div class="dialog-form">
-            <label>图片描述</label><input type="text"
-                   v-model="imageInfo.title"
-                   data-alt="">
-            <br><br>
-            <label>图片链接</label><input type="text"
-                   v-model="imageInfo.url"
-                   data-link="">
+      <div class="modal"
+           :style="modalStyle"
+           v-if="insertImgFlag"
+           @touchmove.prevent.stop
+           @mousewheel.prevent>
+        <div class="dropbox p-3">
+          <div class="dialog-header"
+               style="cursor: move;"><strong class="dialog-title">添加图片</strong>
           </div>
-          <div class="dialog-footer">
-            <button class="dialog-btn dialog-enter-btn"
-                    @click="insertImg()">确定</button>
-            <button class="dialog-btn dialog-cancel-btn"
-                    @click="insertImgFlag = false">取消</button>
+          <a href="javascript:;"
+             class="fa fa-close dialog-close"
+             @click="insertImgFlag = false"></a>
+          <div class="dialog-container">
+            <div class="dialog-form">
+              <label>图片描述</label><input type="text"
+                     v-model="imageInfo.title"
+                     data-alt="">
+              <br><br>
+              <label>图片链接</label><input type="text"
+                     v-model="imageInfo.url"
+                     data-link="">
+            </div>
+            <div class="dialog-footer">
+              <button class="dialog-btn dialog-enter-btn"
+                      @click="insertImg()">确定</button>
+              <button class="dialog-btn dialog-cancel-btn"
+                      @click="insertImgFlag = false">取消</button>
+            </div>
           </div>
         </div>
       </div>
     </transition>
     <!-- 添加表格 -->
     <transition name="slide-fade">
-      <div class="dropbox p-3"
-           v-if="insertTableFlag">
-        <div class="dialog-header"
-             style="cursor: move;"><strong class="dialog-title">添加图片</strong>
-        </div>
-        <a href="javascript:;"
-           class="fa fa-close dialog-close"
-           @click="insertTableFlag = false"></a>
-        <div class="dialog-container">
-          <div class="dialog-form"
-               style="padding: 13px 0;">
-            <label>单元格数</label>
-            行数 <input type="number"
-                   v-model="tableInfo.rows"
-                   class="number-input"
-                   style="width:40px;"
-                   max="100"
-                   min="2"
-                   data-rows="">&nbsp;&nbsp;
-            列数 <input type="number"
-                   v-model="tableInfo.cols"
-                   class="number-input"
-                   style="width:40px;"
-                   max="100"
-                   min="1"
-                   data-cols=""><br><br>
-            <label>对齐方式</label>
-            <div class="fa-btns">
-              <a href="javascript:;">
-                <label title="默认">
-                  <input type="radio"
-                         v-model="tableInfo.type"
-                         name="table-align"
-                         value="justify"
-                         checked="checked">&nbsp;<i class="fa fa-align-justify">
-                  </i>
-                </label>
-              </a>
-              <a href="javascript:;">
-                <label title="左对齐">
-                  <input type="radio"
-                         v-model="tableInfo.type"
-                         name="table-align"
-                         value="left">&nbsp;<i class="fa fa-align-left">
-                  </i>
-                </label>
-              </a>
-              <a href="javascript:;">
-                <label title="居中对齐">
-                  <input type="radio"
-                         v-model="tableInfo.type"
-                         name="table-align"
-                         value="center">&nbsp;<i class="fa fa-align-center">
-                  </i>
-                </label>
-              </a><a href="javascript:;">
-                <label title="右对齐">
-                  <input type="radio"
-                         v-model="tableInfo.type"
-                         name="table-align"
-                         value="right">&nbsp;<i class="fa fa-align-right">
-                  </i>
-                </label>
-              </a>
-            </div>
+      <div class="modal"
+           :style="modalStyle"
+           v-if="insertTableFlag"
+           @touchmove.prevent.stop
+           @mousewheel.prevent>
+        <div class="dropbox p-3">
+          <div class="dialog-header"
+               style="cursor: move;"><strong class="dialog-title">添加图片</strong>
           </div>
-          <div class="dialog-footer">
-            <button class="dialog-btn dialog-enter-btn"
-                    @click="insertTable()">确定</button>
-            <button class="dialog-btn dialog-cancel-btn"
-                    @click="insertTableFlag = false">取消</button>
+          <a href="javascript:;"
+             class="fa fa-close dialog-close"
+             @click="insertTableFlag = false"></a>
+          <div class="dialog-container">
+            <div class="dialog-form"
+                 style="padding: 13px 0;">
+              <label>单元格数</label>
+              行数 <input type="number"
+                     v-model="tableInfo.rows"
+                     class="number-input"
+                     style="width:40px;"
+                     max="100"
+                     min="2"
+                     data-rows="">&nbsp;&nbsp;
+              列数 <input type="number"
+                     v-model="tableInfo.cols"
+                     class="number-input"
+                     style="width:40px;"
+                     max="100"
+                     min="1"
+                     data-cols=""><br><br>
+              <label>对齐方式</label>
+              <div class="fa-btns">
+                <a href="javascript:;">
+                  <label title="默认">
+                    <input type="radio"
+                           v-model="tableInfo.type"
+                           name="table-align"
+                           value="justify"
+                           checked="checked">&nbsp;<i class="fa fa-align-justify">
+                    </i>
+                  </label>
+                </a>
+                <a href="javascript:;">
+                  <label title="左对齐">
+                    <input type="radio"
+                           v-model="tableInfo.type"
+                           name="table-align"
+                           value="left">&nbsp;<i class="fa fa-align-left">
+                    </i>
+                  </label>
+                </a>
+                <a href="javascript:;">
+                  <label title="居中对齐">
+                    <input type="radio"
+                           v-model="tableInfo.type"
+                           name="table-align"
+                           value="center">&nbsp;<i class="fa fa-align-center">
+                    </i>
+                  </label>
+                </a><a href="javascript:;">
+                  <label title="右对齐">
+                    <input type="radio"
+                           v-model="tableInfo.type"
+                           name="table-align"
+                           value="right">&nbsp;<i class="fa fa-align-right">
+                    </i>
+                  </label>
+                </a>
+              </div>
+            </div>
+            <div class="dialog-footer">
+              <button class="dialog-btn dialog-enter-btn"
+                      @click="insertTable()">确定</button>
+              <button class="dialog-btn dialog-cancel-btn"
+                      @click="insertTableFlag = false">取消</button>
+            </div>
           </div>
         </div>
       </div>
@@ -370,6 +381,7 @@ export default {
   props: ['toolbars'],
   data () {
     return {
+      modalStyle: {},
       insertImgFlag: false,
       insertTableFlag: false,
       imageInfo: {
@@ -382,6 +394,28 @@ export default {
         type: 'justify'
       },
       previewFlag: true
+    }
+  },
+  watch: {
+    insertImgFlag: function (val) {
+      if (this.insertImgFlag) {
+        this.modalStyle = {
+          width: document.documentElement.clientWidth + 'px',
+          height: document.documentElement.clientHeight + 'px'
+        }
+      } else {
+        this.modalStyle = {}
+      }
+    },
+    insertTableFlag: function (val) {
+      if (this.insertTableFlag) {
+        this.modalStyle = {
+          width: document.documentElement.clientWidth + 'px',
+          height: document.documentElement.clientHeight + 'px'
+        }
+      } else {
+        this.modalStyle = {}
+      }
     }
   },
   methods: {

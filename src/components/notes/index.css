@@ -212,7 +212,11 @@ body{
   padding: 8px 25px 15px 25px;
 }
 
+.md-flowchart{
+  width: 80%;
+  margin: 0 auto;
+}
+
 .md-flowchart svg{
   width: 100% !important;
-  height: 100% !important;
 }

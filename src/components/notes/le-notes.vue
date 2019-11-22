@@ -14,7 +14,6 @@
              @preview="preview"
              @fullScreen="fullScreen"
              :toolbars="config.toolbars"></toolbar>
-
     <div class="le-note-container"
          :style="{height:containerHeight + 'px','margin-top':toolBarHeight + 'px'}">
       <div class="le-note-left">
@@ -65,7 +64,7 @@ export default {
       fullScreenFlag: false,
       orign: '',
       html: '',
-      history: [''],
+      history: [],
       historyIndex: -1,
       historyPushFlag: true,
       timer: null,
@@ -74,25 +73,22 @@ export default {
   },
   watch: {
     orign: function (val) {
-      // console.log(this.history)
-      // console.log("存储时：------> " + "val=" + val + '    this.historyIndex=' + (this.historyIndex))
-      // if (typeof this.history[this.historyIndex] === 'undefined' || this.history[this.historyIndex] !== this.val) {
-      //   console.log('-------------------')
-      //   clearTimeout(this.timer)
-      //   // 不延迟会存下很多没有大多意义的历史记录
-      //   this.timer = setTimeout(() => {
-      //     this.history.splice(this.historyIndex === 0 ? ++this.historyIndex : this.historyIndex++, 1, val)
-      //     console.log(this.history)
-      //   }, 10);
-      // }
+      clearTimeout(this.timer)
+      // 不延迟会存下很多没有大多意义的历史记录
+      if (this.historyPushFlag) {
+        this.timer = setTimeout(() => {
+          this.history.splice(++this.historyIndex, 1, val)
+          console.log(this.history)
+        }, 200);
+      }
       this.html = md.render(val);
-      // console.log(this.html);
-      // 暂时没找到更好的办法 先做个延迟吧
+      this.historyPushFlag = true
+      // 流程图 暂时没找到更好的办法 先做个延迟吧
       setTimeout(function () {
         document.querySelectorAll('.md-flowchart').forEach(element => {
           try {
             let code = element.textContent
-            console.log(element);
+            console.log(element)
             let chart = flowchart.parse(code)
             element.textContent = ''
             chart.drawSVG(element)
@@ -103,12 +99,6 @@ export default {
         })
       }, 100)
     }
-    // ,toolBarHeight: function () {
-    // this.$nextTick(() => {
-    //   this.toolBarHeight = document.getElementsByClassName('le-note-toolbar')[0].clientHeight;
-    //   console.log(this.toolBarHeight)
-    // })
-    // }
   },
   methods: {
     operate (type) {
@@ -140,7 +130,6 @@ export default {
         position: 'fixed',
         'z-index': '500'
       } : "";
-      console.log(this.fullStyle);
     },
     initLang () {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
@@ -165,7 +154,7 @@ export default {
       xhr.onreadystatechange = function () { //第四步
         if (xhr.readyState == 4 && xhr.status == 200) {
           console.log(xhr.responseText);
-          that.insertImg('https://www.mdeditor.com/images/logos/markdown.png', file.name)
+          that.insertImg('https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png', file.name)
         }
       };
     },

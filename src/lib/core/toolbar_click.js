@@ -166,21 +166,18 @@ export const insertTable = ($vm, tableInfo) => {
 
 export const simpleClick = ($vm, type) => {
   if (type === 'undo' || type === 'redo') {
-    // console.log('====index ====' + $vm.historyIndex)
     if (type === 'undo') {
-      $vm.historyIndex = $vm.historyIndex > 0 ? ($vm.historyIndex - 1) : 0
-      // console.log($vm.history + '  --$vm.historyIndex' + $vm.historyIndex)
-      // console.log('value=' + $vm.history[$vm.historyIndex])
-      $vm.orign = $vm.history[$vm.historyIndex]
+      $vm.historyPushFlag = false
+      $vm.historyIndex = $vm.historyIndex >= 0 ? ($vm.historyIndex - 1) : -1
+      $vm.orign = $vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex]
     } else {
+      $vm.historyPushFlag = false
       $vm.historyIndex = $vm.historyIndex === $vm.history.length - 1 ? $vm.historyIndex : ($vm.historyIndex + 1)
-      // console.log($vm.history + '  ++$vm.historyIndex' + $vm.historyIndex)
       $vm.orign = $vm.history[$vm.historyIndex]
     }
   } else {
     for (const i in operateList) {
       if (operateList[i].type === type) {
-        // const content = document.querySelector('#my-textarea')
         insertText($vm, operateList[i], $vm.placeholders[`${type}`])
         break
       }

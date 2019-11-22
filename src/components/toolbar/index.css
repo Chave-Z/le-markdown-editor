@@ -169,6 +169,11 @@ a:-webkit-any-link {
   text-align: center;
 }
 
+.modal{
+  position: fixed;
+  left: 0;
+  top: 0;
+}
 
 @media (max-width: 1100px) {
   /* body{
