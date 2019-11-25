@@ -263,7 +263,7 @@
            v-if="insertImgFlag"
            @touchmove.prevent.stop
            @mousewheel.prevent>
-        <div class="dropbox p-3">
+        <div class="dropbox image-box">
           <div class="dialog-header"
                style="cursor: move;"><strong class="dialog-title">添加图片</strong>
           </div>
@@ -297,7 +297,7 @@
            v-if="insertTableFlag"
            @touchmove.prevent.stop
            @mousewheel.prevent>
-        <div class="dropbox p-3">
+        <div class="dropbox table-box">
           <div class="dialog-header"
                style="cursor: move;"><strong class="dialog-title">添加图片</strong>
           </div>

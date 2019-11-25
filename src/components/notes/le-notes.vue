@@ -1,13 +1,12 @@
 <style lang="css">
 @import "./index.css";
-</style>
-<style lang="css">
 @import "../../assets/css/github-markdown.css";
+@import url("//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
-  <div class="md-comtaniner">
-    <toolbar ref="toolbar"
+  <div class="md-container">
+    <toolbar class="bar" ref="toolbar"
              @operate="operate"
              @insertImg="insertImg"
              @insertTable="insertTable"
@@ -176,7 +175,9 @@ export default {
   },
   mounted () {
     // 监听 工具栏的高度 有问题 待修改
-    let mdHeight = document.getElementsByClassName('md-comtaniner')[0].offsetHeight
+    let mdHeight = document.querySelector('.md-container').offsetHeight
+    this.toolBarHeight = document.querySelector('.bar').offsetHeight
+    console.log('mdHeight' + mdHeight);
     // this.toolBarHeight = document.getElementsByClassName('le-note-toolbar')[0].clientHeight;
     this.containerHeight = (mdHeight || 400) - this.toolBarHeight
     var dropbox = document.querySelector('#my-textarea');

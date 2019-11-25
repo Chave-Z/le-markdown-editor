@@ -32,8 +32,8 @@
 }
 
 .dropbox {
-  min-height: 250px;
-  min-width: 410px;
+  height: 240px;
+  max-width: 410px;
   color: #666;
   position: fixed;
   z-index: 99999;
@@ -53,8 +53,7 @@
   display: block;
   z-index: 99999;
   width: 30%;
-  height: 36%;
-  top: 30%;
+  top: 15%;
   left: 35%;
   margin: 0 auto;
 }
