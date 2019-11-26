@@ -134,29 +134,6 @@ export default {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
       this.placeholders = config.words[`${lang}`].placeholders
     },
-    uploadFile: function (file) {
-      let that = this;
-      var item = {
-        name: file.name,
-        uploadPercentage: 0
-      };
-      that.files.push(item);
-      var fd = new FormData();
-      fd.append('file', file);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost/upload', true);
-      xhr.upload.addEventListener('progress', function (e) {
-        item.uploadPercentage = Math.round((e.loaded * 100) / e.total);
-      }, false);
-      xhr.send(fd);
-      //ajax返回
-      xhr.onreadystatechange = function () { //第四步
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          console.log(xhr.responseText);
-          that.insertImg('https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png', file.name)
-        }
-      };
-    },
     onDrag: function (e) {
       e.stopPropagation();
       e.preventDefault();
@@ -179,8 +156,7 @@ export default {
           var reader = new FileReader();
           let that = this
           reader.onload = function (e) {
-            const aa = await uploadToGithub(that, e.target.result, fileName)
-            console.log(aa)
+            uploadToGithub(that, e.target.result, fileName)
           };
           reader.readAsDataURL(dt.files[0]);
         } else {

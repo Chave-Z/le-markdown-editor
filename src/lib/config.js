@@ -12,10 +12,10 @@ const config = {
     type: 'github',
     fileNameType: 'uuid',
     url: '',
-    token: '',
+    token: '0e22f33232d9c5b6ce87bdc675b4c8ff7bf0d433',
     username: 'Chave-Z',
     repo: 'picture',
-    imagePrefix: '' // 图片前缀地址
+    imagePrefix: 'https://cdn.jsdelivr.net/gh/' // 图片前缀地址
   },
   toolbars: {
     undo: true,

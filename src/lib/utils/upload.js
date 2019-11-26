@@ -16,7 +16,7 @@ export const uploadToServer = ($vm, file, fileName) => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       console.log(xhr.responseText)
-      $vm.insertImg('https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png', fileName)
+      $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}/${fileName}`, fileName)
     }
   }
 }
@@ -26,23 +26,6 @@ export const uploadToGithub = ($vm, file, fileName) => {
     message: fileName,
     content: file.substring(file.indexOf(',') + 1)
   }
-  console.log(data)
-  // let xhr = null
-  // if (XMLHttpRequest) {
-  //   xhr = new XMLHttpRequest()
-  // } else {
-  //   xhr = new ActiveXObject('Microsoft.XMLHTTP')
-  // }
-  // console.log(`https://api.github.com/repos/${$vm.config.imageUploader.username}/${$vm.config.imageUploader.repos}/contents/${fileName}`)
-  // xhr.open('PUT', `https://api.github.com/repos/${$vm.config.imageUploader.username}/${$vm.config.imageUploader.repos}/contents/${fileName}`, true)
-  // xhr.setRequestHeader('Content-Type', 'application/json')
-  // xhr.setRequestHeader('Authentication', 'token ' + $vm.config.imageUploader.token)
-  // xhr.send(data)
-  // //  返回
-  // xhr.onreadystatechange = function () {
-  //   if (xhr.readyState ==== 4 && xhr.status ==== 200) {
-  //     console.log(xhr.responseText)
-  //     // $vm.insertImg('https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png', file.name)
   return window.fetch(`https://api.github.com/repos/${$vm.config.imageUploader.username}/${$vm.config.imageUploader.repo}/contents/${fileName}`, {
     method: 'PUT',
     headers: {
@@ -54,10 +37,14 @@ export const uploadToGithub = ($vm, file, fileName) => {
   })
     .then(async res => {
       if (res.status >= 200 && res.status < 400) {
-        return {
+         let result = {
           status: res.status,
           data: await res.json()
         }
+        if(result.status === 201){
+          $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${$vm.config.imageUploader.username}/${$vm.config.imageUploader.repo}/${fileName}`, fileName)
+        }
+        return result
       } else {
         return {
           status: res.status,
