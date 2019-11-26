@@ -6,7 +6,8 @@
 </style>
 <template>
   <div class="md-container">
-    <toolbar class="bar" ref="toolbar"
+    <toolbar class="bar"
+             ref="toolbar"
              @operate="operate"
              @insertImg="insertImg"
              @insertTable="insertTable"
@@ -41,6 +42,7 @@ import toolbar from '../toolbar/toolbar.vue'
 import { insertImg, insertTable, simpleClick } from '../../lib/core/toolbar_click'
 import md from '../../lib/core/markdown'
 import config from '../../lib/config'
+import { uploadToServer, uploadToGithub } from '../../lib/utils/upload'
 import flowchart from 'flowchart.js'
 import 'highlight.js/styles/github.css'
 export default {
@@ -77,7 +79,6 @@ export default {
       if (this.historyPushFlag) {
         this.timer = setTimeout(() => {
           this.history.splice(++this.historyIndex, 1, val)
-          console.log(this.history)
         }, 200);
       }
       this.html = md.render(val);
@@ -87,7 +88,6 @@ export default {
         document.querySelectorAll('.md-flowchart').forEach(element => {
           try {
             let code = element.textContent
-            console.log(element)
             let chart = flowchart.parse(code)
             element.textContent = ''
             chart.drawSVG(element)
@@ -164,11 +164,41 @@ export default {
     onDrop: function (e) {
       e.stopPropagation();
       e.preventDefault();
-      var dt = e.dataTransfer;
-      for (var i = 0; i !== dt.files.length; i++) {
-        // this.config.uploadType
-        this.uploadFile(dt.files[i]);
+      if (this.config.imageUploader.custom) {
+        // 自定义
+      } else {
+        let dt = e.dataTransfer;
+        let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + dt.files[0].name.substring(dt.files[0].name.lastIndexOf('.'))) : dt.files[0].name;
+        if (this.config.imageUploader.type === 'server') {
+          uploadToServer(this, dt.files[0], fileName);
+          // for (var i = 0; i !== dt.files.length; i++) {
+          //   this.uploadFile(dt.files[0]);
+          // }
+        } else if (this.config.imageUploader.type === 'github') {
+          console.log(this.config.imageUploader.type);
+          var reader = new FileReader();
+          let that = this
+          reader.onload = function (e) {
+            const aa = await uploadToGithub(that, e.target.result, fileName)
+            console.log(aa)
+          };
+          reader.readAsDataURL(dt.files[0]);
+        } else {
+          alert('图片上传类型有误')
+        }
       }
+    },
+    generateUUID: function () {
+      var d = new Date().getTime();
+      if (window.performance && typeof window.performance.now === "function") {
+        d += performance.now();
+      }
+      var uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      return uuid;
     }
   },
   created () {
@@ -178,13 +208,11 @@ export default {
     // 监听 工具栏的高度 有问题 待修改
     let mdHeight = document.querySelector('.md-container').offsetHeight
     this.toolBarHeight = document.querySelector('.bar').offsetHeight
-    console.log('mdHeight' + mdHeight);
-    // this.toolBarHeight = document.getElementsByClassName('le-note-toolbar')[0].clientHeight;
     this.containerHeight = (mdHeight || 400) - this.toolBarHeight
-    var dropbox = document.querySelector('#my-textarea');
-    dropbox.addEventListener('dragenter', this.onDrag, false);
-    dropbox.addEventListener('dragover', this.onDrag, false);
-    dropbox.addEventListener('drop', this.onDrop, false);
+    const dropBox = document.querySelector('#my-textarea');
+    dropBox.addEventListener('dragenter', this.onDrag, false);
+    dropBox.addEventListener('dragover', this.onDrag, false);
+    dropBox.addEventListener('drop', this.onDrop, false);
   }
 }
 </script>

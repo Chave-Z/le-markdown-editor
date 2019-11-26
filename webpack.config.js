@@ -1,7 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
 const NODE_ENV = process.env.NODE_ENV
-console.log('-----NODE_ENV===', NODE_ENV)
 module.exports = {
   // entry: './src/main.js'
   entry: NODE_ENV === 'development' ? './src/main.js' : './src/components/notes/index.js',

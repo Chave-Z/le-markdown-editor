@@ -7,6 +7,16 @@ const config = {
     textArea: '16px',
     mdBody: '16px'
   },
+  imageUploader: {
+    custom: false,
+    type: 'github',
+    fileNameType: 'uuid',
+    url: '',
+    token: '',
+    username: 'Chave-Z',
+    repo: 'picture',
+    imagePrefix: '' // 图片前缀地址
+  },
   toolbars: {
     undo: true,
     redo: true,
