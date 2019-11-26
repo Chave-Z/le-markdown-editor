@@ -189,9 +189,9 @@ function insertText ($vm, operate, placeholder) {
   const dom = document.querySelector('#my-textarea')
   dom.focus()
   if (typeof dom.selectionStart === 'number' && typeof dom.selectionEnd === 'number') {
-    var startPos = dom.selectionStart
-    var endPos = dom.selectionEnd
-    var tmpStr = dom.value
+    const startPos = dom.selectionStart
+    const endPos = dom.selectionEnd
+    const tmpStr = dom.value
     const prefix = operate.prefix
     const suffix = operate.suffix
     if (startPos === endPos || operate.type === 'image' || operate.type === 'table') {

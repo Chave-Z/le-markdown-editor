@@ -166,6 +166,7 @@ export default {
       e.preventDefault();
       var dt = e.dataTransfer;
       for (var i = 0; i !== dt.files.length; i++) {
+        // this.config.uploadType
         this.uploadFile(dt.files[i]);
       }
     }

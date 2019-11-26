@@ -27,43 +27,43 @@
              name="bold"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.del"><a href="javascript:;"
-           title="删除线"
+           title="删除线（Ctrl+D）"
            unselectable="on"
            @click.stop="toolbarClick('del')"><i class="fa fa-strikethrough"
              name="del"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.underline"><a href="javascript:;"
-           title="下划线"
+           title="下划线（Ctrl+U）"
            unselectable="on"
            @click.stop="toolbarClick('underline')"><i class="fa fa-underline"
              name="underline"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.italic"><a href="javascript:;"
-           title="斜体"
+           title="斜体（Ctrl+I）"
            unselectable="on"
            @click.stop="toolbarClick('italic')"><i class="fa fa-italic"
              name="italic"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.quote"><a href="javascript:;"
-           title="引用"
+           title="引用（Ctrl+Q）"
            unselectable="on"
            @click.stop="toolbarClick('quote')"><i class="fa fa-quote-left"
              name="quote"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.bookmark"><a href="javascript:;"
-           title="标记"
+           title="标记（Ctrl+M）"
            unselectable="on"
            @click.stop="toolbarClick('bookmark')"><i class="fa fa-bookmark"
              name="bookmark"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.superscript"><a href="javascript:;"
-           title="上角标"
+           title="上角标（Ctrl+Alt+S）"
            unselectable="on"
            @click.stop="toolbarClick('superscript')"><i class="fa fa-superscript"
              name="superscript"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.subscript"><a href="javascript:;"
-           title="下角标"
+           title="下角标（Ctrl+Alt+B）"
            unselectable="on"
            @click.stop="toolbarClick('subscript')"><i class="fa fa-subscript"
              name="subscript"
@@ -86,37 +86,37 @@
       <li class="divider"
           unselectable="on">|</li>
       <li v-if="toolbars.h1"><a href="javascript:;"
-           title="标题1"
+           title="标题1（Ctrl+1）"
            unselectable="on"
            @click.stop="toolbarClick('h1')"><i class="fa tools-bold"
              name="h1"
              unselectable="on">H1</i></a></li>
       <li v-if="toolbars.h2"><a href="javascript:;"
-           title="标题2"
+           title="标题2（Ctrl+2）"
            unselectable="on"
            @click.stop="toolbarClick('h2')"><i class="fa tools-bold"
              name="h2"
              unselectable="on">H2</i></a></li>
       <li v-if="toolbars.h3"><a href="javascript:;"
-           title="标题3"
+           title="标题3（Ctrl+3）"
            unselectable="on"
            @click.stop="toolbarClick('h3')"><i class="fa tools-bold"
              name="h3"
              unselectable="on">H3</i></a></li>
       <li v-if="toolbars.h4"><a href="javascript:;"
-           title="标题4"
+           title="标题4（Ctrl+4）"
            unselectable="on"
            @click.stop="toolbarClick('h4')"><i class="fa tools-bold"
              name="h4"
              unselectable="on">H4</i></a></li>
       <li v-if="toolbars.h5"><a href="javascript:;"
-           title="标题5"
+           title="标题5（Ctrl+5）"
            unselectable="on"
            @click.stop="toolbarClick('h5')"><i class="fa tools-bold"
              name="h5"
              unselectable="on">H5</i></a></li>
       <li v-if="toolbars.h6"><a href="javascript:;"
-           title="标题6"
+           title="标题6（Ctrl+6）"
            unselectable="on"
            @click.stop="toolbarClick('h6')"><i class="fa tools-bold"
              name="h6"
@@ -124,37 +124,37 @@
       <li class="divider"
           unselectable="on">|</li>
       <li v-if="toolbars.alignLeft"><a href="javascript:;"
-           title="居左"
+           title="居左（Ctrl+Alt+L）"
            unselectable="on"
            @click.stop="toolbarClick('align-left')"><i class="fa fa-align-left"
              name="align-left"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.alignCenter"><a href="javascript:;"
-           title="居中"
+           title="居中（Ctrl+Alt+C）"
            unselectable="on"
            @click.stop="toolbarClick('align-center')"><i class="fa fa-align-center"
              name="align-center"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.alignRight"><a href="javascript:;"
-           title="居右"
+           title="居右（Ctrl+Alt+R）"
            unselectable="on"
            @click.stop="toolbarClick('align-right')"><i class="fa fa-align-right"
              name="align-right"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.ol"><a href="javascript:;"
-           title="有序列表"
+           title="有序列表（Ctrl+Alt+O）"
            unselectable="on"
            @click.stop="toolbarClick('ol')"><i class="fa fa-list-ol"
              name="list-ol"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.ul"><a href="javascript:;"
-           title="无序列表"
+           title="无序列表（Ctrl+Alt+U）"
            unselectable="on"
            @click.stop="toolbarClick('ul')"><i class="fa fa-list-ul"
              name="list-ul"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.hr"><a href="javascript:;"
-           title="分割线"
+           title="分割线（Ctrl+Alt+H）"
            unselectable="on"
            @click.stop="toolbarClick('hr')"><i class="fa fa-minus"
              name="hr"
@@ -162,7 +162,7 @@
       <li class="divider"
           unselectable="on">|</li>
       <li v-if="toolbars.link"><a href="javascript:;"
-           title="链接"
+           title="链接（Ctrl+L）"
            unselectable="on"
            @click.stop="toolbarClick('link')"><i class="fa fa-link"
              name="link"
@@ -173,13 +173,13 @@
                name="reference-link"
                unselectable="on"></i></a></li> -->
       <li v-if="toolbars.inlineCode"><a href="javascript:;"
-           title="行内代码"
+           title="行内代码（Ctrl+Alt+i）"
            unselectable="on"
            @click.stop="toolbarClick('inlineCode')"><i class="fa fa-code"
              name="code"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.code"><a href="javascript:;"
-           title="预格式文本 / 代码块（缩进风格）"
+           title="代码块（Ctrl+Alt+D）"
            unselectable="on"
            @click.stop="toolbarClick('code')"><i class="fa fa-file-code-o"
              name="preformatted-text"
@@ -224,7 +224,7 @@
              name="goto-line"
              unselectable="on"></i></a></li> -->
       <li v-if="toolbars.preview"><a href="javascript:;"
-           :title="previewFlag ? '关闭实时预览' : '打开实时预览'"
+           :title="previewFlag ? '关闭实时预览' : '打开实时预览' + '（Ctrl+Alt+P）'"
            unselectable="on"
            @click.stop="preview()">
           <i :class="{'fa fa-eye-slash':previewFlag,
@@ -232,7 +232,7 @@
              name="preview"
              unselectable="on"></i></a></li>
       <li v-if="toolbars.fullScreen"><a href="javascript:;"
-           title="全窗口预览HTML（按 Shift + ESC还原）"
+           title="全窗口预览（Ctrl+Alt+F）"
            unselectable="on"><i class="fa fa-desktop"
              name="fullScreen"
              unselectable="on"
@@ -375,6 +375,7 @@
   </div>
 </template>
 <script>
+import { keydownListener } from '../../lib/core/keydown-listener'
 
 export default {
   name: 'le-toolbar',
@@ -420,6 +421,7 @@ export default {
   },
   methods: {
     toolbarClick (type) {
+      console.log(type)
       this.$emit('operate', type)
     },
     insertImg () {
@@ -440,47 +442,9 @@ export default {
     }
   },
   mounted () {
+    keydownListener(this)
   },
   created () {
-    // const KEY_CODE = {
-    //   F8: 119,
-    //   F9: 120,
-    //   F10: 121,
-    //   F11: 122,
-    //   F12: 123,
-    //   B: 66,
-    //   I: 73,
-    //   H: 72,
-    //   U: 85,
-    //   D: 68,
-    //   M: 77,
-    //   Q: 81,
-    //   O: 79,
-    //   L: 76,
-    //   S: 83,
-    //   Z: 90,
-    //   Y: 89,
-    //   C: 67,
-    //   T: 84,
-    //   R: 82,
-    //   DELETE: 8,
-    //   TAB: 9,
-    //   ENTER: 13,
-    //   ONE: 97,
-    //   TWO: 98,
-    //   THREE: 99,
-    //   FOUR: 100,
-    //   FIVE: 101,
-    //   SIX: 102,
-    //   _ONE: 49,
-    //   _TWO: 50,
-    //   _THREE: 51,
-    //   _FOUR: 52,
-    //   _FIVE: 53,
-    //   _SIX: 54
-    // };
-    // console.log(this)
-    // console.log(this.el)
     // this.$el.addEventListener('keydown', (e) => {
     //   // console.log(e)
     //   if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey) {
