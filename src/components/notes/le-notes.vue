@@ -35,6 +35,10 @@
         </div>
       </transition>
     </div>
+    <div class="loader" v-if="false">
+<!--      <span class="text">上传中</span>-->
+      <span class="spinner"></span>
+    </div>
   </div>
 </template>
 <script>
@@ -165,14 +169,14 @@ export default {
       }
     },
     generateUUID: function () {
-      var d = new Date().getTime();
+      let d = new Date().getTime();
       if (window.performance && typeof window.performance.now === "function") {
         d += performance.now();
       }
-      var uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
+       const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
       return uuid;
     }
@@ -181,10 +185,15 @@ export default {
     this.initLang()
   },
   mounted () {
-    // 监听 工具栏的高度 有问题 待修改
-    let mdHeight = document.querySelector('.md-container').offsetHeight
-    this.toolBarHeight = document.querySelector('.bar').offsetHeight
-    this.containerHeight = (mdHeight || 400) - this.toolBarHeight
+    // this.$toast('提示测试...')
+    // 监听 工具栏的高度
+      let that = this
+    setTimeout(()=>{
+        let mdHeight = document.querySelector('.md-container').offsetHeight
+        that.toolBarHeight = document.querySelector('.bar').offsetHeight
+        console.log(this.toolBarHeight)
+        that.containerHeight = (mdHeight || 400) - that.toolBarHeight
+    },300)
     const dropBox = document.querySelector('#my-textarea');
     dropBox.addEventListener('dragenter', this.onDrag, false);
     dropBox.addEventListener('dragover', this.onDrag, false);
