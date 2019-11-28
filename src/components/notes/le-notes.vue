@@ -5,7 +5,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
-  <div class="md-container">
+  <div class="md-container" :class="{'shadow':config.shadow}">
     <toolbar class="bar"
              ref="toolbar"
              @operate="operate"

@@ -7,12 +7,15 @@ const config = {
     textArea: '16px',
     mdBody: '16px'
   },
+  shadow:true,
+  // topRadius:true,
+  // bottomRadius:true,
   imageUploader: {
     custom: false,
     type: 'github',
     fileNameType: 'uuid',
     url: '',
-    token: '0e22f33232d9c5b6ce87bdc675b4c8ff7bf0d433',
+    token: '',
     username: 'Chave-Z',
     repo: 'picture',
     imagePrefix: 'https://cdn.jsdelivr.net/gh/' // 图片前缀地址

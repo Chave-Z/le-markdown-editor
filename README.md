@@ -1,4 +1,4 @@
-# vue-md-editor
+# le-notes-editor
 
 > markdown
 

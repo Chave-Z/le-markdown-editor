@@ -1,3 +1,243 @@
+.md-container{
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  font-size: 16px;
+  overflow-y: hidden;
+}
+.le-note-toolbar{
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  text-align: left;
+  border-bottom: 1px solid #e6e8ea;
+  /*border-radius: 4px 4px 0 0;*/
+}
+
+.le-note-tools{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-left: 5px;
+}
+
+.le-note-tools > li{
+  margin: 0;
+  padding: 4px 0px;
+  display: inline-block;
+  position: relative;
+}
+
+.le-note-tools > li.divider {
+  display: inline-block;
+  text-indent: -9999px;
+  margin: 0 5px;
+  height: 65%;
+  border-right: 1px solid #ddd;
+}
+
+.le-note-tools > li > a {
+  outline: 0;
+  color: #666;
+  display: inline-block;
+  min-width: 24px;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  transition: all 300ms ease-out;
+}
+
+.le-note-tools>li+li>a {
+  margin-left: -3px;
+}
+
+.le-note-tools > li > a:hover{
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #eee;
+}
+
+.le-note-tools > li > a:hover, .le-note-tools > li > a {
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+}
+
+.fa {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0,0);
+}
+
+.le-note-tools .fa{
+  text-align: center;
+  display: block;
+  padding: 5px;
+}
+
+.le-note-tools .tools-bold{
+  padding: 5px 2px;
+  display: inline-block;
+  font-weight: 700;
+}
+
+/* 主体 */
+.le-note-container{
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  zoom: 1;
+  /*border-bottom-right-radius: 3px;*/
+  /*border-bottom-left-radius: 3px;*/
+}
+
+/*.top-radius{*/
+/*  border-top-right-radius: 3px;*/
+/*  border-top-left-radius: 3px;*/
+/*}*/
+
+/*.bottom-radius{*/
+/*  border-bottom-right-radius: 3px;*/
+/*  border-bottom-left-radius: 3px;*/
+/*}*/
+
+.shadow{
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 12px 0px;
+}
+
+.le-note-container > div{
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+}
+
+.le-note-container .le-note-left{
+  transition: width 0.5s;
+  -moz-transition: width 0.5s;	/* Firefox 4 */
+  -webkit-transition: width 0.5s;	/* Safari 和 Chrome */
+  -o-transition: width 0.5s;	/* Opera */
+}
+
+.le-note-container .le-note-right{
+  border-left: 1px solid #999;
+  text-align: left;
+  left: 50%;
+  box-sizing: border-box;
+  /*margin-left: -1px;*/
+  /*margin-top: -1px;*/
+}
+.le-note-right > a{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 600;
+}
+
+.le-note-right > a .fa{
+  font-size: 20px;
+}
+
+#my-textarea{
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  border: none;
+  resize:none; /*取消拉伸*/
+  outline: none;
+  box-sizing: border-box;
+  padding: 8px 25px 15px 25px;
+  color: #666;
+}
+
+#my-textarea::-webkit-scrollbar{width:8px;height:4px}
+#my-textarea::-webkit-scrollbar-button{width:8px;height:0}
+#my-textarea::-webkit-scrollbar-track{background:0 0}
+#my-textarea::-webkit-scrollbar-thumb{background:#cfd6d6;-webkit-transition:.3s;transition:.3s;border-radius: 5px;}
+#my-textarea::-webkit-scrollbar-thumb:hover{background-color:#c0bebe}
+#my-textarea::-webkit-scrollbar-thumb:active{background-color:#c0bebe}
+
+.markdown-body::-webkit-scrollbar{width:8px;height:4px}
+.markdown-body::-webkit-scrollbar-button{width:8px;height:0}
+.markdown-body::-webkit-scrollbar-track{background:0 0}
+.markdown-body::-webkit-scrollbar-thumb{background:#cfd6d6;-webkit-transition:.3s;transition:.3s;border-radius: 5px;}
+.markdown-body::-webkit-scrollbar-thumb:hover{background-color:#c0bebe}
+.markdown-body::-webkit-scrollbar-thumb:active{background-color:#c0bebe}
+
+.markdown-body{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(251, 251, 251);
+  box-sizing: border-box;
+  padding: 8px 25px 15px 25px;
+}
+
+.md-flowchart{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.md-flowchart svg{
+  width: 100% !important;
+}
+
+/** 预览打开、关闭动画**/
+.le-note-right-animation-enter-active {
+  -webkit-animation:fadeInRight 1s .2s ease both;
+  -moz-animation:fadeInRight 1s .2s ease both;}
+@-webkit-keyframes fadeInRight{
+  0%{opacity:0;
+    -webkit-transform:translateX(20px)}
+  100%{opacity:1;
+    -webkit-transform:translateX(0)}
+}
+@-moz-keyframes fadeInRight{
+  0%{opacity:0;
+    -moz-transform:translateX(20px)}
+  100%{opacity:1;
+    -moz-transform:translateX(0)}
+}
+.le-note-right-animation-leave-active {
+  -webkit-animation:fadeOutRight 1s .2s ease both;
+  -moz-animation:fadeOutRight 1s .2s ease both;}
+@-webkit-keyframes fadeOutRight{
+  0%{opacity:1;
+    -webkit-transform:translateX(0)}
+  100%{opacity:0;
+    -webkit-transform:translateX(20px)}
+}
+@-moz-keyframes fadeOutRight{
+  0%{opacity:1;
+    -moz-transform:translateX(0)}
+  100%{opacity:0;
+    -moz-transform:translateX(20px)}
+}
+/** 预览打开、关闭动画**/
+
 /**loading start**/
 .loader {
   position:absolute;
@@ -172,15 +412,15 @@
   }
 }
 @-mos-keyframes text {
-  0% {
-    -mos-transform:scale(1, 1)
-  }
-  50% {
-    -mos-transform:scale(.5, .5)
-  }
-  100% {
-    -mos-transform:scale(1, 1)
-  }
+0% {
+  -mos-transform:scale(1, 1)
+}
+50% {
+  -mos-transform:scale(.5, .5)
+}
+100% {
+  -mos-transform:scale(1, 1)
+}
 }
 @-o-keyframes text {
   0% {
@@ -205,224 +445,3 @@
   }
 }
 /**loading end**/
-::-webkit-scrollbar{width:8px;height:4px}
-::-webkit-scrollbar-button{width:8px;height:0}
-::-webkit-scrollbar-track{background:0 0}
-::-webkit-scrollbar-thumb{background:#cfd6d6;-webkit-transition:.3s;transition:.3s;border-radius: 5px;}
-::-webkit-scrollbar-thumb:hover{background-color:#c0bebe}
-::-webkit-scrollbar-thumb:active{background-color:#c0bebe}
-body{
-  font-size: 16px;
-}
-
-.md-container{
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0;
-  position: relative;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 12px 0px;
-}
-
-.le-note-toolbar{
-  width: 100%;
-  background: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  text-align: left;
-  border-bottom: 1px solid #e6e8ea;
-  border-radius: 4px 4px 0 0;
-}
-
-.le-note-tools{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  margin-left: 5px;
-}
-
-.le-note-tools > li{
-  margin: 0;
-  padding: 4px 0px;
-  display: inline-block;
-  position: relative;
-}
-
-.le-note-tools > li.divider {
-  display: inline-block;
-  text-indent: -9999px;
-  margin: 0 5px;
-  height: 65%;
-  border-right: 1px solid #ddd;
-}
-
-.le-note-tools > li > a {
-  outline: 0;
-  color: #666;
-  display: inline-block;
-  min-width: 24px;
-  font-size: 16px;
-  text-decoration: none;
-  text-align: center;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
-  border: 1px solid #fff;
-  transition: all 300ms ease-out;
-}
-
-.le-note-tools>li+li>a {
-  margin-left: -3px;
-}
-
-.le-note-tools > li > a:hover{
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #eee;
-}
-
-.le-note-tools > li > a:hover, .le-note-tools > li > a {
-  -webkit-transition: all 300ms ease-out;
-  -moz-transition: all 300ms ease-out;
-}
-
-.fa {
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translate(0,0);
-}
-
-.le-note-tools .fa{
-  text-align: center;
-  display: block;
-  padding: 5px;
-}
-
-.le-note-tools .tools-bold{
-  padding: 5px 2px;
-  display: inline-block;
-  font-weight: 700;
-}
-
-/* 主体 */
-
-.le-note-container{
-  position: absolute;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  zoom: 1;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-/** 预览打开、关闭动画**/
-.le-note-right-animation-enter-active {
-  -webkit-animation:fadeInRight 1s .2s ease both;
-  -moz-animation:fadeInRight 1s .2s ease both;}
-  @-webkit-keyframes fadeInRight{
-  0%{opacity:0;
-  -webkit-transform:translateX(20px)}
-  100%{opacity:1;
-  -webkit-transform:translateX(0)}
-  }
-  @-moz-keyframes fadeInRight{
-  0%{opacity:0;
-  -moz-transform:translateX(20px)}
-  100%{opacity:1;
-  -moz-transform:translateX(0)}
-}
-.le-note-right-animation-leave-active {
-  -webkit-animation:fadeOutRight 1s .2s ease both;
-  -moz-animation:fadeOutRight 1s .2s ease both;}
-  @-webkit-keyframes fadeOutRight{
-  0%{opacity:1;
-  -webkit-transform:translateX(0)}
-  100%{opacity:0;
-  -webkit-transform:translateX(20px)}
-  }
-  @-moz-keyframes fadeOutRight{
-  0%{opacity:1;
-  -moz-transform:translateX(0)}
-  100%{opacity:0;
-  -moz-transform:translateX(20px)}
-}
-/** 预览打开、关闭动画**/
-
-.le-note-container > div{
-  margin: 0;
-  padding: 0;
-  display: block;
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  font-size: 18px;
-}
-
-.le-note-container .le-note-left{
-  transition: width 0.5s;
-  -moz-transition: width 0.5s;	/* Firefox 4 */
-  -webkit-transition: width 0.5s;	/* Safari 和 Chrome */
-  -o-transition: width 0.5s;	/* Opera */
-}
-
-.le-note-container .le-note-right{
-  border-left: 1px solid #999;
-  text-align: left;
-  left: 50%;
-  margin-left: -1px;
-  margin-top: -1px;
-}
-.le-note-right > a{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 600;
-}
-
-.le-note-right > a .fa{
-  font-size: 20px;
-}
-
-#my-textarea{
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: 0;
-  border: none;
-  resize:none; /*取消拉伸*/
-  outline: none;
-  box-sizing: border-box;
-  padding: 8px 25px 15px 25px;
-  color: #666;
-}
-
-.markdown-body{
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(251, 251, 251);
-  box-sizing: border-box;
-  padding: 8px 25px 15px 25px;
-}
-
-.md-flowchart{
-  width: 80%;
-  margin: 0 auto;
-}
-
-.md-flowchart svg{
-  width: 100% !important;
-}

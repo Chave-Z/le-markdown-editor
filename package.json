@@ -1,11 +1,11 @@
 {
-  "name": "vue-md-editor",
+  "name": "le-notes-editor",
   "description": "markdown editor",
   "version": "1.0.0",
   "author": "Chave-Z",
   "license": "MIT",
   "private": false,
-  "main": "dist/vueMdEditor.js",
+  "main": "dist/leNotesEditor.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
