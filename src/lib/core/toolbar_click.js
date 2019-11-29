@@ -166,14 +166,15 @@ export const insertTable = ($vm, tableInfo) => {
 
 export const simpleClick = ($vm, type) => {
   if (type === 'undo' || type === 'redo') {
+    // 这两个按键功能不屏蔽
     if (type === 'undo') {
       $vm.historyPushFlag = false
       $vm.historyIndex = $vm.historyIndex >= 0 ? ($vm.historyIndex - 1) : -1
-      $vm.orign = $vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex]
+      $vm.origin = $vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex]
     } else {
       $vm.historyPushFlag = false
       $vm.historyIndex = $vm.historyIndex === $vm.history.length - 1 ? $vm.historyIndex : ($vm.historyIndex + 1)
-      $vm.orign = $vm.history[$vm.historyIndex]
+      $vm.origin = $vm.history[$vm.historyIndex]
     }
   } else {
     for (const i in operateList) {
@@ -217,6 +218,6 @@ function insertText ($vm, operate, placeholder) {
     console.log('Browser does not support')
   }
   // 触发change事件
-  $vm.orign = dom.value
+  $vm.origin = dom.value
   dom.focus()
 }

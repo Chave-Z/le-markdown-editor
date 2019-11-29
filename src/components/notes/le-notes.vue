@@ -5,20 +5,18 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
-  <div class="md-container" :class="{'shadow':config.shadow}">
-    <toolbar class="bar"
-             ref="toolbar"
+  <div class="md-container" :class="{'md-shadow':shadow,'md-border':!shadow}">
+    <toolbar ref="toolbar"
              @operate="operate"
              @insertImg="insertImg"
              @insertTable="insertTable"
              @preview="preview"
              @fullScreen="fullScreen"
-             :toolbars="config.toolbars"></toolbar>
-    <div class="le-note-container"
-         :style="{height:containerHeight + 'px','margin-top':toolBarHeight + 'px'}">
+             :toolbar="toolbar"></toolbar>
+    <div class="le-note-container">
       <div class="le-note-left">
         <textarea id="my-textarea"
-                  v-model="orign"
+                  v-model="origin"
                   :style="{fontSize:config.font.textArea}"
                   placeholder="输入数据..."></textarea></div>
       <transition name="le-note-right-animation">
@@ -54,20 +52,46 @@ export default {
   components: {
     toolbar
   },
+  props:{
+      font:{
+          type: Object,
+          default(){
+              return config.font
+          }
+      },
+      // 工具栏是否显示
+      shadow:{
+          type: Boolean,
+          default:true
+      },
+      // 工具栏是否显示
+      showToolbar:{
+          type: Boolean,
+          default:true
+      },
+      // 工具栏内部功能及快捷键
+      toolbar:{
+          type: Object,
+          default(){
+              return config.toolbar
+          }
+      },
+      // 图片上传配置
+      imageUploader:{
+          type: Object,
+          default() {
+              return {};
+          }
+      }
+  },
   data () {
     return {
       config: config,
-      mdSize: {
-        width: '1000px',
-        height: '400px'
-      },
       fullStyle: "",
-      toolBarHeight: 38,
-      containerHeight: 365,
       placeholders: '', // 占位符
       previewFlag: true,
       fullScreenFlag: false,
-      orign: '',
+      origin: '',
       html: '',
       history: [],
       historyIndex: -1,
@@ -77,7 +101,7 @@ export default {
     }
   },
   watch: {
-    orign: function (val) {
+    origin: function (val) {
       clearTimeout(this.timer)
       // 不延迟会存下很多没有大多意义的历史记录
       if (this.historyPushFlag) {
@@ -139,6 +163,9 @@ export default {
       this.placeholders = config.words[`${lang}`].placeholders
     },
     onDrag: function (e) {
+      if(!this.config.dragUpload){
+          return
+      }
       e.stopPropagation();
       e.preventDefault();
     },
@@ -185,15 +212,10 @@ export default {
     this.initLang()
   },
   mounted () {
+    if(JSON.stringify(this.imageUploader ) !== "{}"){
+        this.config.imageUploader = this.imageUploader
+    }
     // this.$toast('提示测试...')
-    // 监听 工具栏的高度
-      let that = this
-    setTimeout(()=>{
-        let mdHeight = document.querySelector('.md-container').offsetHeight
-        that.toolBarHeight = document.querySelector('.bar').offsetHeight
-        console.log(this.toolBarHeight)
-        that.containerHeight = (mdHeight || 400) - that.toolBarHeight
-    },300)
     const dropBox = document.querySelector('#my-textarea');
     dropBox.addEventListener('dragenter', this.onDrag, false);
     dropBox.addEventListener('dragover', this.onDrag, false);
