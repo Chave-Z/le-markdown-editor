@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="editor-main">
-      <le-notes></le-notes>
+      <le-notes :image-uploader="imageUploader" @uploadImg="uploadImg"></le-notes>
     </div>
   </div>
 </template>
@@ -11,7 +11,23 @@ export default {
   name: 'app',
   data () {
     return {
+        imageUploader:{
+            custom: true,
+            fileType:'file',
+            fileNameType: 'uuid',
+            imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+        }
     }
+  },
+  methods:{
+      uploadImg:function ($vm,file,fileName) {
+        console.log($vm)
+        console.log(file)
+        console.log(fileName)
+        // 添加图片
+        // 两个参数 第一个是图片访问路径 第二个是文件名
+        $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
+      }
   }
 }
 </script>

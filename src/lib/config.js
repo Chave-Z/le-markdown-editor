@@ -10,13 +10,14 @@ const config = {
   dragUpload:true,
   imageUploader: {
     custom: false,
-    type: 'github',
+    fileType:'',
     fileNameType: 'uuid',
+    imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+    type: 'github',
     url: '',
     token: '',
     username: 'Chave-Z',
-    repo: 'picture',
-    imagePrefix: 'https://cdn.jsdelivr.net/gh/' // 图片前缀地址
+    repo: 'picture'
   },
   toolbar: {
     undo: true, // 撤销

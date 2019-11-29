@@ -172,20 +172,29 @@ export default {
     onDrop: function (e) {
       e.stopPropagation();
       e.preventDefault();
+      let dt = e.dataTransfer;
+      let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + dt.files[0].name.substring(dt.files[0].name.lastIndexOf('.'))) : dt.files[0].name;
       if (this.config.imageUploader.custom) {
+         if(this.config.imageUploader.fileType === 'base64'){
+             var reader = new FileReader();
+             let that = this
+             reader.onload = function (e) {
+                 that.$emit('uploadImg',that, e.target.result, fileName)
+             };
+             reader.readAsDataURL(dt.files[0]);
+         }else{
+             this.$emit('uploadImg',this, dt.files[0], fileName)
+         }
         // 自定义
       } else {
-        let dt = e.dataTransfer;
-        let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + dt.files[0].name.substring(dt.files[0].name.lastIndexOf('.'))) : dt.files[0].name;
         if (this.config.imageUploader.type === 'server') {
           uploadToServer(this, dt.files[0], fileName);
           // for (var i = 0; i !== dt.files.length; i++) {
           //   this.uploadFile(dt.files[0]);
           // }
         } else if (this.config.imageUploader.type === 'github') {
-          console.log(this.config.imageUploader.type);
-          var reader = new FileReader();
           let that = this
+          var reader = new FileReader();
           reader.onload = function (e) {
             uploadToGithub(that, e.target.result, fileName)
           };
