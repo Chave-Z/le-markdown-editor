@@ -1,35 +1,62 @@
 ## le-notes-editor
 
 ### 为何要写
-一直以来都有记笔记的习惯，但是之前都是在自己电脑上做记录，有时候在手机想查看很不方便，再加上自己word巨菜以及代码放在word中实在不美观，每次记笔记都感觉吃力不讨好，后来接触markdown，才发现原来记笔记还能这么简单。但是后面随着自己记录的东西越来越多，越来越感觉有时候一图胜千言，但是找了一圈感觉带图片上传的云笔记貌似就没免费的😂。算了，自己先写一个组件吧。
+一直以来都有记笔记的习惯，但是之前都是在自己电脑上做记录，有时候在手机想查看很不方便，再加上自己word巨菜以及代码放在word中实在不美观，每次记笔记都感觉吃力不讨好，后来接触markdown，才发现原来记笔记还能这么简单。但是后面随着自己记录的东西越来越多，越来越感觉有时候一图胜千言，但是找了一圈感觉带图片上传的云笔记貌似就没免费的😂。算了，自己先写一个组件吧，等到项目不忙的时候再集成到自己的网站或者工具里作为默认的编辑器用:grimacing:。
 
 ### 预览图
 ![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/46982c0312be4e81b8258db7bdfb43b3.png)
 
 ### 支持的语法
-将项目根目录下text.txt文件内容拷贝至编辑区，即可在右侧看到支持的语法
 
-### 如何使用
+将项目根目录下text.txt文件内容拷贝至编辑区，即可在右侧展示区即可看到支持的语法。
 
-#### 自主运行及二次开发
+### 使用
+
+- `index.js` 或 `main.js` 中
+
+```javascript
+import Vue from 'vue'
+import leNotesEditor from 'le-notes-editor'
+// ...
+Vue.use(leNotesEditor)
+// ....
+new Vue({
+  components: { App },
+  router,
+  store,
+  template: '<App/>'
+}).$mount('#app')
 ```
+- `index.html`
+
+```vue
+<div id="editor-main">
+      <le-notes></le-notes>
+</div>
+
+<style>
+#editor-main{
+  width: 1100px
+  height: 500px;
+}
+</style>
 ```
-#### 项目使用
 
 ### 自定义配置
 
 | 属性        | 说明                                           | 类型    | 默认值                               |
 | :---------- | :--------------------------------------------- | :------ | :----------------------------------- |
 | value       | 可以使用 v-model 双向绑定数据                  | Sting   | ''                                   |
-| font        | 设置编辑区和展示区的文字大小                   | Object  | {  textArea: '16px', mdBody: '16px'} |
-| dragUpload  | 是否允许拖拽上传图片，需要结合图片上传配置使用 | Boolean | True                                 |
-| showToolbar | 是否显示工具栏                                 | Boolean | True                                 |
+| font        | 设置编辑区和展示区的文字大小，这个得成对配置   | Object  | {  textArea: '16px', mdBody: '16px'} |
+| shadow      | 编辑器是否带阴影效果                           | Boolean | true                                 |
+| dragUpload  | 是否允许拖拽上传图片，需要结合图片上传配置使用 | Boolean | true                                 |
+| showToolbar | 是否显示工具栏                                 | Boolean | true                                 |
 | toolbar     | 菜单栏及快捷键的功能                           | Object  | 见下文                               |
 
 #### 菜单栏配置配置
 
 ```html
-# 默认配置
+// 默认配置
 toolbar: {
     undo: true, // 撤销
     redo: true, // 重做
@@ -61,7 +88,7 @@ toolbar: {
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
   }
-# 使用(按照下图的配置，只会显示两个图标)
+// 使用(按照下图的配置，只会显示两个图标)
 <template>
   <div id="app">
     <le-notes :toolbar="toolbar"></le-notes>
@@ -84,6 +111,8 @@ export default {
 ```
 
 #### 图片上传配置
+
+图片上传暂时支持上传到Github仓库和自己的服务器，虽然都在说Github访问有点慢，但是我这几天测试了一下，感觉效果还行，介意的话可以传到自己的服务器或者利用自定义接口上传到自己的云存储上。
 
 | 参数名           | 默认值    | 描述                                                         |
 | ---------------- | --------- | ------------------------------------------------------------ |
@@ -144,3 +173,7 @@ imageUploader: {
 | Ctrl + Alt + D | 代码块         |
 | Ctrl + Alt + P | 开关实时预览   |
 | Ctrl + Alt + F | 开关全窗口预览 |
+
+### 依赖
+
+[markdown-it](https://github.com/markdown-it/markdown-it)及这个仓库下推荐的语法拓展
