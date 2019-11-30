@@ -11,6 +11,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "codemirror": "^5.49.2",
     "flowchart.js": "^1.12.0",
     "highlight.js": "^9.16.2",
     "markdown-it": "^10.0.0",

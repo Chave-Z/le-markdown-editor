@@ -6,9 +6,23 @@
 ### 预览图
 ![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/46982c0312be4e81b8258db7bdfb43b3.png)
 
-### 支持的语法
-
-将项目根目录下text.txt文件内容拷贝至编辑区，即可在右侧展示区即可看到支持的语法。
+### 特性
+- 导航
+- 标题
+- 文字效果
+- 引用
+- 脚注
+- 上角标、下角标
+- 有序列表、无序列表、任务清单
+- 代码缩进、代码高亮
+- 图片上传(本地图片拖拽上传、网络图片添加)
+- html内嵌(视频、音频等)
+- Emoji 表情
+- LaTeX 公式
+- 流程图
+- 编辑器样式
+- 编辑器换肤功能
+- ...
 
 ### 使用
 
@@ -58,8 +72,6 @@ new Vue({
 ```html
 // 默认配置
 toolbar: {
-    undo: true, // 撤销
-    redo: true, // 重做
     bold: true, // 粗体
     del: true, // 删除线
     underline: true, // 下划线
@@ -112,37 +124,94 @@ export default {
 
 #### 图片上传配置
 
-图片上传暂时支持上传到Github仓库和自己的服务器，虽然都在说Github访问有点慢，但是我这几天测试了一下，感觉效果还行，介意的话可以传到自己的服务器或者利用自定义接口上传到自己的云存储上。
+本地图片上传因为没有云存储账号的缘故，所以暂时只支持拖拽上传到Github仓库和自己的服务器，虽然都在说Github访问有点慢，但是我这几天测试了一下，虽然上传速度不快，但是访问时感觉效果还行，介意的话可以传到自己的服务器或者利用拓展方法上传到自己的云存储上。
 
 | 参数名           | 默认值    | 描述                                                         |
 | ---------------- | --------- | ------------------------------------------------------------ |
 | **custom**       | **false** | 当这个参数的值为true时，使用用户自定义的上传方式(**无需配置下列参数**)，否则使用组件自带的方法 |
 | **type**         | ''        | 此参数表示图片上传的方式，暂时支持github和server两种方式     |
-| **url**          | ''        | 接口地址，当type为server时需要配置                           |
-| **token**        | ''        | github的token，当type为github时需要配置                      |
-| **repo**         | ''        | github图床所在仓库名，当type为github时需要配置               |
-| **username**     | ''        | github用户名，当type为github时需要配置                       |
-| **fileNameType** | **uuid**  | 图片上传后的文件名，默认为UUID，为空时则按照原文件名处理     |
+| **url**          | ''        | 接口地址，当`type`为`server`时需要配置                           |
+| **token**        | ''        | `github`的`token`，当`type`为`github`时需要配置                     |
+| **repo**         | ''        | `github图床所在仓库名，当`type`为`github`时需要配置                |
+| **username**     | ''        | `github`用户名，当`type`为`github`时需要配置                       |
+| **fileType**     | ''        | 使用自定义上传时返回的文件类型，可选值为`file`和`base64`,不填则为file类型 |
+| **fileNameType** | **uuid**  | 图片上传后的文件名，默认为`uuid`，为空时则按照原文件名处理     |
 | **imagePrefix**  | ''        | 图片地址前缀，为github时推荐使用https://cdn.jsdelivr.net/gh/ |
 
-配置如下：
+配置的基本格式如下：
 
-```json
+```javascript
 imageUploader: {
     // 是否使用自定义的图片上传
     custom: false, 
-    type: 'github',
+    type: '',
     fileNameType: 'uuid',
     url: '',
     token: '',
     username: '',
     repo: '',
+    fileType:'',
     // 图片前缀地址
     imagePrefix: 'https://cdn.jsdelivr.net/gh/' 
+}
+```
+只需要按照表格中的配置完毕，然后传递给组件即可，例如要使用自定义功能，步骤如下：
+```vue
+<template>
+  <div id="app">
+    <div id="editor-main">
+      <le-notes :image-uploader="imageUploader" @uploadImg="uploadImg"></le-notes>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'app',
+  data () {
+    return {
+        imageUploader:{
+            custom: true,
+            fileType:'file',
+            fileNameType: 'uuid',
+            imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+        }
+    }
+  },
+  methods:{
+      uploadImg:function ($vm,file,fileName) {
+        console.log($vm) // 组件对象
+        console.log(file) // 文件 file或者是base64串，基于配置
+        console.log(fileName) // 文件名 uuid或原文件名 基于配置
+        // 添加图片
+        // 两个参数 第一个是图片访问路径 第二个是文件名
+        $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
+      }
   }
+}
+</script>
+
+<style lang="scss">
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  width: 1100px;
+  height: 500px;
+  margin: 50px auto;
+}
+#editor-main{
+  width: 100%;
+  height: 100%;
+}
+
+</style>
 ```
 
 ### 快捷键
+**注意：** 这里除了撤销和重做两个功能以外，其它的快捷键只在菜单显示是生效
 
 | 快捷键         | 功能           |
 | -------------- | -------------- |
@@ -171,9 +240,5 @@ imageUploader: {
 | Ctrl + Alt + H | 分割线         |
 | Ctrl + Alt + I | 行内代码       |
 | Ctrl + Alt + D | 代码块         |
-| Ctrl + Alt + P | 开关实时预览   |
-| Ctrl + Alt + F | 开关全窗口预览 |
-
-### 依赖
-
-[markdown-it](https://github.com/markdown-it/markdown-it)及这个仓库下推荐的语法拓展
+| Ctrl + Alt + P | 开关实时预览    |
+| Ctrl + Alt + F | 开关全窗口预览  |

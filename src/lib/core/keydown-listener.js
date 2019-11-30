@@ -78,16 +78,16 @@ export const keydownListener = ($vm) => {
           $vm.toolbarClick('save')
           break
         }
-        case KEY_CODE.Z: {
-          e.preventDefault()
-          $vm.toolbarClick('undo')
-          break
-        }
-        case KEY_CODE.Y: {
-          e.preventDefault()
-          $vm.toolbarClick('redo')
-          break
-        }
+        // case KEY_CODE.Z: {
+        //   e.preventDefault()
+        //   $vm.toolbarClick('undo')
+        //   break
+        // }
+        // case KEY_CODE.Y: {
+        //   e.preventDefault()
+        //   $vm.toolbarClick('redo')
+        //   break
+        // }
         case KEY_CODE.ONE: {
           e.preventDefault()
           $vm.toolbarClick('h1')

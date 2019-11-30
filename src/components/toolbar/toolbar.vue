@@ -4,22 +4,22 @@
 <template>
   <div class="le-note-toolbar">
     <ul class="le-note-tools not-select">
-      <li v-if="toolbar.undo"><a href="javascript:;"
-           title="撤销（Ctrl+Z）"
-           unselectable="on"
-           @click.stop="toolbarClick('undo')"><i class="fa fa-undo"
-             name="undo"
-             unselectable="on"></i></a></li>
-      <li v-if="toolbar.redo"><a href="
-               javascript:;"
-           title="重做（Ctrl+Y）"
-           unselectable="on"
-           @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"
-             name="redo"
-             unselectable="on"></i></a></li>
-      <li v-if="toolbar.redo || toolbar.undo"
-          class="divider"
-          unselectable="on">|</li>
+<!--      <li v-if="toolbar.undo"><a href="javascript:;"-->
+<!--           title="撤销（Ctrl+Z）"-->
+<!--           unselectable="on"-->
+<!--           @click.stop="toolbarClick('undo')"><i class="fa fa-undo"-->
+<!--             name="undo"-->
+<!--             unselectable="on"></i></a></li>-->
+<!--      <li v-if="toolbar.redo"><a href="-->
+<!--               javascript:;"-->
+<!--           title="重做（Ctrl+Y）"-->
+<!--           unselectable="on"-->
+<!--           @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"-->
+<!--             name="redo"-->
+<!--             unselectable="on"></i></a></li>-->
+<!--      <li v-if="dividers[0]"-->
+<!--          class="divider"-->
+<!--          unselectable="on">|</li>-->
       <li v-if="toolbar.bold"><a href="javascript:;"
            title="粗体(Ctrl+B)"
            unselectable="on"
@@ -84,7 +84,7 @@
                name="lowercase"
                style="font-size:24px;margin-top: -10px;">a</i></a></li> -->
       <li class="divider"
-          unselectable="on">|</li>
+          unselectable="on" v-if="dividers[0]">|</li>
       <li v-if="toolbar.h1"><a href="javascript:;"
            title="标题1（Ctrl+1）"
            unselectable="on"
@@ -122,7 +122,7 @@
              name="h6"
              unselectable="on">H6</i></a></li>
       <li class="divider"
-          unselectable="on">|</li>
+          unselectable="on" v-if="dividers[1]">|</li>
       <li v-if="toolbar.alignLeft"><a href="javascript:;"
            title="居左（Ctrl+Alt+L）"
            unselectable="on"
@@ -160,7 +160,7 @@
              name="hr"
              unselectable="on"></i></a></li>
       <li class="divider"
-          unselectable="on">|</li>
+          unselectable="on" v-if="dividers[2]">|</li>
       <li v-if="toolbar.link"><a href="javascript:;"
            title="链接（Ctrl+L）"
            unselectable="on"
@@ -217,7 +217,7 @@
              name="pagebreak"
              unselectable="on"></i></a></li> -->
       <li class="divider"
-          unselectable="on">|</li>
+          unselectable="on" v-if="dividers[3]">|</li>
       <!-- <li><a href="javascript:;"
            title="跳转到行"
            unselectable="on"><i class="fa fa-terminal"
@@ -250,11 +250,11 @@
 <!--      <li v-if="toolbar.download"-->
 <!--          class="divider"-->
 <!--          unselectable="on">|</li>-->
-<!--      <li v-if="toolbar.download"><a href="javascript:;"-->
-<!--           title="下载"-->
-<!--           unselectable="on"><i class="fa fa-download"-->
-<!--             name="download"-->
-<!--             unselectable="on"></i></a></li>-->
+      <li v-if="toolbar.download"><a href="javascript:;"
+           title="下载"
+           unselectable="on"><i class="fa fa-download"
+             name="download"
+             unselectable="on"></i></a></li>
     </ul>
     <!-- 添加网络图片 -->
     <transition name="slide-fade">
@@ -394,7 +394,8 @@ export default {
         cols: 2,
         type: 'justify'
       },
-      previewFlag: true
+      previewFlag: true,
+      dividers:[false,false,false,false]
     }
   },
   watch: {
@@ -448,7 +449,29 @@ export default {
             // 全屏
             this.$emit('fullScreen')
         }
+    },
+    checkArea(toolNames,index){
+      toolNames.some((item)=>{
+        if (this.toolbar[`${item}`]) {
+          this.dividers[index] = true
+          return true
+        }
+      })
+      // for (let i = 0; i < toolNames.length; i++) {
+      //   let item = toolNames[i]
+      //   console.log(this.toolbar[`${item}`])
+      //   if (this.toolbar[`${item}`]) {
+      //     this.dividers[index] = true
+      //     break;
+      //   }
+      // }
     }
+  },
+  created(){
+    this.checkArea(['h1','h2','h3','h4','h5','h6'],0);
+    this.checkArea(['alignLeft','alignCenter','alignRight','ol','ul','hr'],1);
+    this.checkArea(['link','inlineCode','code','image','table'],2);
+    this.checkArea(['fullScreen','preview','download'],3);
   },
   mounted () {
     keydownListener(this)

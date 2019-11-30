@@ -15,8 +15,7 @@
              :toolbar="toolbar"></toolbar>
     <div class="le-note-container">
       <div class="le-note-left">
-        <textarea id="my-textarea"
-                  v-model="origin"
+        <textarea ref="editor" id="my-textarea"
                   :style="{fontSize:config.font.textArea}"
                   placeholder="输入数据..."></textarea></div>
       <transition name="le-note-right-animation">
@@ -33,13 +32,36 @@
         </div>
       </transition>
     </div>
-    <div class="loader" v-if="false">
-<!--      <span class="text">上传中</span>-->
-      <span class="spinner"></span>
+    <div class="loader-modal" v-if="false">
+      <div class="loader">
+  <!--      <span class="text">上传中</span>-->
+        <span class="spinner"></span>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/addon/dialog/dialog.css'
+import 'codemirror/addon/fold/foldgutter.css'
+import 'codemirror/addon/search/matchesonscrollbar.css'
+import 'codemirror/addon/hint/show-hint.css'
+
+import CodeMirror from 'codemirror'
+import 'codemirror/addon/fold/foldcode'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/fold/markdown-fold'
+import 'codemirror/addon/edit/matchbrackets'
+import 'codemirror/addon/hint/show-hint'
+import 'codemirror/addon/hint/anyword-hint'
+import 'codemirror/mode/markdown/markdown'
+
+// 加载所有主题
+export const themes = ['3024-day', '3024-night', 'abcdef', 'ambiance-mobile', 'ambiance', 'base16-dark', 'base16-light', 'bespin', 'blackboard', 'cobalt', 'colorforth', 'dracula', 'duotone-dark', 'duotone-light', 'eclipse', 'elegant', 'erlang-dark', 'hopscotch', 'icecoder', 'isotope', 'lesser-dark', 'liquibyte', 'material', 'mbo', 'mdn-like', 'midnight', 'monokai', 'neat', 'neo', 'night', 'panda-syntax', 'paraiso-dark', 'paraiso-light', 'pastel-on-dark', 'railscasts', 'rubyblue', 'seti', 'solarized', 'the-matrix', 'tomorrow-night-bright', 'tomorrow-night-eighties', 'ttcn', 'twilight', 'vibrant-ink', 'xq-dark', 'xq-light', 'yeti', 'zenburn']
+themes.forEach((theme) => {
+  require(`codemirror/theme/${theme}.css`) // eslint-disable-line global-require
+})
+import '../../lib/core/editor'
 import toolbar from '../toolbar/toolbar.vue'
 import { insertImg, insertTable, simpleClick } from '../../lib/core/toolbar_click'
 import md from '../../lib/core/markdown'
@@ -53,6 +75,10 @@ export default {
     toolbar
   },
   props:{
+      value:{
+        type: String,
+        default:""
+      },
       font:{
           type: Object,
           default(){
@@ -93,39 +119,40 @@ export default {
       fullScreenFlag: false,
       origin: '',
       html: '',
-      history: [],
-      historyIndex: -1,
-      historyPushFlag: true,
+      // history: [],
+      // historyIndex: -1,
+      // historyPushFlag: true,
       timer: null,
-      files: []
+      files: [],
+      editor:null
     }
   },
   watch: {
-    origin: function (val) {
-      clearTimeout(this.timer)
-      // 不延迟会存下很多没有大多意义的历史记录
-      if (this.historyPushFlag) {
-        this.timer = setTimeout(() => {
-          this.history.splice(++this.historyIndex, 1, val)
-        }, 200);
-      }
-      this.html = md.render(val);
-      this.historyPushFlag = true
-      // 流程图 暂时没找到更好的办法 先做个延迟吧
-      setTimeout(function () {
-        document.querySelectorAll('.md-flowchart').forEach(element => {
-          try {
-            let code = element.textContent
-            let chart = flowchart.parse(code)
-            element.textContent = ''
-            chart.drawSVG(element)
-          }
-          catch (e) {
-            element.outerHTML = `<pre>error: ${e}</pre>`
-          }
-        })
-      }, 100)
-    }
+    // origin: function (val) {
+    //   clearTimeout(this.timer)
+    //   // 不延迟会存下很多没有大多意义的历史记录
+    //   if (this.historyPushFlag) {
+    //     this.timer = setTimeout(() => {
+    //       this.history.splice(++this.historyIndex, 1, val)
+    //     }, 200);
+    //   }
+    //   this.html = md.render(val);
+    //   this.historyPushFlag = true
+    //   // 流程图 暂时没找到更好的办法 先做个延迟吧
+    //   setTimeout(function () {
+    //     document.querySelectorAll('.md-flowchart').forEach(element => {
+    //       try {
+    //         let code = element.textContent
+    //         let chart = flowchart.parse(code)
+    //         element.textContent = ''
+    //         chart.drawSVG(element)
+    //       }
+    //       catch (e) {
+    //         element.outerHTML = `<pre>error: ${e}</pre>`
+    //       }
+    //     })
+    //   }, 100)
+    // }
   },
   methods: {
     operate (type) {
@@ -215,17 +242,69 @@ export default {
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
       return uuid;
+    },
+    setMdValue(){
+      // let that = this
+      // 这个功能在编辑器中已经有了 所以这里去除
+      // clearTimeout(this.timer)
+      // // 不延迟会存下很多没有大多意义的历史记录
+      // if (this.historyPushFlag) {
+      //   this.timer = setTimeout(() => {
+      //     that.history.splice(++that.historyIndex, 1, that.origin)
+      //   }, 200);
+      // }
+      // this.historyPushFlag = true
+      console.log(this.editor.getValue())
+      this.origin = this.editor.getValue()
+      this.html = md.render(this.origin);
+      // 流程图 暂时没找到更好的办法 先做个延迟吧
+      setTimeout(function () {
+        document.querySelectorAll('.md-flowchart').forEach(element => {
+          try {
+            let code = element.textContent
+            let chart = flowchart.parse(code)
+            element.textContent = ''
+            chart.drawSVG(element)
+          }
+          catch (e) {
+            element.outerHTML = `<pre>error: ${e}</pre>`
+          }
+        })
+      }, 100)
     }
   },
   created () {
     this.initLang()
   },
   mounted () {
+    let that = this
+    this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
+      lineNumbers: true,
+      mode: 'markdown',
+      theme: 'base16-dark',
+      lineWrapping: true,
+      scrollPastEnd: true,
+      autofocus: true,
+      styleActiveLine: { nonEmpty: true },
+      tabSize: 4,
+      indentUnit: 2,
+      foldGutter: true,
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+      dragDrop:true,
+      matchBrackets:true
+    });
+    if(that.value !== "") {
+      that.editor.setValue(that.value)
+      that.setMdValue()
+    }
+    this.editor.on("change", ()=>{
+      that.setMdValue()
+    })
     if(JSON.stringify(this.imageUploader ) !== "{}"){
         this.config.imageUploader = this.imageUploader
     }
     // this.$toast('提示测试...')
-    const dropBox = document.querySelector('#my-textarea');
+    const dropBox = document.querySelector('.CodeMirror');
     dropBox.addEventListener('dragenter', this.onDrag, false);
     dropBox.addEventListener('dragover', this.onDrag, false);
     dropBox.addEventListener('drop', this.onDrop, false);

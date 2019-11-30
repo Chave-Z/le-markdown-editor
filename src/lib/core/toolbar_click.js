@@ -1,15 +1,5 @@
 const operateList = [
   {
-    type: 'undo',
-    prefix: '',
-    suffix: '',
-    keys: ''
-  }, {
-    type: 'redo',
-    prefix: '',
-    suffix: '',
-    keys: ''
-  }, {
     type: 'bold', // 加粗
     prefix: '**',
     suffix: '**',
@@ -133,10 +123,10 @@ const operateList = [
 ]
 
 const table = {
-  justify: ' ------------ |',
-  left: ' :------------ |',
-  center: ' :------------: |',
-  right: ' ------------: |'
+  justify: '-------- |',
+  left: ':------- |',
+  center: ':------: |',
+  right: '-------: |'
 }
 
 // 存入图片
@@ -151,9 +141,15 @@ export const insertImg = ($vm, url, title) => {
 // 放入表格
 export const insertTable = ($vm, tableInfo) => {
   let tempStr = '\n'
-  for (let i = 0; i <= tableInfo.rows; i++) {
-    for (let j = 0; j <= tableInfo.cols; j++) {
-      tempStr += j === 0 ? '|' : i === 1 ? table[`${tableInfo.type}`] : '   |'
+  for (let i = 0; i <= tableInfo.rows + 1; i++) {
+    for (let j = 1; j <= tableInfo.cols; j++) {
+      if(i === 0){
+        tempStr += 'Header ' + j + ' |'
+      }else if(i === 1){
+        tempStr += table[`${tableInfo.type}`]
+      }else{
+        tempStr += ('row ' + (i - 1) + ' col ' + j + ' |')
+      }
     }
     tempStr += '\n'
   }
@@ -165,59 +161,97 @@ export const insertTable = ($vm, tableInfo) => {
 }
 
 export const simpleClick = ($vm, type) => {
-  if (type === 'undo' || type === 'redo') {
-    // 这两个按键功能不屏蔽
-    if (type === 'undo') {
-      $vm.historyPushFlag = false
-      $vm.historyIndex = $vm.historyIndex >= 0 ? ($vm.historyIndex - 1) : -1
-      $vm.origin = $vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex]
-    } else {
-      $vm.historyPushFlag = false
-      $vm.historyIndex = $vm.historyIndex === $vm.history.length - 1 ? $vm.historyIndex : ($vm.historyIndex + 1)
-      $vm.origin = $vm.history[$vm.historyIndex]
-    }
-  } else {
-    for (const i in operateList) {
-      if (operateList[i].type === type) {
-        insertText($vm, operateList[i], $vm.placeholders[`${type}`])
-        break
-      }
+  for (const i in operateList) {
+    if (operateList[i].type === type) {
+      insertText($vm, operateList[i], $vm.placeholders[`${type}`])
+      break
     }
   }
+  // if (type === 'undo' || type === 'redo') {
+  //   // 这两个按键功能不屏蔽
+  //   // if (type === 'undo') {
+  //   //   $vm.historyPushFlag = false
+  //   //   $vm.historyIndex = $vm.historyIndex >= 0 ? ($vm.historyIndex - 1) : -1
+  //   //   // $vm.origin = $vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex]
+  //   //   $vm.editor.setValue($vm.historyIndex === -1 ? '' : $vm.history[$vm.historyIndex])
+  //   // } else {
+  //   //   $vm.historyPushFlag = false
+  //   //   $vm.historyIndex = $vm.historyIndex === $vm.history.length - 1 ? $vm.historyIndex : ($vm.historyIndex + 1)
+  //   //   // $vm.origin = $vm.history[$vm.historyIndex]
+  //   //   $vm.editor.setValue($vm.history[$vm.historyIndex])
+  //   // }
+  // } else {
+  //   for (const i in operateList) {
+  //     if (operateList[i].type === type) {
+  //       insertText($vm, operateList[i], $vm.placeholders[`${type}`])
+  //       break
+  //     }
+  //   }
+  // }
 }
 
 function insertText ($vm, operate, placeholder) {
-  const dom = document.querySelector('#my-textarea')
-  dom.focus()
-  if (typeof dom.selectionStart === 'number' && typeof dom.selectionEnd === 'number') {
-    const startPos = dom.selectionStart
-    const endPos = dom.selectionEnd
-    const tmpStr = dom.value
-    const prefix = operate.prefix
-    const suffix = operate.suffix
-    if (startPos === endPos || operate.type === 'image' || operate.type === 'table') {
-      // 直接插入
-      dom.value = tmpStr.substring(0, startPos) + prefix + placeholder + suffix + tmpStr.substring(endPos, tmpStr.length)
-      dom.selectionStart = startPos + prefix.length
-      dom.selectionEnd = startPos + prefix.length + placeholder.length
-    } else {
-      // 如果选中了文字
-      if (tmpStr.substring(startPos - prefix.length, startPos) === prefix && tmpStr.substring(endPos, endPos + suffix.length) === suffix) {
-        // 移除语法
-        dom.value = tmpStr.substring(0, startPos - prefix.length) + tmpStr.substring(startPos, endPos) + tmpStr.substring(endPos + suffix.length, tmpStr.length)
-        dom.selectionStart = startPos - prefix.length
-        dom.selectionEnd = endPos - prefix.length
-      } else {
-        // 添加语法
-        dom.value = tmpStr.substring(0, startPos) + prefix + tmpStr.substring(startPos, endPos) + suffix + tmpStr.substring(endPos, tmpStr.length)
-        dom.selectionStart = startPos + prefix.length
-        dom.selectionEnd = startPos + (endPos - startPos + prefix.length)
-      }
-    }
+  const startPos = $vm.editor.getCursor('from')
+  const endPos = $vm.editor.getCursor('to')
+  const tmpStr = $vm.editor.getSelection()
+  const prefix = operate.prefix
+  const suffix = operate.suffix
+  if (tmpStr === '' || operate.type === 'image' || operate.type === 'table') {
+    // 直接插入
+    $vm.editor.replaceSelection(prefix + placeholder + suffix)
+    $vm.editor.setSelection({line: startPos.line,ch: startPos.ch + prefix.length},{line: endPos.line,ch: endPos.ch + placeholder.length + (endPos.line === startPos.line ? prefix.length : 0)})
   } else {
-    console.log('Browser does not support')
+    // 如果选中了文字
+    let str = $vm.editor.getRange({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch + suffix.length})
+    console.log(str)
+    if (str === prefix + tmpStr + suffix) {
+      console.log('-----')
+      // 移除语法
+      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch + prefix.length})
+      $vm.editor.replaceSelection(tmpStr)
+      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch - (endPos.line === startPos.line ? prefix.length : 0)})
+    } else {
+      // 添加语法
+      $vm.editor.replaceSelection(prefix + tmpStr + suffix)
+      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch + prefix.length},{line: endPos.line,ch: endPos.ch + (endPos.line === startPos.line ? prefix.length : 0)})
+    }
   }
-  // 触发change事件
-  $vm.origin = dom.value
-  dom.focus()
+  $vm.editor.focus()
 }
+//
+// // 编辑器中自带了 这边去除
+// function insertText ($vm, operate, placeholder) {
+//   const dom = document.querySelector('#my-textarea')
+//   dom.focus()
+//   if (typeof dom.selectionStart === 'number' && typeof dom.selectionEnd === 'number') {
+//     const startPos = dom.selectionStart
+//     const endPos = dom.selectionEnd
+//     const tmpStr = dom.value
+//     const prefix = operate.prefix
+//     const suffix = operate.suffix
+//     if (startPos === endPos || operate.type === 'image' || operate.type === 'table') {
+//       // 直接插入
+//       dom.value = tmpStr.substring(0, startPos) + prefix + placeholder + suffix + tmpStr.substring(endPos, tmpStr.length)
+//       dom.selectionStart = startPos + prefix.length
+//       dom.selectionEnd = startPos + prefix.length + placeholder.length
+//     } else {
+//       // 如果选中了文字
+//       if (tmpStr.substring(startPos - prefix.length, startPos) === prefix && tmpStr.substring(endPos, endPos + suffix.length) === suffix) {
+//         // 移除语法
+//         dom.value = tmpStr.substring(0, startPos - prefix.length) + tmpStr.substring(startPos, endPos) + tmpStr.substring(endPos + suffix.length, tmpStr.length)
+//         dom.selectionStart = startPos - prefix.length
+//         dom.selectionEnd = endPos - prefix.length
+//       } else {
+//         // 添加语法
+//         dom.value = tmpStr.substring(0, startPos) + prefix + tmpStr.substring(startPos, endPos) + suffix + tmpStr.substring(endPos, tmpStr.length)
+//         dom.selectionStart = startPos + prefix.length
+//         dom.selectionEnd = startPos + (endPos - startPos + prefix.length)
+//       }
+//     }
+//   } else {
+//     console.log('Browser does not support')
+//   }
+//   // 触发change事件
+//   $vm.origin = dom.value
+//   dom.focus()
+// }

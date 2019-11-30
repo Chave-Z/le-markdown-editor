@@ -1,19 +1,19 @@
 
-var flow = require('./flow-plugin.js')
-var hljs = require('highlight.js') // https://highlightjs.org/
+const flow = require('./flow-plugin.js')
+const hljs = require('highlight.js') // https://highlightjs.org/
 // 通常的默认值们
-var sub = require('markdown-it-sub')
-var sup = require('markdown-it-sup')
-var katex = require('markdown-it-katex')
-var deflist = require('markdown-it-deflist')
-var taskLists = require('markdown-it-task-lists'); // 任务清单
-var toc = require('markdown-it-toc') // @[toc](Title)
-var emoji = require('markdown-it-emoji')
-var footnote = require('markdown-it-footnote')
-var container = require('markdown-it-container')
-var abbr = require('markdown-it-abbr')
-var mark = require('markdown-it-mark')
-var ins = require('markdown-it-ins')
+const sub = require('markdown-it-sub')
+const sup = require('markdown-it-sup')
+const katex = require('markdown-it-katex')
+const deflist = require('markdown-it-deflist')
+const taskLists = require('markdown-it-task-lists'); // 任务清单
+const toc = require('markdown-it-toc') // @[toc](Title)
+const emoji = require('markdown-it-emoji')
+const footnote = require('markdown-it-footnote')
+const container = require('markdown-it-container')
+const abbr = require('markdown-it-abbr')
+const mark = require('markdown-it-mark')
+const ins = require('markdown-it-ins')
 var md = require('markdown-it')({
   html: true,
   linkify: true,

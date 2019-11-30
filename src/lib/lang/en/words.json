@@ -1,97 +1,28 @@
 {
   "title": {},
-  "placeholders": [
-    {
-      "type": "bold",
-      "key": "粗体"
-    },
-    {
-      "type": "del",
-      "key": "删除线"
-    },
-    {
-      "type": "underline",
-      "key": "下划线"
-    },
-    {
-      "type": "italic",
-      "key": "斜体"
-    },
-    {
-      "type": "quote",
-      "key": "引用"
-    },
-    {
-      "type": "bookmark",
-      "key": "标记"
-    },
-    {
-      "type": "superscript",
-      "key": "上角标"
-    },
-    {
-      "type": "subscript",
-      "key": "下角标"
-    },
-    {
-      "type": "h1",
-      "key": "标题1"
-    },
-    {
-      "type": "h2",
-      "key": "标题2"
-    },
-    {
-      "type": "h3",
-      "key": "标题3"
-    },
-    {
-      "type": "h4",
-      "key": "标题4"
-    },
-    {
-      "type": "h5",
-      "key": "标题5"
-    },
-    {
-      "type": "h6",
-      "key": "标题6"
-    },
-    {
-      "type": "align-left",
-      "key": "左对齐"
-    },
-    {
-      "type": "align-center",
-      "key": "居中对齐"
-    },
-    {
-      "type": "align-right",
-      "key": "右对齐"
-    },
-    {
-      "type": "ol",
-      "key": ""
-    },
-    {
-      "type": "ul",
-      "key": ""
-    },
-    {
-      "type": "hr",
-      "key": ""
-    },
-    {
-      "type": "link",
-      "key": "http://"
-    },
-    {
-      "type": "inlineCode",
-      "key": "行内代码"
-    },
-    {
-      "type": "code",
-      "key": ""
-    }
-  ]
+  "placeholders": {
+    "bold": "粗体",
+    "del": "删除线",
+    "underline": "下划线",
+    "italic": "斜体",
+    "quote": "引用",
+    "bookmark": "标记",
+    "superscript": "上角标",
+    "subscript": "下角标",
+    "h1": "标题1",
+    "h2": "标题2",
+    "h3": "标题3",
+    "h4": "标题4",
+    "h5": "标题5",
+    "h6": "标题6",
+    "align-left": "左对齐",
+    "align-center": "居中对齐",
+    "align-right": "右对齐",
+    "ol": "",
+    "ul": "",
+    "hr": "",
+    "link": "http://",
+    "inlineCode": "行内代码",
+    "code": ""
+  }
 }

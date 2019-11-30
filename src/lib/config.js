@@ -4,7 +4,7 @@ const config = {
   langList: ['en', 'zh_CN'],
   words: { en, zh_CN },
   font: {
-    textArea: '16px',
+    textArea: '14px',
     mdBody: '16px'
   },
   dragUpload:true,
@@ -51,7 +51,7 @@ const config = {
     // clear: false, // 清除
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
-    // download: false
+    download: true
   }
 }
 export default config
