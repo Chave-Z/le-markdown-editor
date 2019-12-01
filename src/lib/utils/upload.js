@@ -1,4 +1,5 @@
 export const uploadToServer = ($vm, file, fileName) => {
+  $vm.loaderFlag = true
   // const item = {
   //   name: file.name,
   //   uploadPercentage: 0
@@ -15,13 +16,24 @@ export const uploadToServer = ($vm, file, fileName) => {
   // 返回
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      console.log(xhr.responseText)
-      $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}/${fileName}`, fileName)
+      if(xhr.responseText.code === 0){
+        $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}/${fileName}`, fileName)
+      }else{
+        alert(xhr.responseText.msg)
+      }
+      $vm.loaderFlag = false
+    }else{
+      console.log(xhr)
+      if($vm.loaderFlag){
+        $vm.loaderFlag = false
+        alert(xhr.statusText)
+      }
     }
   }
 }
 
 export const uploadToGithub = ($vm, file, fileName) => {
+  $vm.loaderFlag = true
   const data = {
     message: fileName,
     content: file.substring(file.indexOf(',') + 1)
@@ -34,8 +46,7 @@ export const uploadToGithub = ($vm, file, fileName) => {
     },
     body: JSON.stringify(data) || null,
     mode: 'cors'
-  })
-    .then(async res => {
+  }).then(async res => {
       if (res.status >= 200 && res.status < 400) {
          let result = {
           status: res.status,
@@ -44,8 +55,12 @@ export const uploadToGithub = ($vm, file, fileName) => {
         if(result.status === 201){
           $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${$vm.config.imageUploader.username}/${$vm.config.imageUploader.repo}/${fileName}`, fileName)
         }
+        $vm.loaderFlag = false
         return result
       } else {
+        $vm.loaderFlag = false
+        console.log(res)
+        alert(res.statusText)
         return {
           status: res.status,
           data: null

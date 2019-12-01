@@ -12,8 +12,7 @@ export default {
   name: 'app',
   data () {
     return {
-        value: '@[TOC](导航)\n' +
-          'Markdown 语法简介\n' +
+        value: 'Markdown 语法简介\n' +
           '# 字符效果、分隔线\n' +
           '----\n' +
           '\n' +

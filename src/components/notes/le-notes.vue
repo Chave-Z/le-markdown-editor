@@ -5,13 +5,16 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
-  <div class="md-container" :class="{'md-shadow':shadow,'md-border':!shadow}">
+  <div class="md-container" :style="fullEditStyle" :class="{'md-shadow':shadow,'md-border':!shadow}">
     <toolbar ref="toolbar"
+             :themes="themes"
              @operate="operate"
              @insertImg="insertImg"
              @insertTable="insertTable"
              @preview="preview"
              @fullScreen="fullScreen"
+             @fullScreenEdit="fullScreenEdit"
+             @setTheme="setTheme"
              :toolbar="toolbar"></toolbar>
     <div class="le-note-container">
       <div class="le-note-left">
@@ -27,12 +30,13 @@
              @click="fullScreen()">
             <i class="fa fa-window-close-o"></i></a>
           <div class="markdown-body"
+               ref="markdownBody"
                :style="{fontSize:config.font.mdBody}"
                v-html="html"></div>
         </div>
       </transition>
     </div>
-    <div class="loader-modal" v-if="false">
+    <div class="loader-modal" v-if="loaderFlag">
       <div class="loader">
   <!--      <span class="text">上传中</span>-->
         <span class="spinner"></span>
@@ -41,6 +45,7 @@
   </div>
 </template>
 <script>
+import {syncPreview,syncEditor} from '../../lib/core/editor'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/dialog/dialog.css'
 import 'codemirror/addon/fold/foldgutter.css'
@@ -56,10 +61,9 @@ import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/anyword-hint'
 import 'codemirror/mode/markdown/markdown'
 
-// 加载所有主题
 export const themes = ['3024-day', '3024-night', 'abcdef', 'ambiance-mobile', 'ambiance', 'base16-dark', 'base16-light', 'bespin', 'blackboard', 'cobalt', 'colorforth', 'dracula', 'duotone-dark', 'duotone-light', 'eclipse', 'elegant', 'erlang-dark', 'hopscotch', 'icecoder', 'isotope', 'lesser-dark', 'liquibyte', 'material', 'mbo', 'mdn-like', 'midnight', 'monokai', 'neat', 'neo', 'night', 'panda-syntax', 'paraiso-dark', 'paraiso-light', 'pastel-on-dark', 'railscasts', 'rubyblue', 'seti', 'solarized', 'the-matrix', 'tomorrow-night-bright', 'tomorrow-night-eighties', 'ttcn', 'twilight', 'vibrant-ink', 'xq-dark', 'xq-light', 'yeti', 'zenburn']
 themes.forEach((theme) => {
-  require(`codemirror/theme/${theme}.css`) // eslint-disable-line global-require
+  require(`codemirror/theme/${theme}.css`)
 })
 import '../../lib/core/editor'
 import toolbar from '../toolbar/toolbar.vue'
@@ -84,6 +88,10 @@ export default {
           default(){
               return config.font
           }
+      },
+      theme:{
+        type: String,
+        default:'base16-dark'
       },
       // 工具栏是否显示
       shadow:{
@@ -113,10 +121,13 @@ export default {
   data () {
     return {
       config: config,
+      themes: themes,
       fullStyle: "",
+      fullEditStyle: "",
       placeholders: '', // 占位符
       previewFlag: true,
       fullScreenFlag: false,
+      fullScreenEditFlag: false,
       origin: '',
       html: '',
       // history: [],
@@ -124,10 +135,26 @@ export default {
       // historyPushFlag: true,
       timer: null,
       files: [],
-      editor:null
+      editor:null,
+      loaderFlag:false
     }
   },
   watch: {
+    loaderFlag: function (val) {
+      if (val) {
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: false})
+      } else {
+        document.body.style.overflow = ''
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: true})
+      }
+    },
     // origin: function (val) {
     //   clearTimeout(this.timer)
     //   // 不延迟会存下很多没有大多意义的历史记录
@@ -185,6 +212,21 @@ export default {
         'z-index': '500'
       } : "";
     },
+    fullScreenEdit () {
+      // 全屏
+      this.fullScreenEditFlag = !this.fullScreenEditFlag
+      this.fullEditStyle = this.fullScreenEditFlag ? {
+        width: document.documentElement.clientWidth + 'px',
+        height: document.documentElement.clientHeight + 'px',
+        top: '0',
+        left: '0',
+        position: 'fixed',
+        'z-index': '500'
+      } : "";
+    },
+    setTheme(theme){
+      this.editor.setOption("theme",theme)
+    },
     initLang () {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
       this.placeholders = config.words[`${lang}`].placeholders
@@ -200,24 +242,36 @@ export default {
       e.stopPropagation();
       e.preventDefault();
       let dt = e.dataTransfer;
-      let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + dt.files[0].name.substring(dt.files[0].name.lastIndexOf('.'))) : dt.files[0].name;
+      this.upload(dt.files[0])
+    },
+    upload(file){
+      let flag = false
+      let fileType = file.name.substring(file.name.lastIndexOf('.') + 1).toLocaleLowerCase()
+      for (let i = 0; i < this.config.imageType.length; i++) {
+        if(this.config.imageType[i] === fileType){
+          flag = true
+          break
+        }
+      }
+      if(!flag) return
+      let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + '.' + fileType) : file.name;
       if (this.config.imageUploader.custom) {
-         if(this.config.imageUploader.fileType === 'base64'){
-             var reader = new FileReader();
-             let that = this
-             reader.onload = function (e) {
-                 that.$emit('uploadImg',that, e.target.result, fileName)
-             };
-             reader.readAsDataURL(dt.files[0]);
-         }else{
-             this.$emit('uploadImg',this, dt.files[0], fileName)
-         }
         // 自定义
+        if(this.config.imageUploader.fileType === 'base64'){
+          var reader = new FileReader();
+          let that = this
+          reader.onload = function (e) {
+            that.$emit('uploadImg',that, e.target.result, fileName)
+          };
+          reader.readAsDataURL(file);
+        }else{
+          this.$emit('uploadImg',this, file, fileName)
+        }
       } else {
         if (this.config.imageUploader.type === 'server') {
-          uploadToServer(this, dt.files[0], fileName);
+          uploadToServer(this, file, fileName);
           // for (var i = 0; i !== dt.files.length; i++) {
-          //   this.uploadFile(dt.files[0]);
+          //   this.uploadFile(file);
           // }
         } else if (this.config.imageUploader.type === 'github') {
           let that = this
@@ -225,7 +279,7 @@ export default {
           reader.onload = function (e) {
             uploadToGithub(that, e.target.result, fileName)
           };
-          reader.readAsDataURL(dt.files[0]);
+          reader.readAsDataURL(file);
         } else {
           alert('图片上传类型有误')
         }
@@ -254,7 +308,6 @@ export default {
       //   }, 200);
       // }
       // this.historyPushFlag = true
-      console.log(this.editor.getValue())
       this.origin = this.editor.getValue()
       this.html = md.render(this.origin);
       // 流程图 暂时没找到更好的办法 先做个延迟吧
@@ -271,6 +324,16 @@ export default {
           }
         })
       }, 100)
+    },
+    getChildNodes(nodes) {
+      let len = nodes.length
+      let childNodes = []
+      for (let i = 0; i < len; i++) {
+        if (nodes[i].nodeName !== "#text") {
+          childNodes.push(nodes[i]);
+        }
+      }
+      return childNodes
     }
   },
   created () {
@@ -281,7 +344,7 @@ export default {
     this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
       lineNumbers: true,
       mode: 'markdown',
-      theme: 'base16-dark',
+      theme: that.theme,
       lineWrapping: true,
       scrollPastEnd: true,
       autofocus: true,
@@ -303,11 +366,35 @@ export default {
     if(JSON.stringify(this.imageUploader ) !== "{}"){
         this.config.imageUploader = this.imageUploader
     }
+    this.editor.on('scroll', (instance) => {
+      // console.log(document.querySelector('.CodeMirror-code').childNodes)
+      // console.log(this.editor.getValue().split('\n').length)
+      // console.log(this.getChildNodes(document.querySelector('.CodeMirror-code')))
+      // console.log(this.getChildNodes(document.querySelector('.markdown-body')))
+      // syncPreview()
+    })
     // this.$toast('提示测试...')
     const dropBox = document.querySelector('.CodeMirror');
     dropBox.addEventListener('dragenter', this.onDrag, false);
     dropBox.addEventListener('dragover', this.onDrag, false);
     dropBox.addEventListener('drop', this.onDrop, false);
+    // dropBox.addEventListener("paste",function(e){
+    //   let cbd = e.clipboardData;
+    //   if ( !(e.clipboardData && e.clipboardData.items) ) {
+    //     return;
+    //   }
+    //   for(let i = 0; i < cbd.items.length; i++) {
+    //     let item = cbd.items[i];
+    //     if(item.kind === "file"){
+    //       let file = item.getAsFile();
+    //       if (file.size === 0) {
+    //         return;
+    //       }else{
+    //         that.upload(file)
+    //       }
+    //     }
+    //   }
+    // });
   }
 }
 </script>

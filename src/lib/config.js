@@ -7,14 +7,15 @@ const config = {
     textArea: '14px',
     mdBody: '16px'
   },
+  imageType:['jpg','jpeg','gif','png','bmp'],
   dragUpload:true,
   imageUploader: {
     custom: false,
     fileType:'',
     fileNameType: 'uuid',
     imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
-    type: 'github',
-    url: '',
+    type: 'server',
+    url: 'http://localhost:8080/upload',
     token: '',
     username: 'Chave-Z',
     repo: 'picture'
@@ -49,6 +50,8 @@ const config = {
     table: true, // 表格
     // time: false, // 时间
     // clear: false, // 清除
+    skin: true, // 全屏编辑
+    fullScreenEdit: true, // 全屏编辑
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
     download: true

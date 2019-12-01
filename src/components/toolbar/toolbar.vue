@@ -68,21 +68,6 @@
            @click.stop="toolbarClick('subscript')"><i class="fa fa-subscript"
              name="subscript"
              unselectable="on"></i></a></li>
-      <!-- <li><a href="javascript:;"
-             title="将每个单词首字母转成大写"
-             unselectable="on"><i class="fa"
-               name="ucwords"
-               style="font-size:20px;margin-top: -3px;">Aa</i></a></li>
-        <li><a href="javascript:;"
-             title="将所选转换成大写"
-             unselectable="on"><i class="fa fa-font"
-               name="uppercase"
-               unselectable="on"></i></a></li>
-        <li><a href="javascript:;"
-             title="将所选转换成小写"
-             unselectable="on"><i class="fa"
-               name="lowercase"
-               style="font-size:24px;margin-top: -10px;">a</i></a></li> -->
       <li class="divider"
           unselectable="on" v-if="dividers[0]">|</li>
       <li v-if="toolbar.h1"><a href="javascript:;"
@@ -167,11 +152,6 @@
            @click.stop="toolbarClick('link')"><i class="fa fa-link"
              name="link"
              unselectable="on"></i></a></li>
-      <!-- <li><a href="javascript:;"
-             title="引用链接"
-             unselectable="on"><i class="fa fa-anchor"
-               name="reference-link"
-               unselectable="on"></i></a></li> -->
       <li v-if="toolbar.inlineCode"><a href="javascript:;"
            title="行内代码（Ctrl+Alt+I）"
            unselectable="on"
@@ -201,28 +181,8 @@
            unselectable="on"><i class="fa fa-clock-o"
              name="datetime"
              unselectable="on"></i></a></li>
-      <!-- <li><a href="javascript:;"
-           title="Emoji表情"
-           unselectable="on"><i class="fa fa-smile-o"
-             name="emoji"
-             unselectable="on"></i></a></li> -->
-      <!-- <li><a href="javascript:;"
-           title="HTML实体字符"
-           unselectable="on"><i class="fa fa-copyright"
-             name="html-entities"
-             unselectable="on"></i></a></li> -->
-      <!-- <li><a href="javascript:;"
-           title="插入分页符"
-           unselectable="on"><i class="fa fa-newspaper-o"
-             name="pagebreak"
-             unselectable="on"></i></a></li> -->
       <li class="divider"
           unselectable="on" v-if="dividers[3]">|</li>
-      <!-- <li><a href="javascript:;"
-           title="跳转到行"
-           unselectable="on"><i class="fa fa-terminal"
-             name="goto-line"
-             unselectable="on"></i></a></li> -->
       <li v-if="toolbar.preview"><a href="javascript:;"
            :title="previewFlag ? '关闭实时预览（Ctrl+Alt+P）' : '打开实时预览（Ctrl+Alt+P）'"
            unselectable="on"
@@ -231,25 +191,35 @@
              'fa fa-eye':!previewFlag}"
              name="preview"
              unselectable="on"></i></a></li>
+      <li v-if="toolbar.fullScreenEdit"><a href="javascript:;"
+           :title="fullScreenEditFlag ? '打开全屏编辑（Ctrl+Alt+E' : '关闭实时预览（Ctrl+Alt+E）'"
+           unselectable="on"
+           @click.stop="fullScreenEdit()">
+          <i :class="{'fa fa-arrows-alt':fullScreenEditFlag,
+             'fa fa-compress':!fullScreenEditFlag}"
+             name="fullScreenEdit"
+             unselectable="on"></i></a></li>
       <li v-if="toolbar.fullScreen"><a href="javascript:;"
            title="全窗口预览（Ctrl+Alt+F）"
            unselectable="on"><i class="fa fa-desktop"
              name="fullScreen"
              unselectable="on"
              @click.stop="fullScreen()"></i></a></li>
-      <li v-if="toolbar.clear"><a href="javascript:;"
-           title="清空"
-           unselectable="on"><i class="fa fa-eraser"
-             name="clear"
-             unselectable="on"></i></a></li>
-      <!-- <li><a href="javascript:;"
-             title="搜索"
-             unselectable="on"><i class="fa fa-search"
-               name="search"
-               unselectable="on"></i></a></li> -->
-<!--      <li v-if="toolbar.download"-->
-<!--          class="divider"-->
-<!--          unselectable="on">|</li>-->
+<!--      <li v-if="toolbar.clear"><a href="javascript:;"-->
+<!--           title="清空"-->
+<!--           unselectable="on"><i class="fa fa-eraser"-->
+<!--             name="clear"-->
+<!--             unselectable="on"></i></a></li>-->
+      <li v-if="toolbar.skin" class="skin"><a href="javascript:;"
+           title="皮肤"
+           unselectable="on"><i class="fa fa-magic"
+            name="skin"
+            unselectable="on"
+            @click.stop="skinFlag = true"></i></a>
+        <div class="dropdown-content" v-if="skinFlag">
+          <a v-for="(item,index) in themes" v-bind:key="index" v-text="item" @click="selectTheme(item)"></a>
+        </div>
+      </li>
       <li v-if="toolbar.download"><a href="javascript:;"
            title="下载"
            unselectable="on"><i class="fa fa-download"
@@ -259,7 +229,6 @@
     <!-- 添加网络图片 -->
     <transition name="slide-fade">
       <div class="modal"
-           :style="modalStyle"
            v-if="insertImgFlag"
            @touchmove.prevent.stop
            @mousewheel.prevent>
@@ -293,7 +262,6 @@
     <!-- 添加表格 -->
     <transition name="slide-fade">
       <div class="modal"
-           :style="modalStyle"
            v-if="insertTableFlag"
            @touchmove.prevent.stop
            @mousewheel.prevent>
@@ -379,7 +347,7 @@ import { keydownListener } from '../../lib/core/keydown-listener'
 
 export default {
   name: 'le-toolbar',
-  props: ['toolbar'],
+  props: ['toolbar','themes'],
   data () {
     return {
       modalStyle: {},
@@ -395,28 +363,40 @@ export default {
         type: 'justify'
       },
       previewFlag: true,
+      fullScreenEditFlag: true,
+      skinFlag: false,
       dividers:[false,false,false,false]
     }
   },
   watch: {
     insertImgFlag: function (val) {
-      if (this.insertImgFlag) {
-        this.modalStyle = {
-          width: document.documentElement.clientWidth + 'px',
-          height: document.documentElement.clientHeight + 'px'
-        }
+      if (val) {
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: false})
       } else {
-        this.modalStyle = {}
+        document.body.style.overflow = ''
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: true})
       }
     },
     insertTableFlag: function (val) {
-      if (this.insertTableFlag) {
-        this.modalStyle = {
-          width: document.documentElement.clientWidth + 'px',
-          height: document.documentElement.clientHeight + 'px'
-        }
+      if (val) {
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: false})
       } else {
-        this.modalStyle = {}
+        document.body.style.overflow = ''
+        document.addEventListener('touchmove',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+        }, {passive: true})
       }
     }
   },
@@ -450,6 +430,17 @@ export default {
             this.$emit('fullScreen')
         }
     },
+    fullScreenEdit () {
+        if(this.toolbar.fullScreenEdit) {
+            // 全屏编辑
+            this.fullScreenEditFlag = !this.fullScreenEditFlag
+            this.$emit('fullScreenEdit')
+        }
+    },
+    selectTheme(theme){
+      this.skinFlag = false
+      this.$emit('setTheme',theme)
+    },
     checkArea(toolNames,index){
       toolNames.some((item)=>{
         if (this.toolbar[`${item}`]) {
@@ -471,7 +462,7 @@ export default {
     this.checkArea(['h1','h2','h3','h4','h5','h6'],0);
     this.checkArea(['alignLeft','alignCenter','alignRight','ol','ul','hr'],1);
     this.checkArea(['link','inlineCode','code','image','table'],2);
-    this.checkArea(['fullScreen','preview','download'],3);
+    this.checkArea(['fullScreen','preview','fullScreenEdit','skin','download'],3);
   },
   mounted () {
     keydownListener(this)

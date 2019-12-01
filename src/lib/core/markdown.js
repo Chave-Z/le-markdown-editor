@@ -28,7 +28,8 @@ var md = require('markdown-it')({
     }
     return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
   }
-}).use(emoji)
+})
+  .use(emoji)
   .use(deflist)
   .use(taskLists)
   .use(container)
@@ -44,5 +45,31 @@ var md = require('markdown-it')({
   .use(abbr)
   .use(toc)
   .use(flow)
+
+console.log(md.renderer.rules)
+// md.renderer.rules.code_block = function(tokens, index) {
+// var level = tokens[index].tag;
+// var label = tokens[index + 1];
+// if (label.type === 'inline') {
+//   var anchor = makeSafe(label.content) + '_' + label.map[0];
+//   return '<' + level + ' class="h"><a id="' + anchor + '"></a>';
+// } else {
+//   return '</h1>';
+// }
+// };
+// {name: "table", enabled: true, fn: ƒ, alt: Array(2)}
+// 1: {name: "code", enabled: true, fn: ƒ, alt: Array(0)}
+// 2: {name: "fence", enabled: true, fn: ƒ, alt: Array(4)}
+// 3: {name: "blockquote", enabled: true, fn: ƒ, alt: Array(4)}
+// 4: {name: "hr", enabled: true, fn: ƒ, alt: Array(4)}
+// 5: {name: "list", enabled: true, fn: ƒ, alt: Array(3)}
+// 6: {name: "reference", enabled: true, fn: ƒ, alt: Array(0)}
+// 7: {name: "heading", enabled: true, fn: ƒ, alt: Array(3)}
+// 8: {name: "lheading", enabled: true, fn: ƒ, alt: Array(0)}
+// 9: {name: "html_block", enabled: true, fn: ƒ, alt: Array(3)}
+// 10: {name: "paragraph", enabled: true, fn: ƒ, alt: Array(0)}
+// md.block.ruler.before('table', 'my_rule', function replace(state) {
+//  console.log(state)
+// });
 
 export default md
