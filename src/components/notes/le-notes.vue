@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-import {syncPreview,syncEditor} from '../../lib/core/editor'
+// import {syncPreview,syncEditor} from '../../lib/core/editor'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/dialog/dialog.css'
 import 'codemirror/addon/fold/foldgutter.css'
@@ -65,7 +65,6 @@ export const themes = ['3024-day', '3024-night', 'abcdef', 'ambiance-mobile', 'a
 themes.forEach((theme) => {
   require(`codemirror/theme/${theme}.css`)
 })
-import '../../lib/core/editor'
 import toolbar from '../toolbar/toolbar.vue'
 import { insertImg, insertTable, simpleClick } from '../../lib/core/toolbar_click'
 import md from '../../lib/core/markdown'
