@@ -83,6 +83,8 @@ new Vue({
 ```html
 // 默认配置
 toolbar: {
+    undo: true, // 撤销
+    redo: true, // 重做
     bold: true, // 粗体
     del: true, // 删除线
     underline: true, // 下划线

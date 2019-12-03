@@ -366,11 +366,19 @@ export default {
         this.config.imageUploader = this.imageUploader
     }
     this.editor.on('scroll', (instance) => {
-      // console.log(document.querySelector('.CodeMirror-code').childNodes)
-      // console.log(this.editor.getValue().split('\n').length)
-      // console.log(this.getChildNodes(document.querySelector('.CodeMirror-code')))
-      // console.log(this.getChildNodes(document.querySelector('.markdown-body')))
-      // syncPreview()
+      // setTimeout(()=>{
+      //   // console.log(that.editor.lineAtHeight(that.editor.getScrollInfo().top))
+      //   let editorScrollTop = that.editor.getScrollInfo().top
+      //   let nodes = document.querySelectorAll('.CodeMirror-code > div')
+      //   for (let i = 0; i < nodes.length; i++){
+      //     console.log(i + '   nodeTop=' + nodes[i].offsetTop + '  top=' + editorScrollTop)
+      //     if(nodes[i].offsetTop >= editorScrollTop - 22){
+      //       console.log(nodes[i].querySelector('.CodeMirror-linenumber'))
+      //       console.log(nodes[i].querySelector('.CodeMirror-linenumber').textContent)
+      //       break
+      //     }
+      //   }
+      // },125)
     })
     // this.$toast('提示测试...')
     const dropBox = document.querySelector('.CodeMirror');

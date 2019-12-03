@@ -4,22 +4,22 @@
 <template>
   <div class="le-note-toolbar">
     <ul class="le-note-tools not-select">
-<!--      <li v-if="toolbar.undo"><a href="javascript:;"-->
-<!--           title="撤销（Ctrl+Z）"-->
-<!--           unselectable="on"-->
-<!--           @click.stop="toolbarClick('undo')"><i class="fa fa-undo"-->
-<!--             name="undo"-->
-<!--             unselectable="on"></i></a></li>-->
-<!--      <li v-if="toolbar.redo"><a href="-->
-<!--               javascript:;"-->
-<!--           title="重做（Ctrl+Y）"-->
-<!--           unselectable="on"-->
-<!--           @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"-->
-<!--             name="redo"-->
-<!--             unselectable="on"></i></a></li>-->
-<!--      <li v-if="dividers[0]"-->
-<!--          class="divider"-->
-<!--          unselectable="on">|</li>-->
+      <li v-if="toolbar.undo"><a href="javascript:;"
+           title="撤销（Ctrl+Z）"
+           unselectable="on"
+           @click.stop="toolbarClick('undo')"><i class="fa fa-undo"
+             name="undo"
+             unselectable="on"></i></a></li>
+      <li v-if="toolbar.redo"><a href="
+               javascript:;"
+           title="重做（Ctrl+Y）"
+           unselectable="on"
+           @click.stop="toolbarClick('redo')"><i class="fa fa-repeat"
+             name="redo"
+             unselectable="on"></i></a></li>
+      <li v-if="dividers[0]"
+          class="divider"
+          unselectable="on">|</li>
       <li v-if="toolbar.bold"><a href="javascript:;"
            title="粗体(Ctrl+B)"
            unselectable="on"

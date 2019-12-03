@@ -143,11 +143,11 @@ export const insertTable = ($vm, tableInfo) => {
   let tempStr = '\n'
   for (let i = 0; i <= tableInfo.rows + 1; i++) {
     for (let j = 1; j <= tableInfo.cols; j++) {
-      if(i === 0){
+      if (i === 0) {
         tempStr += 'Header ' + j + ' |'
-      }else if(i === 1){
+      } else if (i === 1) {
         tempStr += table[`${tableInfo.type}`]
-      }else{
+      } else {
         tempStr += ('row ' + (i - 1) + ' col ' + j + ' |')
       }
     }
@@ -161,10 +161,16 @@ export const insertTable = ($vm, tableInfo) => {
 }
 
 export const simpleClick = ($vm, type) => {
-  for (const i in operateList) {
-    if (operateList[i].type === type) {
-      insertText($vm, operateList[i], $vm.placeholders[`${type}`])
-      break
+  if (type === 'undo') {
+    $vm.editor.undo();
+  } else if (type === 'redo') {
+    $vm.editor.redo();
+  } else {
+    for (const i in operateList) {
+      if (operateList[i].type === type) {
+        insertText($vm, operateList[i], $vm.placeholders[`${type}`])
+        break
+      }
     }
   }
   // if (type === 'undo' || type === 'redo') {
@@ -190,7 +196,7 @@ export const simpleClick = ($vm, type) => {
   // }
 }
 
-function insertText ($vm, operate, placeholder) {
+function insertText($vm, operate, placeholder) {
   const startPos = $vm.editor.getCursor('from')
   const endPos = $vm.editor.getCursor('to')
   const tmpStr = $vm.editor.getSelection()
@@ -199,25 +205,41 @@ function insertText ($vm, operate, placeholder) {
   if (tmpStr === '' || operate.type === 'image' || operate.type === 'table') {
     // 直接插入
     $vm.editor.replaceSelection(prefix + placeholder + suffix)
-    $vm.editor.setSelection({line: startPos.line,ch: startPos.ch + prefix.length},{line: endPos.line,ch: endPos.ch + placeholder.length + (endPos.line === startPos.line ? prefix.length : 0)})
+    $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
+      line: endPos.line,
+      ch: endPos.ch + placeholder.length + (endPos.line === startPos.line ? prefix.length : 0)
+    })
   } else {
     // 如果选中了文字
-    let str = $vm.editor.getRange({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch + suffix.length})
+    let str = $vm.editor.getRange({line: startPos.line, ch: startPos.ch - prefix.length}, {
+      line: endPos.line,
+      ch: endPos.ch + suffix.length
+    })
     console.log(str)
     if (str === prefix + tmpStr + suffix) {
       console.log('-----')
       // 移除语法
-      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch + prefix.length})
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
+        line: endPos.line,
+        ch: endPos.ch + prefix.length
+      })
       $vm.editor.replaceSelection(tmpStr)
-      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch - prefix.length},{line: endPos.line,ch: endPos.ch - (endPos.line === startPos.line ? prefix.length : 0)})
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
+        line: endPos.line,
+        ch: endPos.ch - (endPos.line === startPos.line ? prefix.length : 0)
+      })
     } else {
       // 添加语法
       $vm.editor.replaceSelection(prefix + tmpStr + suffix)
-      $vm.editor.setSelection({line: startPos.line,ch: startPos.ch + prefix.length},{line: endPos.line,ch: endPos.ch + (endPos.line === startPos.line ? prefix.length : 0)})
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
+        line: endPos.line,
+        ch: endPos.ch + (endPos.line === startPos.line ? prefix.length : 0)
+      })
     }
   }
   $vm.editor.focus()
 }
+
 //
 // // 编辑器中自带了 这边去除
 // function insertText ($vm, operate, placeholder) {

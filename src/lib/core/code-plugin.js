@@ -9,26 +9,26 @@ module.exports = function flow (md) {
       const temps = token.info.split(/\s+/)
       let str = ''
       if (temps.length === 1) {
-        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0]) + 1}>${code}</div>`
+        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0] + 1)}>${code}</div>`
       } else if (temps.length === 2) {
         temps[1] = temps[1].indexOf('px') !== -1 ? temps[1] : (temps[1] + '%')
-        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0]) + 1} style="` + 'width:' + temps[1] + `">${code}</div>`
+        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0] + 1)} style="` + 'width:' + temps[1] + `">${code}</div>`
       } else if (temps.length >= 3) {
         temps[1] = temps[1].indexOf('px') !== -1 ? temps[1] : (temps[1] + '%')
         temps[2] = temps[2].indexOf('px') !== -1 ? temps[2] : (temps[2] + '%')
-        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0]) + 1} style="` + 'width:' + temps[1] + ';height:' + temps[2] + `">${code}</div>`
+        str = `<div class="md-flowchart" ${' data-source-'+ parseInt(token.map[0] + 1)} style="` + 'width:' + temps[1] + ';height:' + temps[2] + `">${code}</div>`
       }
       return str
     }else{
       let lang = token.info
       if (lang && hljs.getLanguage(lang)) {
         try {
-          return '<pre class="hljs"' + ' data-source-'+ (parseInt(token.map[0]) + 1) + '><code>' +
+          return '<pre class="hljs"' + ' data-source-'+ (parseInt(token.map[0] + 1)) + '><code>' +
             hljs.highlight(lang, code, true).value +
             '</code></pre>'
         } catch (__) { }
       }
-      return '<pre class="hljs"' + ' data-source-'+ (parseInt(token.map[0]) + 1) + '><code>' + md.utils.escapeHtml(code) + '</code></pre>'
+      return '<pre class="hljs"' + ' data-source-'+ (parseInt(token.map[0]+ 1) ) + '><code>' + md.utils.escapeHtml(code) + '</code></pre>'
     }
     return temp(tokens, idx, options, env, slf)
   }
