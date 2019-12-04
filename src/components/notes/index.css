@@ -176,7 +176,7 @@
 }
 
 #my-textarea{
-  width: 100%;
+  /* width: 100%;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -186,10 +186,10 @@
   padding: 0;
   border: none;
   resize:none; /*取消拉伸*/
-  outline: none;
+  /*outline: none;
   box-sizing: border-box;
   padding: 8px 25px 15px 25px;
-  color: #666;
+  color: #666; */
 }
 
 .CodeMirror{
@@ -198,12 +198,20 @@
   font-size: 16px;
 }
 
-.CodeMirror::-webkit-scrollbar{width:8px;height:4px}
+/* .CodeMirror::-webkit-scrollbar{width:8px;height:4px}
 .CodeMirror::-webkit-scrollbar-button{width:8px;height:0}
 .CodeMirror::-webkit-scrollbar-track{background:0 0}
 .CodeMirror::-webkit-scrollbar-thumb{background:#cfd6d6;-webkit-transition:.3s;transition:.3s;border-radius: 5px;}
 .CodeMirror::-webkit-scrollbar-thumb:hover{background-color:#c0bebe}
-.CodeMirror::-webkit-scrollbar-thumb:active{background-color:#c0bebe}
+.CodeMirror::-webkit-scrollbar-thumb:active{background-color:#c0bebe} */
+
+/* .CodeMirror-vscrollbar::-webkit-scrollbar{width:8px;height:4px}
+.CodeMirror-vscrollbar::-webkit-scrollbar-button{width:8px;height:0}
+.CodeMirror-vscrollbar::-webkit-scrollbar-track{background:0 0}
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb{background:#cfd6d6;-webkit-transition:.3s;transition:.3s;border-radius: 5px;}
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover{background-color:#c0bebe}
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:active{background-color:#c0bebe} */
+
 
 .markdown-body::-webkit-scrollbar{width:8px;height:4px}
 .markdown-body::-webkit-scrollbar-button{width:8px;height:0}

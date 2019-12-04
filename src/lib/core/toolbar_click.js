@@ -162,9 +162,9 @@ export const insertTable = ($vm, tableInfo) => {
 
 export const simpleClick = ($vm, type) => {
   if (type === 'undo') {
-    $vm.editor.undo();
+    $vm.editor.undo()
   } else if (type === 'redo') {
-    $vm.editor.redo();
+    $vm.editor.redo()
   } else {
     for (const i in operateList) {
       if (operateList[i].type === type) {
@@ -196,7 +196,7 @@ export const simpleClick = ($vm, type) => {
   // }
 }
 
-function insertText($vm, operate, placeholder) {
+function insertText ($vm, operate, placeholder) {
   const startPos = $vm.editor.getCursor('from')
   const endPos = $vm.editor.getCursor('to')
   const tmpStr = $vm.editor.getSelection()
@@ -205,33 +205,31 @@ function insertText($vm, operate, placeholder) {
   if (tmpStr === '' || operate.type === 'image' || operate.type === 'table') {
     // 直接插入
     $vm.editor.replaceSelection(prefix + placeholder + suffix)
-    $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
+    $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch + prefix.length }, {
       line: endPos.line,
       ch: endPos.ch + placeholder.length + (endPos.line === startPos.line ? prefix.length : 0)
     })
   } else {
     // 如果选中了文字
-    let str = $vm.editor.getRange({line: startPos.line, ch: startPos.ch - prefix.length}, {
+    let str = $vm.editor.getRange({ line: startPos.line, ch: startPos.ch - prefix.length }, {
       line: endPos.line,
       ch: endPos.ch + suffix.length
     })
-    console.log(str)
     if (str === prefix + tmpStr + suffix) {
-      console.log('-----')
       // 移除语法
-      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
+      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch - prefix.length }, {
         line: endPos.line,
         ch: endPos.ch + prefix.length
       })
       $vm.editor.replaceSelection(tmpStr)
-      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
+      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch - prefix.length }, {
         line: endPos.line,
         ch: endPos.ch - (endPos.line === startPos.line ? prefix.length : 0)
       })
     } else {
       // 添加语法
       $vm.editor.replaceSelection(prefix + tmpStr + suffix)
-      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
+      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch + prefix.length }, {
         line: endPos.line,
         ch: endPos.ch + (endPos.line === startPos.line ? prefix.length : 0)
       })

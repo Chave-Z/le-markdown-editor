@@ -5,7 +5,9 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
-  <div class="md-container" :style="fullEditStyle" :class="{'md-shadow':shadow,'md-border':!shadow}">
+  <div class="md-container"
+       :style="fullEditStyle"
+       :class="{'md-shadow':shadow,'md-border':!shadow}">
     <toolbar ref="toolbar"
              :themes="themes"
              @operate="operate"
@@ -18,7 +20,8 @@
              :toolbar="toolbar"></toolbar>
     <div class="le-note-container">
       <div class="le-note-left">
-        <textarea ref="editor" id="my-textarea"
+        <textarea ref="editor"
+                  id="my-textarea"
                   :style="{fontSize:config.font.textArea}"
                   placeholder="输入数据..."></textarea></div>
       <transition name="le-note-right-animation">
@@ -36,9 +39,10 @@
         </div>
       </transition>
     </div>
-    <div class="loader-modal" v-if="loaderFlag">
+    <div class="loader-modal"
+         v-if="loaderFlag">
       <div class="loader">
-  <!--      <span class="text">上传中</span>-->
+        <!--      <span class="text">上传中</span>-->
         <span class="spinner"></span>
       </div>
     </div>
@@ -77,45 +81,45 @@ export default {
   components: {
     toolbar
   },
-  props:{
-      value:{
-        type: String,
-        default:""
-      },
-      font:{
-          type: Object,
-          default(){
-              return config.font
-          }
-      },
-      theme:{
-        type: String,
-        default:'base16-dark'
-      },
-      // 工具栏是否显示
-      shadow:{
-          type: Boolean,
-          default:true
-      },
-      // 工具栏是否显示
-      showToolbar:{
-          type: Boolean,
-          default:true
-      },
-      // 工具栏内部功能及快捷键
-      toolbar:{
-          type: Object,
-          default(){
-              return config.toolbar
-          }
-      },
-      // 图片上传配置
-      imageUploader:{
-          type: Object,
-          default() {
-              return {};
-          }
+  props: {
+    value: {
+      type: String,
+      default: ""
+    },
+    font: {
+      type: Object,
+      default () {
+        return config.font
       }
+    },
+    theme: {
+      type: String,
+      default: 'base16-dark'
+    },
+    // 工具栏是否显示
+    shadow: {
+      type: Boolean,
+      default: true
+    },
+    // 工具栏是否显示
+    showToolbar: {
+      type: Boolean,
+      default: true
+    },
+    // 工具栏内部功能及快捷键
+    toolbar: {
+      type: Object,
+      default () {
+        return config.toolbar
+      }
+    },
+    // 图片上传配置
+    imageUploader: {
+      type: Object,
+      default () {
+        return {};
+      }
+    }
   },
   data () {
     return {
@@ -134,24 +138,24 @@ export default {
       // historyPushFlag: true,
       timer: null,
       files: [],
-      editor:null,
-      loaderFlag:false
+      editor: null,
+      loaderFlag: false
     }
   },
   watch: {
     loaderFlag: function (val) {
       if (val) {
         document.body.style.overflow = 'hidden'
-        document.addEventListener('touchmove',(e)=>{
+        document.addEventListener('touchmove', (e) => {
           e.preventDefault();
           e.stopPropagation();
-        }, {passive: false})
+        }, { passive: false })
       } else {
         document.body.style.overflow = ''
-        document.addEventListener('touchmove',(e)=>{
+        document.addEventListener('touchmove', (e) => {
           e.preventDefault();
           e.stopPropagation();
-        }, {passive: true})
+        }, { passive: true })
       }
     },
     // origin: function (val) {
@@ -223,16 +227,16 @@ export default {
         'z-index': '500'
       } : "";
     },
-    setTheme(theme){
-      this.editor.setOption("theme",theme)
+    setTheme (theme) {
+      this.editor.setOption("theme", theme)
     },
     initLang () {
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
       this.placeholders = config.words[`${lang}`].placeholders
     },
     onDrag: function (e) {
-      if(!this.config.dragUpload){
-          return
+      if (!this.config.dragUpload) {
+        return
       }
       e.stopPropagation();
       e.preventDefault();
@@ -243,28 +247,28 @@ export default {
       let dt = e.dataTransfer;
       this.upload(dt.files[0])
     },
-    upload(file){
+    upload (file) {
       let flag = false
       let fileType = file.name.substring(file.name.lastIndexOf('.') + 1).toLocaleLowerCase()
       for (let i = 0; i < this.config.imageType.length; i++) {
-        if(this.config.imageType[i] === fileType){
+        if (this.config.imageType[i] === fileType) {
           flag = true
           break
         }
       }
-      if(!flag) return
+      if (!flag) return
       let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + '.' + fileType) : file.name;
       if (this.config.imageUploader.custom) {
         // 自定义
-        if(this.config.imageUploader.fileType === 'base64'){
+        if (this.config.imageUploader.fileType === 'base64') {
           var reader = new FileReader();
           let that = this
           reader.onload = function (e) {
-            that.$emit('uploadImg',that, e.target.result, fileName)
+            that.$emit('uploadImg', that, e.target.result, fileName)
           };
           reader.readAsDataURL(file);
-        }else{
-          this.$emit('uploadImg',this, file, fileName)
+        } else {
+          this.$emit('uploadImg', this, file, fileName)
         }
       } else {
         if (this.config.imageUploader.type === 'server') {
@@ -289,14 +293,14 @@ export default {
       if (window.performance && typeof window.performance.now === "function") {
         d += performance.now();
       }
-       const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
       return uuid;
     },
-    setMdValue(){
+    setMdValue () {
       // let that = this
       // 这个功能在编辑器中已经有了 所以这里去除
       // clearTimeout(this.timer)
@@ -324,7 +328,7 @@ export default {
         })
       }, 100)
     },
-    getChildNodes(nodes) {
+    getChildNodes (nodes) {
       let len = nodes.length
       let childNodes = []
       for (let i = 0; i < len; i++) {
@@ -352,56 +356,80 @@ export default {
       indentUnit: 2,
       foldGutter: true,
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-      dragDrop:true,
-      matchBrackets:true
+      dragDrop: true,
+      matchBrackets: true
     });
-    if(that.value !== "") {
+    if (that.value !== "") {
       that.editor.setValue(that.value)
       that.setMdValue()
     }
-    this.editor.on("change", ()=>{
+    this.editor.on("change", () => {
       that.setMdValue()
     })
-    if(JSON.stringify(this.imageUploader ) !== "{}"){
-        this.config.imageUploader = this.imageUploader
+    if (JSON.stringify(this.imageUploader) !== "{}") {
+      this.config.imageUploader = this.imageUploader
     }
+    var timer = null;
     this.editor.on('scroll', (instance) => {
-      // setTimeout(()=>{
-      //   // console.log(that.editor.lineAtHeight(that.editor.getScrollInfo().top))
-      //   let editorScrollTop = that.editor.getScrollInfo().top
-      //   let nodes = document.querySelectorAll('.CodeMirror-code > div')
-      //   for (let i = 0; i < nodes.length; i++){
-      //     console.log(i + '   nodeTop=' + nodes[i].offsetTop + '  top=' + editorScrollTop)
-      //     if(nodes[i].offsetTop >= editorScrollTop - 22){
-      //       console.log(nodes[i].querySelector('.CodeMirror-linenumber'))
-      //       console.log(nodes[i].querySelector('.CodeMirror-linenumber').textContent)
-      //       break
-      //     }
-      //   }
-      // },125)
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const lineMarkers = document.querySelectorAll('.markdown-body > [data-source]')
+        const lines = []
+        lineMarkers.forEach((element, index) => {
+          lines.push(element.getAttribute('data-source'))
+        })
+        const currentPosition = that.editor.getScrollInfo().top
+        let current
+        let next
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i]
+          const height = that.editor.heightAtLine(line - 1, 'local')
+          if (height < currentPosition) {
+            current = line
+          } else {
+            next = line
+            break
+          }
+        }
+        let percentage = 0
+        if (current && next && current !== next) {
+          percentage = (currentPosition - that.editor.heightAtLine(current - 1, 'local')) / (that.editor.heightAtLine(next - 1, 'local') - that.editor.heightAtLine(current - 1, 'local'))
+        }
+        let editorScroll = { current: current, next: next, percentage }
+        let lastPosition = 0
+        let nextPosition = document.querySelector('.markdown-body').scrollHeight - document.querySelector('.markdown-body').clientHeight
+        if (editorScroll.current) {
+          lastPosition = document.querySelector('.markdown-body > [data-source="' + editorScroll.current + '"]').offsetTop
+        }
+        if (editorScroll.next) {
+          nextPosition = document.querySelector('.markdown-body > [data-source="' + editorScroll.next + '"]').offsetTop
+        }
+        const scrollTop = lastPosition + (nextPosition - lastPosition) * editorScroll.percentage
+        document.querySelector('.markdown-body').scrollTop = scrollTop
+      }, 125)
     })
     // this.$toast('提示测试...')
     const dropBox = document.querySelector('.CodeMirror');
     dropBox.addEventListener('dragenter', this.onDrag, false);
     dropBox.addEventListener('dragover', this.onDrag, false);
     dropBox.addEventListener('drop', this.onDrop, false);
-    // dropBox.addEventListener("paste",function(e){
-    //   let cbd = e.clipboardData;
-    //   if ( !(e.clipboardData && e.clipboardData.items) ) {
-    //     return;
-    //   }
-    //   for(let i = 0; i < cbd.items.length; i++) {
-    //     let item = cbd.items[i];
-    //     if(item.kind === "file"){
-    //       let file = item.getAsFile();
-    //       if (file.size === 0) {
-    //         return;
-    //       }else{
-    //         that.upload(file)
-    //       }
-    //     }
-    //   }
-    // });
+    dropBox.addEventListener("paste", function (e) {
+      let cbd = e.clipboardData;
+      if (!(e.clipboardData && e.clipboardData.items)) {
+        return;
+      }
+      for (let i = 0; i < cbd.items.length; i++) {
+        let item = cbd.items[i];
+        if (item.kind === "file") {
+          let file = item.getAsFile();
+          if (file.size === 0) {
+            return;
+          } else {
+            that.upload(file)
+          }
+        }
+      }
+    });
   }
 }
 </script>
