@@ -113,7 +113,7 @@
   margin: 0;
   padding: 0;
   zoom: 1;
-  overflow: hidden;
+  /*overflow: hidden;*/
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -159,6 +159,7 @@
 }
 
 .le-note-container .le-note-right{
+  overflow: hidden;
   border-left: 1px solid #999;
   text-align: left;
   left: 50%;
@@ -175,27 +176,32 @@
   font-size: 20px;
 }
 
-#my-textarea{
-  /* width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: 0;
-  border: none;
-  resize:none; /*取消拉伸*/
-  /*outline: none;
-  box-sizing: border-box;
-  padding: 8px 25px 15px 25px;
-  color: #666; */
-}
+/*#my-textarea{*/
+/*  width: 100%;*/
+/*  font-family: inherit;*/
+/*  font-size: inherit;*/
+/*  line-height: inherit;*/
+/*  height: 100%;*/
+/*  overflow-x: hidden;*/
+/*  overflow-y: scroll;*/
+/*  padding: 0;*/
+/*  border: none;*/
+/*  // 取消拉伸*/
+/*  resize:none; */
+/*  outline: none;*/
+/*  box-sizing: border-box;*/
+/*  padding: 8px 25px 15px 25px;*/
+/*  color: #666; */
+/*}*/
 
 .CodeMirror{
   width: 100%;
   height: 100%;
   font-size: 16px;
+}
+
+.CodeMirror-sizer{
+  height: 120%;
 }
 
 /* .CodeMirror::-webkit-scrollbar{width:8px;height:4px}
@@ -223,10 +229,12 @@
 .markdown-body{
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-y: scroll;
   background-color: rgb(251, 251, 251);
   box-sizing: border-box;
   padding: 8px 25px 15px 25px;
+  position: absolute;
+  top: 0;
 }
 
 .md-flowchart{
