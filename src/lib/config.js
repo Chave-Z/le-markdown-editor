@@ -14,11 +14,11 @@ const config = {
     fileType:'',
     fileNameType: 'uuid',
     imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
-    type: 'server',
-    url: 'http://localhost:8080/upload',
+    type: '',
+    url: '',
     token: '',
-    username: 'Chave-Z',
-    repo: 'picture'
+    username: '',
+    repo: ''
   },
   toolbar: {
     undo: true, // 撤销
