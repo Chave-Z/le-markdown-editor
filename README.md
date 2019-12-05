@@ -4,9 +4,9 @@
 一直以来都有记笔记的习惯，但是之前都是在自己电脑上做记录，有时候在手机想查看很不方便，再加上自己word水平巨菜以及代码放在word中实在不美观的缘故，每次记笔记都感觉吃力不讨好，后来接触markdown，才发现原来记笔记还能这么简单。但是随着自己记录的内容越来越多，越来越感觉有时候真的是一图胜千言，但是找了一圈感觉带图片上传的云笔记貌似就没免费的😂。算了，没有就自己写一个吧，等写完了放在自己的系统上用:grimacing:。
 
 ### 预览图
-![预览图1](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
+![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
 
-![预览图2](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
+![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
 
 ### 特性
 
