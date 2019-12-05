@@ -33,8 +33,8 @@
 
 - 下载插件
 
-```
-npm i le-markdown-editor --save
+```shell
+$ npm i le-markdown-editor --save
 ```
 
 - `index.js` 或 `main.js` 中
@@ -281,3 +281,6 @@ export default {
 | Ctrl + Alt + P | 开关实时预览    |
 | Ctrl + Alt + F | 开关全窗口预览  |
 | Ctrl + S | 保存html文本  |
+
+### 如何反馈
+使用过程中如果有建议或者问题，欢迎提交issues，描述问题或提交建议。
