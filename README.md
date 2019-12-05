@@ -6,7 +6,7 @@
 ### 预览图
 ![预览图1](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
 
-![c0a3310b084d401a94ed95bc4c45969b.gif](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
+![预览图2](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
 
 ### 特性
 
@@ -166,7 +166,7 @@ export default {
 
 图片上传演示：
 
-![71d962718f6443abbdea6802ee995f79.gif](https://cdn.jsdelivr.net/gh/Chave-Z/picture/71d962718f6443abbdea6802ee995f79.gif)
+![图片上传演示](https://cdn.jsdelivr.net/gh/Chave-Z/picture/71d962718f6443abbdea6802ee995f79.gif)
 
 | 参数名           | 默认值                           | 描述                                                         |
 | ---------------- | -------------------------------- | ------------------------------------------------------------ |
