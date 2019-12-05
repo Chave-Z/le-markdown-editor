@@ -1,7 +1,7 @@
-import leNotes from './le-notes.vue'
+import leEditor from './le-editor.vue'
 const comment = {
   install: function (Vue) {
-    Vue.component(leNotes.name, leNotes)
+    Vue.component(leEditor.name, leEditor)
   }
 }
 if (typeof window !== 'undefined' && window.Vue) {

@@ -2,8 +2,8 @@
 @import "./index.css";
 </style>
 <template>
-  <div class="le-note-toolbar">
-    <ul class="le-note-tools not-select">
+  <div class="le-editor-toolbar">
+    <ul class="le-editor-tools not-select">
       <li v-if="toolbar.undo"><a href="javascript:;"
            title="撤销（Ctrl+Z）"
            unselectable="on"
@@ -220,11 +220,17 @@
           <a v-for="(item,index) in themes" v-bind:key="index" v-text="item" @click="selectTheme(item)"></a>
         </div>
       </li>
-      <li v-if="toolbar.download"><a href="javascript:;"
-           title="下载"
-           unselectable="on"><i class="fa fa-download"
-             name="download"
-             unselectable="on"></i></a></li>
+      <li v-if="toolbar.save"><a href="javascript:;"
+           title="保存"
+           unselectable="on"><i class="fa fa-save"
+            name="save"
+            unselectable="on"
+            @click.stop="save()"></i></a></li>
+<!--      <li v-if="toolbar.download"><a href="javascript:;"-->
+<!--           title="下载"-->
+<!--           unselectable="on"><i class="fa fa-download"-->
+<!--             name="download"-->
+<!--             unselectable="on"></i></a></li>-->
     </ul>
     <!-- 添加网络图片 -->
     <transition name="slide-fade">
@@ -437,6 +443,12 @@ export default {
             this.$emit('fullScreenEdit')
         }
     },
+    save(){
+        if(this.toolbar.save) {
+            // 保存
+            this.$emit('save')
+        }
+    },
     selectTheme(theme){
       this.skinFlag = false
       this.$emit('setTheme',theme)
@@ -448,14 +460,6 @@ export default {
           return true
         }
       })
-      // for (let i = 0; i < toolNames.length; i++) {
-      //   let item = toolNames[i]
-      //   console.log(this.toolbar[`${item}`])
-      //   if (this.toolbar[`${item}`]) {
-      //     this.dividers[index] = true
-      //     break;
-      //   }
-      // }
     }
   },
   created(){

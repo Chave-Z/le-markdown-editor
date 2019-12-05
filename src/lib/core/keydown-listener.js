@@ -73,9 +73,8 @@ export const keydownListener = ($vm) => {
           break
         }
         case KEY_CODE.S: {
-          // 待添加
           e.preventDefault()
-          $vm.toolbarClick('save')
+          $vm.save()
           break
         }
         // case KEY_CODE.Z: {

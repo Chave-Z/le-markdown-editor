@@ -4,8 +4,8 @@ const config = {
   langList: ['en', 'zh_CN'],
   words: { en, zh_CN },
   font: {
-    textArea: '14px',
-    mdBody: '16px'
+    editor: 16,
+    preview: 16
   },
   imageType:['jpg','jpeg','gif','png','bmp'],
   dragUpload:true,
@@ -54,7 +54,8 @@ const config = {
     fullScreenEdit: true, // 全屏编辑
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
-    download: true
+    save: true,  // 保存预览的html文本
+    // download: true
   }
 }
 export default config

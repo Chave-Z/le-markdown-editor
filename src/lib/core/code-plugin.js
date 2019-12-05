@@ -1,6 +1,6 @@
 const hljs = require('highlight.js') // https://highlightjs.org/
 module.exports = function flow (md) {
-  const temp = md.renderer.rules.fence.bind(md.renderer.rules)
+  // const temp = md.renderer.rules.fence.bind(md.renderer.rules)
   md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     const token = tokens[idx]
     const code = token.content.trim()
@@ -30,6 +30,6 @@ module.exports = function flow (md) {
       }
       return '<pre class="hljs"' + ' data-source="' + (parseInt(token.map[0] + 1)) + '"><code>' + md.utils.escapeHtml(code) + '</code></pre>'
     }
-    return temp(tokens, idx, options, env, slf)
+    // return temp(tokens, idx, options, env, slf)
   }
 }

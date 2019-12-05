@@ -23,7 +23,6 @@ export const uploadToServer = ($vm, file, fileName) => {
       }
       $vm.loaderFlag = false
     }else{
-      console.log(xhr)
       if($vm.loaderFlag){
         $vm.loaderFlag = false
         alert(xhr.statusText)
@@ -59,7 +58,6 @@ export const uploadToGithub = ($vm, file, fileName) => {
         return result
       } else {
         $vm.loaderFlag = false
-        console.log(res)
         alert(res.statusText)
         return {
           status: res.status,

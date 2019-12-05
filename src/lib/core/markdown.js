@@ -32,14 +32,13 @@ var md = require('markdown-it')({
   .use(toc)
   .use(code)
 
-console.log(md.renderer.rules)
+// console.log(md.renderer.rules)
 
 const makeSafe = function (label) {
   return label.replace(/[^\w\s]/gi, '').split(' ').join('_')
 }
 md.renderer.rules.code_block = function (tokens, idx, options, env, slf) {
   const token = tokens[idx]
-  console.log(parseInt(token.map[0]) + 1)
   return '<pre class="hljs"' + ' data-source="' + (parseInt(token.map[0]) + 1) + '"' + slf.renderAttrs(token) + '><code>' +
     md.utils.escapeHtml(tokens[idx].content) +
     '</code></pre>\n'
