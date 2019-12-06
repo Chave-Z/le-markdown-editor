@@ -66,6 +66,7 @@ new Vue({
     height: 500px;
     margin: 50px auto;
 }
+
 /*设置编辑器宽高*/
 #editor-main {
 	color: #2c3e50;
@@ -283,4 +284,5 @@ export default {
 | Ctrl + S | 保存html文本  |
 
 ### 如何反馈
-使用过程中如果有建议或者问题，欢迎提交issues，描述问题或提交建议。
+使用过程中如果有建议或者问题，欢迎[在这里](https://gitee.com/Chave-Z/le-markdown-editor/issues)提交问题描述或建议。
+
