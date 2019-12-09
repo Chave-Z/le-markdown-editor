@@ -245,6 +245,15 @@
   width: 100% !important;
 }
 
+.le-editor-container .fullStyle,.fullStyle{
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 500
+}
+
 /** 预览打开、关闭动画**/
 .le-editor-right-animation-enter-active {
   -webkit-animation:fadeInRight 1s .2s ease both;
