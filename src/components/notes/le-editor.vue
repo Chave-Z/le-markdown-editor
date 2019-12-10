@@ -291,7 +291,6 @@
     },
     mounted() {
       let that = this
-      console.log(localStorage.getItem('theme'))
       this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
         lineNumbers: true,
         mode: 'markdown',
