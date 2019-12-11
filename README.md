@@ -172,7 +172,7 @@ export default {
 
 ![图片上传演示](https://cdn.jsdelivr.net/gh/Chave-Z/picture/71d962718f6443abbdea6802ee995f79.gif)
 
-详情请点击这里-->[图片上传配置详情](https://gitee.com/Chave-Z/le-markdown-editor/blob/master/image.md)
+详情请点击这里-->[图片上传配置详情](./image.md)
 
 ### 快捷键
 **注意：** 这里除了撤销和重做两个功能以外，其它的快捷键只在菜单设置为显示时生效
