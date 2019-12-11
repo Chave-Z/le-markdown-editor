@@ -8,7 +8,7 @@ export const uploadToServer = ($vm, file, fileName) => {
   const fd = new FormData()
   fd.append('file', file)
   const xhr = new XMLHttpRequest()
-  xhr.open('POST', $vm.config.imageUploader.url, true)
+  xhr.open('POST', $vm.config.imageUploader.url + '?name=' + fileName, true)
   // xhr.upload.addEventListener('progress', function (e) {
   //   item.uploadPercentage = Math.round((e.loaded * 100) / e.total)
   // }, false)
@@ -16,16 +16,18 @@ export const uploadToServer = ($vm, file, fileName) => {
   // 返回
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      if(xhr.responseText.code === 0){
+      let result = JSON.parse(xhr.responseText.toString())
+      console.log(result)
+      if(result.code === 0){
         $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}/${fileName}`, fileName)
       }else{
-        alert(xhr.responseText.msg)
+        alert(result.msg)
       }
       $vm.loaderFlag = false
     }else{
       if($vm.loaderFlag){
         $vm.loaderFlag = false
-        alert(xhr.statusText)
+        console.log(xhr.statusText)
       }
     }
   }

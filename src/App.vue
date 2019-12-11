@@ -1,10 +1,8 @@
 <template>
-  <div id="app"
-       :style="appStyle">
+  <div id="app" :style="appStyle">
     <div id="editor-main">
-      <!--      图片上传配置-->
-      <!--      <le-editor :value="value"  :image-uploader="imageUploader" @uploadImg="uploadImg"></le-editor>-->
-      <le-editor :value="value" @save="save"></le-editor>
+      <!--    <le-editor :value="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
+      <le-editor :value="value" :image-uploader="imageUploader" @save="save"></le-editor>
     </div>
   </div>
 </template>
@@ -219,29 +217,37 @@
                     // width: document.documentElement.clientWidth + 'px',
                     // height: document.documentElement.clientHeight + 'px'
                 },
+                // 自定义
+                // imageUploader: {
+                //   custom: true,
+                //   fileType: 'file',
+                //   fileNameType: 'uuid',
+                //   imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+                // }
                 imageUploader: {
-                    custom: true,
+                    custom: false,
                     fileType: 'file',
-                    fileNameType: 'uuid',
-                    imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+                    fileNameType: '',
+                    imagePrefix: 'http://47.100.125.98', // 图片前缀地址
+                    type: 'server',
+                    url: 'http://47.100.125.98:82/upload'
                 }
             }
         },
         methods: {
-            uploadImg: function ($vm, file, fileName) {
-                console.log($vm)
-                console.log(file)
-                console.log(fileName)
-                // 添加图片
-                // 两个参数 第一个是图片访问路径 第二个是文件名
-                $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
-            },
+            // 自定义
+            // uploadImg: function ($vm, file, fileName) {
+            //   console.log($vm)
+            //   console.log(file)
+            //   console.log(fileName)
+            //   // 添加图片
+            //   // 两个参数 第一个是图片访问路径 第二个是文件名
+            //   $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
+            // },
             save: function (val) {
                 // 获取预览文本
                 console.log(val)
             }
-        },
-        mounted() {
         }
     }
 </script>
