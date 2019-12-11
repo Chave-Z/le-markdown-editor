@@ -209,5 +209,5 @@ export default {
 | Ctrl + S | 保存html文本  |
 
 ### 如何反馈 
-使用过程中如果有建议或者问题，欢迎[在这里](https://gitee.com/Chave-Z/le-markdown-editor/issues)提交问题描述或建议。
+使用过程中如果有建议或者问题，欢迎[在这里](./issues)提交问题描述或建议。
 
