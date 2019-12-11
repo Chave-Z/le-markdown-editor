@@ -17,7 +17,6 @@ export const uploadToServer = ($vm, file, fileName) => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       let result = JSON.parse(xhr.responseText.toString())
-      console.log(result)
       if(result.code === 0){
         $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}/${fileName}`, fileName)
       }else{
