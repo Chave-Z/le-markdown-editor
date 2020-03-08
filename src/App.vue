@@ -195,9 +195,9 @@
                     '           controls=""\n' +
                     '           preload="none"\n' +
                     '           width="100%"\n' +
-                    '           poster="http://media.w3.org/2010/05/sintel/poster.png">\n' +
+                    '           >\n' +
                     '    <source id="mp4"\n' +
-                    '              src="http://media.w3.org/2010/05/sintel/trailer.mp4"\n' +
+                    '              src="https://www.w3school.com.cn/i/movie.ogg"\n' +
                     '              type="video/mp4">\n' +
                     '</video>\n' +
                     '\n' +
