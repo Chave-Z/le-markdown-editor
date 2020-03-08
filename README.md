@@ -2,7 +2,7 @@
 
 ### 为何要写这个组件
 一直以来都有记笔记的习惯，但是之前都是在自己电脑上做记录，有时候在手机想查看很不方便，再加上自己word水平巨菜以及代码放在word中实在不美观的缘故，每次记笔记都感觉吃力不讨好，后来接触markdown，才发现原来记笔记还能这么简单。但是随着自己记录的内容越来越多，越来越感觉有时候真的是一图胜千言，但是找了一圈感觉带图片上传的云笔记貌似就没免费的😂。算了，没有就自己写一个吧，等写完了放在自己的系统上用:grimacing:。
-
+演示地址：http://47.100.125.98/
 ### 预览图
 ![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
 
@@ -29,8 +29,14 @@
 - 滚动条同步
 - ...
 
-###  插件使用
+### 更新
+- 2019-12-11 添加演示地址[点击访问](http://47.100.125.98/)
+- 2019-12-09 修复了打开控制台点击全屏后再关闭控制台，编辑器大小不对的问题
 
+###  插件使用
+#### 使用cdn
+有的人可能不太喜欢用webpack或者就是写个小demo，用不到webpack，可以点击访问[这个文件](./src/dev/notes.html)，参考这个文件即可使用
+#### 在webpack构建的项目中
 - 下载插件
 
 ```shell
@@ -159,7 +165,7 @@ export default {
 | save        | 保存预览文本               | 预览区的html文本             |
 | uploadImg   | 上传图片                   | 组件对象、文件以及文件名，详细内容见下文|
 
-##### 图片上传配置
+### 图片上传配置
 
 本地图片上传因为没有各种云存储账号的的原因，所以暂时只支持拖拽或者粘贴剪切板图片（windows粘贴本地图片需要先预览，截图则不需要）上传到Github仓库和自己的服务器，虽然都在说Github访问有点慢，但是我这几天测试了一下，虽然上传速度不快，但是访问时感觉效果还行，但是毕竟免费的，对于没有图床和服务器的用户还是很不错的，介意的话可以传到自己的服务器或者利用拓展方法上传到自己的云存储上。
 
@@ -169,85 +175,7 @@ export default {
 
 ![图片上传演示](https://cdn.jsdelivr.net/gh/Chave-Z/picture/71d962718f6443abbdea6802ee995f79.gif)
 
-| 参数名           | 默认值                           | 描述                                                         |
-| ---------------- | -------------------------------- | ------------------------------------------------------------ |
-| **custom**       | **false**                        | 当这个参数的值为true时，组件使用用户自定义的上传方式，否则使用组件自带的方法 |
-| **type**         | ''                               | 此参数表示组件内置的图片上传的方式，暂时支持`github`和`server`两种方式 |
-| **url**          | ''                               | 接口地址，当`type`为`server`时需要配置                       |
-| **token**        | ''                               | `github`的`token`，当`type`为`github`时需要配置              |
-| **repo**         | ''                               | `github`图床所在仓库名，当`type`为`github`时需要配置         |
-| **username**     | ''                               | `github`用户名，当`type`为`github`时需要配置                 |
-| **fileType**     | ''                               | 使用自定义上传时返回的文件类型，可选值为`file`和`base64`,不填则为file类型 |
-| **fileNameType** | **uuid**                         | 图片上传后的文件名，默认为`uuid`，为空时则按照原文件名处理   |
-| **imagePrefix**  | **https://cdn.jsdelivr.net/gh/** | 图片地址前缀，为`github`时推荐使用CDN：https://cdn.jsdelivr.net/gh/ |
-
-配置的基本格式如下：
-
-```javascript
-imageUploader: {
-    // 是否使用自定义的图片上传
-    custom: false, 
-    type: '',
-    fileNameType: 'uuid',
-    url: '',
-    token: '',
-    username: '',
-    repo: '',
-    fileType:'',
-    // 图片前缀地址
-    imagePrefix: 'https://cdn.jsdelivr.net/gh/' 
-}
-```
-只需要按照表格中的配置完毕，然后传递给组件即可，例如要使用用户自定义功能，步骤如下：
-```vue
-<template>
-  <div id="app">
-    <div id="editor-main">
-      <le-editor :image-uploader="imageUploader" @uploadImg="uploadImg"></le-editor>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'app',
-  data () {
-    return {
-        imageUploader:{
-            custom: true,
-            fileType:'file',
-            fileNameType: 'uuid',
-            imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
-        }
-    }
-  },
-  methods:{
-      uploadImg:function ($vm,file,fileName) {
-        console.log($vm) // 组件对象
-        console.log(file) // 文件 file或者是base64串，基于配置
-        console.log(fileName) // 文件名 uuid或原文件名 基于配置
-        // 添加图片
-        // 两个参数 第一个是图片访问路径 第二个是文件名 按照如下类似的方法即可向编辑区插入上传好的图片了
-        $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
-      }
-  }
-}
-</script>
-
-<style lang="scss">
-#app {
-    width: 1200px;
-    height: 500px;
-    margin: 50px auto;
-  }
-
-#editor-main {
-	color: #2c3e50;
-	width: 100%;
-	height: 100%;
-}
-</style>
-```
+详情请点击这里-->[图片上传配置详情](./image.md)
 
 ### 快捷键
 **注意：** 这里除了撤销和重做两个功能以外，其它的快捷键只在菜单设置为显示时生效
@@ -284,5 +212,5 @@ export default {
 | Ctrl + S | 保存html文本  |
 
 ### 如何反馈 
-使用过程中如果有建议或者问题，欢迎[在这里](https://gitee.com/Chave-Z/le-markdown-editor/issues)提交问题描述或建议。
+使用过程中如果有建议或者问题，欢迎在issues上提交问题描述或建议。
 

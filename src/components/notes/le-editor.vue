@@ -1,7 +1,7 @@
 <style lang="css">
   @import "./index.css";
   @import "../../assets/css/github-markdown.css";
-  @import url("//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");
+  @import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");
   @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
@@ -292,7 +292,6 @@
     },
     mounted() {
       let that = this
-      console.log(localStorage.getItem('theme'))
       this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
         lineNumbers: true,
         mode: 'markdown',
