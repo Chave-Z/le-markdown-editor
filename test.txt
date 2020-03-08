@@ -145,7 +145,7 @@ function test() {
 :sunny: :umbrella: :cloud: :snowflake: :snowman: :zap: :cyclone:  :foggy: :ocean: :cat: :dog:
 # LaTeX 公式
 
-`$` 表示行内公式： 
+`$` 表示行内公式：
 
 质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
 
@@ -180,10 +180,9 @@ isSuccess(no)->responseFailure->end
 <video id="video"
            controls=""
            preload="none"
-           width="100%"
-           poster="http://media.w3.org/2010/05/sintel/poster.png">
+           width="100%">
     <source id="mp4"
-              src="http://media.w3.org/2010/05/sintel/trailer.mp4"
+              src="https://www.w3school.com.cn/i/movie.ogg"
               type="video/mp4">
 </video>
 

@@ -25,8 +25,8 @@
                   placeholder="输入数据..."></textarea></div>
       <transition name="le-editor-right-animation">
         <div class="le-editor-right"
-             :class="{'fullStyle':fullScreenFlag}">
-          v-show="previewFlag">
+             :class="{'fullStyle':fullScreenFlag}"
+             v-show="previewFlag">
           <a href="javascript:;"
              v-if="fullScreenFlag"
              @click="fullScreen()">
@@ -170,6 +170,7 @@
       preview(flag) {
         // 开关实时预览
         this.previewFlag = flag
+        console.log(this.previewFlag)
         document.getElementsByClassName('le-editor-left')[0].style.width = this.previewFlag ? '50%' : '100%'
       },
       fullScreen() {
