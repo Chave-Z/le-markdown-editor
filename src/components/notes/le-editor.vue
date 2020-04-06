@@ -78,6 +78,10 @@
     components: {
       toolbar
     },
+    model: {
+      prop: 'value',//指向props的参数名
+      event: 'change'//事件名称
+    },
     props: {
       value: {
         type: String,
@@ -138,6 +142,10 @@
       }
     },
     watch: {
+      //监听值变化，再赋值给value
+      origin(value) {
+        this.$emit('change', value);
+      },
       loaderFlag: function (val) {
         if (val) {
           document.body.style.overflow = 'hidden'
@@ -158,54 +166,65 @@
       operate(type) {
         // 点击了工具栏 触发功能
         simpleClick(this, type)
-      },
+      }
+      ,
       insertImg(url, title) {
         // 插入图片
         insertImg(this, url, title)
-      },
+      }
+      ,
       insertTable(tableInfo) {
         // 添加表格
         insertTable(this, tableInfo);
-      },
+      }
+      ,
       preview(flag) {
         // 开关实时预览
         this.previewFlag = flag
         console.log(this.previewFlag)
         document.getElementsByClassName('le-editor-left')[0].style.width = this.previewFlag ? '50%' : '100%'
-      },
+      }
+      ,
       fullScreen() {
         this.preview(true)
         // 全屏
         this.fullScreenFlag = !this.fullScreenFlag
-      },
+      }
+      ,
       fullScreenEdit() {
         // 全屏
         this.fullScreenEditFlag = !this.fullScreenEditFlag
-      },
+      }
+      ,
       setTheme(theme) {
         this.editor.setOption("theme", theme)
         localStorage.setItem('theme', theme)
-      },
+      }
+      ,
       savePreview() {
         this.$emit('save', this.html)
-      },
+      }
+      ,
       initLang() {
         let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
         this.placeholders = config.words[`${lang}`].placeholders
-      },
+      }
+      ,
       onDrag: function (e) {
         if (!this.config.dragUpload) {
           return
         }
         e.stopPropagation();
         e.preventDefault();
-      },
+      }
+      ,
       onDrop: function (e) {
         e.stopPropagation();
         e.preventDefault();
         let dt = e.dataTransfer;
         this.upload(dt.files[0])
-      },
+      }
+      ,
       upload(file) {
         let flag = false
         let fileType = file.name.substring(file.name.lastIndexOf('.') + 1).toLocaleLowerCase()
@@ -246,7 +265,8 @@
             alert('图片上传类型有误')
           }
         }
-      },
+      }
+      ,
       generateUUID: function () {
         let d = new Date().getTime();
         if (window.performance && typeof window.performance.now === "function") {
@@ -258,7 +278,8 @@
           return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
         return uuid;
-      },
+      }
+      ,
       setMdValue() {
         // let that = this
         // 这个功能在编辑器中已经有了 所以这里去除
@@ -286,10 +307,12 @@
           })
         }, 200)
       }
-    },
+    }
+    ,
     created() {
       this.initLang()
-    },
+    }
+    ,
     mounted() {
       let that = this
       this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
@@ -365,7 +388,6 @@
           }
         }, 125)
       })
-
       // 设置主题
       if (localStorage.getItem('theme') === null) {
         localStorage.setItem('theme', this.theme)

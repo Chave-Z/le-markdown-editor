@@ -1,8 +1,8 @@
 <template>
   <div id="app" :style="appStyle">
     <div id="editor-main">
-      <!--    <le-editor :value="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
-      <le-editor :value="value" :image-uploader="imageUploader" @save="save"></le-editor>
+      <!--    <le-editor v-model="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
+      <le-editor v-model="value" :image-uploader="imageUploader" @save="save"></le-editor>
     </div>
   </div>
 </template>
@@ -246,6 +246,7 @@
             // },
             save: function (val) {
                 // 获取预览文本
+                console.log(this.value)
                 console.log(val)
             }
         }

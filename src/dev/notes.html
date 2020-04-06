@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>样例</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@0.0.7/dist/leEditor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@0.0.8/dist/leEditor.js"></script>
 </head>
 
 <body>
 <div id="app" :style="appStyle">
   <div id="editor-main">
-<!--    <le-editor :value="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
-    <le-editor :value="value" :image-uploader="imageUploader" @save="save"></le-editor>
+<!--    <le-editor v-model="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
+    <le-editor v-model="value" :image-uploader="imageUploader" @save="save"></le-editor>
   </div>
 </div>
 </body>
