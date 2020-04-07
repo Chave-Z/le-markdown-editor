@@ -249,6 +249,8 @@
                 console.log(this.value)
                 console.log(val)
             }
+        },
+        mounted() {
         }
     }
 </script>
