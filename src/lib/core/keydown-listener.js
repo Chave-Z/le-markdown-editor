@@ -161,17 +161,17 @@ export const keydownListener = ($vm) => {
         }
         case KEY_CODE.L: {
           e.preventDefault()
-          $vm.toolbarClick('align-left')
+          $vm.toolbarClick('alignLeft')
           break
         }
         case KEY_CODE.C: {
           e.preventDefault()
-          $vm.toolbarClick('align-center')
+          $vm.toolbarClick('alignCenter')
           break
         }
         case KEY_CODE.R: {
           e.preventDefault()
-          $vm.toolbarClick('align-right')
+          $vm.toolbarClick('alignRight')
           break
         }
         case KEY_CODE.H: {

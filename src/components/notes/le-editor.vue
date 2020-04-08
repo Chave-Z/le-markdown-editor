@@ -1,4 +1,4 @@
-<style lang="css">
+<style lang="css" scoped>
   @import "./index.css";
   @import "../../assets/css/github-markdown.css";
   @import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");

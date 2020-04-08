@@ -1,6 +1,6 @@
 
 /* 弹出框样式 */
-.slide-fade-enter-active {
+.le-editor-toolbar .slide-fade-enter-active {
   -webkit-animation:fadeInLeft .5s .2s ease both;
   -moz-animation:fadeInLeft .5s .2s ease both;}
   @-webkit-keyframes fadeInLeft{
@@ -15,7 +15,7 @@
   100%{opacity:1;
   -moz-transform:translateX(0)}
 }
-.slide-fade-leave-active {
+.le-editor-toolbar .slide-fade-leave-active {
   -webkit-animation:fadeOutLeft .5s .2s ease both;
   -moz-animation:fadeOutLeft .5s .2s ease both;}
   @-webkit-keyframes fadeOutLeft{
@@ -31,7 +31,7 @@
   -moz-transform:translateX(-20px)}
 }
 
-.modal{
+.le-editor-toolbar .modal{
   position: absolute;
   width: 100%;
   height: 100%;
@@ -39,7 +39,7 @@
   top: 0;
 }
 
-.dropbox {
+.le-editor-toolbar .dropbox {
   height: 240px;
   width: 430px;
   color: #666;
@@ -63,7 +63,7 @@
   margin: 0 auto;
 }
 
-.dialog-header {
+.le-editor-toolbar .dialog-header {
   padding: 11px 20px;
   border-bottom: 1px solid #eee;
   -webkit-transition: background 300ms ease-out;
@@ -71,7 +71,7 @@
   transition: background 300ms ease-out;
 }
 
-.dialog-close {
+.le-editor-toolbar .dialog-close {
   position: absolute;
   top: 12px;
   right: 15px;
@@ -82,7 +82,7 @@
   transition: color 300ms ease-out;
 }
 
-.dialog-close a {
+.le-editor-toolbar .dialog-close a {
   text-decoration: none;
 }
 .fa {
@@ -94,16 +94,16 @@
   transform: translate(0, 0);
   color: #8a8383;
 }
-.dialog-container {
+.le-editor-toolbar .dialog-container {
   position: relative;
   padding: 20px;
   line-height: 1.4;
 }
-.dialog-form {
+.le-editor-toolbar .dialog-form {
   color: #666;
 }
 
-.dialog-form label {
+.le-editor-toolbar .dialog-form label {
   float: left;
   display: block;
   width: 16%;
@@ -113,26 +113,26 @@
   font-weight: 400;
 }
 
-.dialog-form input[type="text"] {
+.le-editor-toolbar .dialog-form input[type="text"] {
   display: inline-block;
   width: 81%;
 }
-.dialog-form input[type="text"],
-.dialog-form input[type="number"] {
+.le-editor-toolbar .dialog-form input[type="text"],
+.le-editor-toolbar .dialog-form input[type="number"] {
   color: #999;
   padding: 8px 2px;
   border: 1px solid #ddd;
 }
 
-.dialog-footer {
+.le-editor-toolbar .dialog-footer {
   padding: 10px 0 0;
   text-align: right;
   width: 100%;
 }
 
-.dialog-container .dialog-btn,
-.dialog-footer .dialog-btn,
-.dialog-form .dialog-btn {
+.le-editor-toolbar .dialog-container .dialog-btn,
+.le-editor-toolbar .dialog-footer .dialog-btn,
+.le-editor-toolbar .dialog-form .dialog-btn {
   color: #666;
   min-width: 75px;
   cursor: pointer;
@@ -149,11 +149,11 @@
   transition: background 300ms ease-out;
 }
 
-.dialog-form .fa-btns {
+.le-editor-toolbar .dialog-form .fa-btns {
   display: inline-block;
 }
 
-.dialog-form .fa-btns label {
+.le-editor-toolbar .dialog-form .fa-btns label {
   float: none;
   display: inline-block;
   width: auto;
@@ -161,11 +161,11 @@
   padding: 0 0 0 5px;
   cursor: pointer;
 }
-a:-webkit-any-link {
+.le-editor-toolbar a:-webkit-any-link {
   cursor: pointer;
   text-decoration: none;
 }
-.dialog-form .fa-btns a {
+.le-editor-toolbar .dialog-form .fa-btns a {
   color: #999;
   padding: 7px 10px 0 0;
   display: inline-block;
@@ -173,13 +173,13 @@ a:-webkit-any-link {
   text-align: center;
 }
 
-.dropdown {
+.le-editor-toolbar .dropdown {
   position: relative;
   display: inline-block;
 }
 
 /* 下拉内容 (默认隐藏) */
-.dropdown-content {
+.le-editor-toolbar .dropdown-content {
   position: absolute;
   background-color: #f9f9f9;
   height: 260px;
@@ -189,7 +189,7 @@ a:-webkit-any-link {
 }
 
 /* 下拉菜单的链接 */
-.dropdown-content a {
+.le-editor-toolbar .dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -197,15 +197,15 @@ a:-webkit-any-link {
 }
 
 /* 鼠标移上去后修改下拉菜单链接颜色 */
-.dropdown-content a:hover {background-color: #f1f1f1}
+.le-editor-toolbar .dropdown-content a:hover {background-color: #f1f1f1}
 
 /* 在鼠标移上去后显示下拉菜单 */
-.dropdown:hover .dropdown-content {
+.le-editor-toolbar .dropdown:hover .dropdown-content {
   display: block;
 }
 
 /* 当下拉内容显示后修改下拉按钮的背景颜色 */
-.dropdown:hover .dropbtn {
+.le-editor-toolbar .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
 

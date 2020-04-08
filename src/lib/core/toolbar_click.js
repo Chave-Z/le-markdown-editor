@@ -70,17 +70,17 @@ const operateList = [
     suffix: '',
     keys: ''
   }, {
-    type: 'align-left', // 居左
+    type: 'alignLeft', // 居左
     prefix: '\n::: le-left \n',
     suffix: '\n:::',
     keys: ''
   }, {
-    type: 'align-center', // 居中
+    type: 'alignCenter', // 居中
     prefix: '\n::: le-center \n',
     suffix: '\n:::',
     keys: ''
   }, {
-    type: 'align-right', // 居右
+    type: 'alignRight', // 居右
     prefix: '\n::: le-right \n',
     suffix: '\n:::',
     keys: ''
