@@ -7,14 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>样例</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@0.0.8/dist/leEditor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.0.2/dist/leEditor.js"></script>
 </head>
 
 <body>
 <div id="app" :style="appStyle">
+  <a href="http://47.100.125.98/preview.html">显示器组件点这里</a>
   <div id="editor-main">
 <!--    <le-editor v-model="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
-    <le-editor v-model="value" :image-uploader="imageUploader" @save="save"></le-editor>
+    <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
   </div>
 </div>
 </body>
@@ -23,7 +24,8 @@
         el: '#app',
         data() {
             return {
-                value: '@[TOC](导航)\n' +
+              hljsCss: 'agate',
+              value: '@[TOC](导航)\n' +
                     'Markdown 语法简介\n' +
                     '# 字符效果、分隔线\n' +
                     '----\n' +
@@ -257,6 +259,7 @@
             // },
             save: function (val) {
                 // 获取预览文本
+                console.log(this.value)
                 console.log(val)
             }
         },

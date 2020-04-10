@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>样例</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.0.2/dist/leEditor.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <a href="http://47.100.125.98/">编辑器组件点这里</a>
+  <div id="main">
+    <div id="left">
+      <h2>通过html方式显示</h2>
+      <le-preview :value="html" :hljs-css="hljsCss"></le-preview>
+    </div>
+    <div id="right">
+      <h2>通过markdown方式显示</h2>
+      <le-preview :value="mdContent" :is-md="true" :hljs-css="hljsCss"></le-preview>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        hljsCss: 'agate',
+        html: '<p data-source="1"><h3>导航</h3><ul><li><a href="#_2">字符效果、分隔线</a></li><li><a href="#_20">引用</a></li><li><a href="#_Links_24">锚点与链接 Links</a></li><li><a href="#_31">代码高亮</a></li><ul><li><a href="#_33">行内代码</a></li><li><a href="#_38">缩进风格</a></li><li><a href="#JS_43">JS代码</a></li><li><a href="#HTML__HTML_codes_50">HTML 代码 HTML codes</a></li></ul><li><a href="#_Images_63">图片 Images</a></li><ul><li><a href="#_Image_64">图片 Image</a></li><li><a href="#_Image__Link_67">图片加链接 (Image + Link)</a></li></ul><li><a href="#_Lists_73">列表 Lists</a></li><ul><li><a href="#Unordered_Lists__75">无序列表（减号）Unordered Lists (-)</a></li><li><a href="#Unordered_Lists__81">无序列表（星号）Unordered Lists (*)</a></li><li><a href="#Unordered_Lists__87">无序列表（加号和嵌套）Unordered Lists (+)</a></li><li><a href="#_Ordered_Lists__98">有序列表 Ordered Lists (-)</a></li></ul><li><a href="#GFM_task_list_104">GFM task list</a></li><li><a href="#_118">绘制表格</a></li><li><a href="#Emoji_141">Emoji表情</a></li><li><a href="#LaTeX__145">LaTeX 公式</a></li><li><a href="#_161">流程图</a></li><li><a href="#_177">视频、音频</a></li><li><a href="#_196">脚注</a></li></ul>\n' +
+          'Markdown 语法简介</p>\n' +
+          '<h1 data-source="3"><a id="_2"></a>字符效果、分隔线</h1>\n' +
+          '<hr data-source="4"></hr><p data-source="6"><s>删除</s></p>\n' +
+          '<p data-source="8"><em>斜体字</em>      <em>斜体字</em></p>\n' +
+          '<p data-source="10"><strong>粗体</strong>  <strong>粗体</strong></p>\n' +
+          '<p data-source="12"><em><strong>粗斜体</strong></em> <em><strong>粗斜体</strong></em></p>\n' +
+          '<p data-source="14">上标：X<sup>2</sup>，X<sup>2</sup>\n' +
+          '下标：O<sub>2</sub>， X<sub>2</sub></p>\n' +
+          '<p data-source="17"><strong>缩写(同HTML的abbr标签)</strong></p>\n' +
+          '<p data-source="19">The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>\n' +
+          '<h1 data-source="21"><a id="_20"></a>引用</h1>\n' +
+          '<blockquote data-source="23"><p data-source="23">引用文本</p>\n' +
+          '</blockquote>\n' +
+          '<h1 data-source="25"><a id="_Links_24"></a>锚点与链接 Links</h1>\n' +
+          '<p data-source="26"><a href="https://gitee.com/Chave-Z/vue-md-editor/">普通链接</a></p>\n' +
+          '<p data-source="28"><a href="https://gitee.com/Chave-Z/vue-md-editor/" title="普通链接带标题">普通链接带标题</a></p>\n' +
+          '<p data-source="30">直接链接：<a href="https://gitee.com/Chave-Z/vue-md-editor">https://gitee.com/Chave-Z/vue-md-editor</a></p>\n' +
+          '<h1 data-source="32"><a id="_31"></a>代码高亮</h1>\n' +
+          '<h2 data-source="34"><a id="_33"></a>行内代码</h2>\n' +
+          '<p data-source="37">执行命令：<code>Inline code...</code></p>\n' +
+          '<h2 data-source="39"><a id="_38"></a>缩进风格</h2>\n' +
+          '<pre class="hljs" data-source="41"><code>&lt;toolbar ref=&quot;toolbar&quot;&gt;\n' +
+          '&lt;/toolbar&gt;\n' +
+          '</code></pre>\n' +
+          '<h2 data-source="44"><a id="JS_43"></a>JS代码</h2>\n' +
+          '<pre class="hljs" data-source="45"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{\n' +
+          '\t<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hello world!"</span>);\n' +
+          '}</code></pre><h2 data-source="51"><a id="HTML__HTML_codes_50"></a>HTML 代码 HTML codes</h2>\n' +
+          '<pre class="hljs" data-source="52"><code><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>\n' +
+          '<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>\n' +
+          '    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>\n' +
+          '        <span class="hljs-tag">&lt;<span class="hljs-name">mate</span> <span class="hljs-attr">charest</span>=<span class="hljs-string">"utf-8"</span> /&gt;</span>\n' +
+          '        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Hello world!<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>\n' +
+          '    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>\n' +
+          '    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>\n' +
+          '        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-xxl"</span>&gt;</span>Hello world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>\n' +
+          '    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>\n' +
+          '<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><h1 data-source="64"><a id="_Images_63"></a>图片 Images</h1>\n' +
+          '<h2 data-source="65"><a id="_Image_64"></a>图片 Image</h2>\n' +
+          '<p data-source="67"><img src="https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png" alt="markdown"></p>\n' +
+          '<h2 data-source="68"><a id="_Image__Link_67"></a>图片加链接 (Image + Link)</h2>\n' +
+          '<p data-source="70"><a href="https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png" title="markdown"><img src="https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png" alt=""></a></p>\n' +
+          '<hr data-source="72"></hr><h1 data-source="74"><a id="_Lists_73"></a>列表 Lists</h1>\n' +
+          '<h2 data-source="76"><a id="Unordered_Lists__75"></a>无序列表（减号）Unordered Lists (-)</h2>\n' +
+          '<ul data-source="78"><li><p data-source="78">列表一</li>\n' +
+          '<li><p data-source="79">列表二</li>\n' +
+          '<li><p data-source="80">列表三</li>\n' +
+          '</ul>\n' +
+          '<h2 data-source="82"><a id="Unordered_Lists__81"></a>无序列表（星号）Unordered Lists (*)</h2>\n' +
+          '<ul data-source="84"><li><p data-source="84">列表一</li>\n' +
+          '<li><p data-source="85">列表二</li>\n' +
+          '<li><p data-source="86">列表三</li>\n' +
+          '</ul>\n' +
+          '<h2 data-source="88"><a id="Unordered_Lists__87"></a>无序列表（加号和嵌套）Unordered Lists (+)</h2>\n' +
+          '<ul data-source="89"><li><p data-source="89">列表一</li>\n' +
+          '<li><p data-source="90">列表二<ul data-source="91"><li><p data-source="91">列表二-1</li>\n' +
+          '<li><p data-source="92">列表二-2</li>\n' +
+          '<li><p data-source="93">列表二-3</li>\n' +
+          '</ul>\n' +
+          '</li>\n' +
+          '<li><p data-source="94">列表三<ul data-source="95"><li><p data-source="95">列表一</li>\n' +
+          '<li><p data-source="96">列表二</li>\n' +
+          '<li><p data-source="97">列表三</li>\n' +
+          '</ul>\n' +
+          '</li>\n' +
+          '</ul>\n' +
+          '<h2 data-source="99"><a id="_Ordered_Lists__98"></a>有序列表 Ordered Lists (-)</h2>\n' +
+          '<ol data-source="101"><li><p data-source="101">第一行</li>\n' +
+          '<li><p data-source="102">第二行</li>\n' +
+          '<li><p data-source="103">第三行</li>\n' +
+          '</ol>\n' +
+          '<h1 data-source="105"><a id="GFM_task_list_104"></a>GFM task list</h1>\n' +
+          '<ul data-source="107"><li class="task-list-item"><p data-source="107"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> GFM task list 1</li>\n' +
+          '<li class="task-list-item"><p data-source="108"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> GFM task list 2</li>\n' +
+          '<li class="task-list-item"><p data-source="109"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 3<ul data-source="110"><li class="task-list-item"><p data-source="110"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 3-1</li>\n' +
+          '<li class="task-list-item"><p data-source="111"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 3-2</li>\n' +
+          '<li class="task-list-item"><p data-source="112"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 3-3</li>\n' +
+          '</ul>\n' +
+          '</li>\n' +
+          '<li class="task-list-item"><p data-source="113"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 4<ul data-source="114"><li class="task-list-item"><p data-source="114"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 4-1</li>\n' +
+          '<li class="task-list-item"><p data-source="115"><input class="task-list-item-checkbox" disabled="" type="checkbox"> GFM task list 4-2</li>\n' +
+          '</ul>\n' +
+          '</li>\n' +
+          '</ul>\n' +
+          '<hr data-source="117"></hr><h1 data-source="119"><a id="_118"></a>绘制表格</h1>\n' +
+          '<table data-source="121"><thead>\n' +
+          '<tr>\n' +
+          '<th>标题</th>\n' +
+          '<th>标题</th>\n' +
+          '</tr>\n' +
+          '</thead>\n' +
+          '<tbody>\n' +
+          '<tr>\n' +
+          '<td>内容内容</td>\n' +
+          '<td>内容内容</td>\n' +
+          '</tr>\n' +
+          '<tr>\n' +
+          '<td>内容</td>\n' +
+          '<td>内容</td>\n' +
+          '</tr>\n' +
+          '</tbody>\n' +
+          '</table>\n' +
+          '<table data-source="126"><thead>\n' +
+          '<tr>\n' +
+          '<th style="text-align:left">标题</th>\n' +
+          '<th style="text-align:left">标题</th>\n' +
+          '</tr>\n' +
+          '</thead>\n' +
+          '<tbody>\n' +
+          '<tr>\n' +
+          '<td style="text-align:left">内容内容内容内容</td>\n' +
+          '<td style="text-align:left">内容内容内容内容</td>\n' +
+          '</tr>\n' +
+          '<tr>\n' +
+          '<td style="text-align:left">内容</td>\n' +
+          '<td style="text-align:left">内容</td>\n' +
+          '</tr>\n' +
+          '</tbody>\n' +
+          '</table>\n' +
+          '<table data-source="131"><thead>\n' +
+          '<tr>\n' +
+          '<th style="text-align:center">标题</th>\n' +
+          '<th style="text-align:center">标题</th>\n' +
+          '</tr>\n' +
+          '</thead>\n' +
+          '<tbody>\n' +
+          '<tr>\n' +
+          '<td style="text-align:center">内容内容内容内容</td>\n' +
+          '<td style="text-align:center">内容内容内容内容</td>\n' +
+          '</tr>\n' +
+          '<tr>\n' +
+          '<td style="text-align:center">内容</td>\n' +
+          '<td style="text-align:center">内容</td>\n' +
+          '</tr>\n' +
+          '</tbody>\n' +
+          '</table>\n' +
+          '<table data-source="136"><thead>\n' +
+          '<tr>\n' +
+          '<th style="text-align:right">标题</th>\n' +
+          '<th style="text-align:right">标题</th>\n' +
+          '</tr>\n' +
+          '</thead>\n' +
+          '<tbody>\n' +
+          '<tr>\n' +
+          '<td style="text-align:right">内容内容内容内容</td>\n' +
+          '<td style="text-align:right">内容内容内容内容</td>\n' +
+          '</tr>\n' +
+          '<tr>\n' +
+          '<td style="text-align:right">内容</td>\n' +
+          '<td style="text-align:right">内容</td>\n' +
+          '</tr>\n' +
+          '</tbody>\n' +
+          '</table>\n' +
+          '<hr data-source="140"></hr><h1 data-source="142"><a id="Emoji_141"></a>Emoji表情</h1>\n' +
+          '<p data-source="143">访问 <a href="https://www.webfx.com/tools/emoji-cheat-sheet/">webfx</a> 参考更多使用方法。</p>\n' +
+          '<p data-source="145">☀️ ☔️ ☁️ ❄️ ⛄️ ⚡️ 🌀  🌁 🌊 🐱 🐶</p>\n' +
+          '<h1 data-source="146"><a id="LaTeX__145"></a>LaTeX 公式</h1>\n' +
+          '<p data-source="148"><code>$</code> 表示行内公式：</p>\n' +
+          '<p data-source="150">质能守恒方程可以用一个很简洁的方程式 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E=mc^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord"><span class="mord mathit">c</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 来表达。</p>\n' +
+          '<p data-source="152"><code>$$ </code>表示整行公式：</p>\n' +
+          '<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>a</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\\sum_{i=1}^n a_i=0\n' +
+          '</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.6513970000000002em;"></span><span class="strut bottom" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span></span></p>\n' +
+          '<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mi>x</mi></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mi>n</mi></msub><mo>)</mo><mo>=</mo><msubsup><mi>x</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>x</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mo>⋯</mo><mo>+</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">f(x_1,x_x,\\ldots,x_n) = x_1^2 + x_2^2 + \\cdots + x_n^2 \n' +
+          '</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8641079999999999em;"></span><span class="strut bottom" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">x</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="minner">…</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.247em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span style="top:-0.4129999999999999em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.247em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span style="top:-0.4129999999999999em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="minner">⋯</span><span class="mbin">+</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.247em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span style="top:-0.4129999999999999em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>\n' +
+          '<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></msubsup><msup><mi>i</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>n</mi><mo>)</mo><mo>(</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mrow><mn>6</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\\sum_{i=0}^n i^2 = \\frac{(n^2+n)(2n+1)}{6}\n' +
+          '</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.6513970000000002em;"></span><span class="strut bottom" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.2500050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">6</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>\n' +
+          '<p data-source="160">访问 <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">MathJax</a> 参考更多使用方法。</p>\n' +
+          '<h1 data-source="162"><a id="_161"></a>流程图</h1>\n' +
+          '<div class="md-flowchart"  data-source="164">start=>start: 开始\n' +
+          'loginInfo=>inputoutput: 登录数据\n' +
+          'verifyLogin=>subroutine: 登录验证\n' +
+          'isSuccess=>condition: 验证成功？\n' +
+          'respondSuccess=>operation: 响应成功\n' +
+          'responseFailure=>operation: 响应失败\n' +
+          'end=>end: 结束\n' +
+          '\n' +
+          'start->loginInfo->verifyLogin->isSuccess\n' +
+          'isSuccess(yes)->respondSuccess->end\n' +
+          'isSuccess(no)->responseFailure->end</div><h1 data-source="178"><a id="_177"></a>视频、音频</h1>\n' +
+          '<p data-source="180"><video id="video"\n' +
+          '           controls=""\n' +
+          '           preload="none"\n' +
+          '           width="100%"\n' +
+          '           >\n' +
+          '<source id="mp4"\n' +
+          '              src="https://www.w3school.com.cn/i/movie.ogg"\n' +
+          '              type="video/mp4">\n' +
+          '</video></p>\n' +
+          '<p data-source="190"><audio id="audio"\n' +
+          '        controls=""\n' +
+          '        preload="none">\n' +
+          '<source id="mp3"\n' +
+          '          src="http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_849867&response=res&type=convert_url&">\n' +
+          '</audio></p>\n' +
+          '<h1 data-source="197"><a id="_196"></a>脚注</h1>\n' +
+          '<p data-source="198">生成一个脚注1<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.\n' +
+          '生成一个脚注2<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>\n' +
+          '<hr class="footnotes-sep">\n' +
+          '<section class="footnotes">\n' +
+          '<ol class="footnotes-list">\n' +
+          '<li id="fn1" class="footnote-item"><p data-source="200">这里是 <strong>脚注</strong> 的 <em>内容</em>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>\n' +
+          '</li>\n' +
+          '<li id="fn2" class="footnote-item"><p data-source="201">这里是<strong>脚注2</strong>的<em>内容</em>. <a href="#fnref2" class="footnote-backref">↩︎</a></p>\n' +
+          '</li>\n' +
+          '</ol>\n' +
+          '</section>\n',
+        mdContent: '@[TOC](导航)\n' +
+          'Markdown 语法简介\n' +
+          '# 字符效果、分隔线\n' +
+          '----\n' +
+          '\n' +
+          '~~删除~~\n' +
+          '\n' +
+          '*斜体字*      _斜体字_\n' +
+          '\n' +
+          '**粗体**  __粗体__\n' +
+          '\n' +
+          '***粗斜体*** ___粗斜体___\n' +
+          '\n' +
+          '上标：X<sup>2</sup>，X^2^\n' +
+          '下标：O<sub>2</sub>， X~2~\n' +
+          '\n' +
+          '**缩写(同HTML的abbr标签)**\n' +
+          '\n' +
+          'The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.\n' +
+          '\n' +
+          '# 引用\n' +
+          '\n' +
+          '> 引用文本\n' +
+          '\n' +
+          '# 锚点与链接 Links\n' +
+          '[普通链接](https://gitee.com/Chave-Z/vue-md-editor/)\n' +
+          '\n' +
+          '[普通链接带标题](https://gitee.com/Chave-Z/vue-md-editor/ "普通链接带标题")\n' +
+          '\n' +
+          '直接链接：<https://gitee.com/Chave-Z/vue-md-editor>\n' +
+          '\n' +
+          '# 代码高亮\n' +
+          '\n' +
+          '## 行内代码\n' +
+          '\n' +
+          '\n' +
+          '执行命令：`Inline code...`\n' +
+          '\n' +
+          '## 缩进风格\n' +
+          '\n' +
+          '    <toolbar ref="toolbar">\n' +
+          '    </toolbar>\n' +
+          '\n' +
+          '## JS代码\n' +
+          '```javascript\n' +
+          'function test() {\n' +
+          '\tconsole.log("Hello world!");\n' +
+          '}\n' +
+          '```\n' +
+          '\n' +
+          '## HTML 代码 HTML codes\n' +
+          '```html\n' +
+          '<!DOCTYPE html>\n' +
+          '<html>\n' +
+          '    <head>\n' +
+          '        <mate charest="utf-8" />\n' +
+          '        <title>Hello world!</title>\n' +
+          '    </head>\n' +
+          '    <body>\n' +
+          '        <h1 class="text-xxl">Hello world!</h1>\n' +
+          '    </body>\n' +
+          '</html>\n' +
+          '```\n' +
+          '# 图片 Images\n' +
+          '## 图片 Image\n' +
+          '\n' +
+          '![markdown](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png)\n' +
+          '## 图片加链接 (Image + Link)\n' +
+          '\n' +
+          '[![](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png)](https://www.runoob.com/wp-content/uploads/2019/03/iconfinder_markdown_298823.png "markdown")\n' +
+          '\n' +
+          '---\n' +
+          '\n' +
+          '# 列表 Lists\n' +
+          '\n' +
+          '## 无序列表（减号）Unordered Lists (-)\n' +
+          '\n' +
+          '- 列表一\n' +
+          '- 列表二\n' +
+          '- 列表三\n' +
+          '\n' +
+          '## 无序列表（星号）Unordered Lists (*)\n' +
+          '\n' +
+          '* 列表一\n' +
+          '* 列表二\n' +
+          '* 列表三\n' +
+          '\n' +
+          '## 无序列表（加号和嵌套）Unordered Lists (+)\n' +
+          '+ 列表一\n' +
+          '+ 列表二\n' +
+          '    + 列表二-1\n' +
+          '    + 列表二-2\n' +
+          '    + 列表二-3\n' +
+          '+ 列表三\n' +
+          '    * 列表一\n' +
+          '    * 列表二\n' +
+          '    * 列表三\n' +
+          '\n' +
+          '## 有序列表 Ordered Lists (-)\n' +
+          '\n' +
+          '1. 第一行\n' +
+          '2. 第二行\n' +
+          '3. 第三行\n' +
+          '\n' +
+          '# GFM task list\n' +
+          '\n' +
+          '- [x] GFM task list 1\n' +
+          '- [x] GFM task list 2\n' +
+          '- [ ] GFM task list 3\n' +
+          '    - [ ] GFM task list 3-1\n' +
+          '    - [ ] GFM task list 3-2\n' +
+          '    - [ ] GFM task list 3-3\n' +
+          '- [ ] GFM task list 4\n' +
+          '    - [ ] GFM task list 4-1\n' +
+          '    - [ ] GFM task list 4-2\n' +
+          '\n' +
+          '----\n' +
+          '\n' +
+          '# 绘制表格\n' +
+          '\n' +
+          '| 标题 | 标题 |\n' +
+          '| ------------ | ------------ |\n' +
+          '| 内容内容  | 内容内容 |\n' +
+          '| 内容 | 内容 |\n' +
+          '\n' +
+          '| 标题 | 标题 |\n' +
+          '| :------------ | :------------ |\n' +
+          '| 内容内容内容内容 | 内容内容内容内容 |\n' +
+          '| 内容 | 内容 |\n' +
+          '\n' +
+          '| 标题 | 标题 |\n' +
+          '| :------------: | :------------: |\n' +
+          '| 内容内容内容内容 | 内容内容内容内容 |\n' +
+          '| 内容 | 内容 |\n' +
+          '\n' +
+          '| 标题 | 标题 |\n' +
+          '| ------------: | ------------: |\n' +
+          '| 内容内容内容内容 | 内容内容内容内容 |\n' +
+          '| 内容 | 内容 |\n' +
+          '----\n' +
+          '\n' +
+          '# Emoji表情\n' +
+          '访问 [webfx](https://www.webfx.com/tools/emoji-cheat-sheet/) 参考更多使用方法。\n' +
+          '\n' +
+          ':sunny: :umbrella: :cloud: :snowflake: :snowman: :zap: :cyclone:  :foggy: :ocean: :cat: :dog:\n' +
+          '# LaTeX 公式\n' +
+          '\n' +
+          '`$` 表示行内公式： \n' +
+          '\n' +
+          '质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。\n' +
+          '\n' +
+          '`$$ `表示整行公式：\n' +
+          '\n' +
+          '$$\\sum_{i=1}^n a_i=0$$\n' +
+          '\n' +
+          '$$f(x_1,x_x,\\ldots,x_n) = x_1^2 + x_2^2 + \\cdots + x_n^2 $$\n' +
+          '\n' +
+          '$$\\sum_{i=0}^n i^2 = \\frac{(n^2+n)(2n+1)}{6}$$\n' +
+          '\n' +
+          '访问 [MathJax](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference) 参考更多使用方法。\n' +
+          '\n' +
+          '# 流程图\n' +
+          '\n' +
+          '```flow\n' +
+          'start=>start: 开始\n' +
+          'loginInfo=>inputoutput: 登录数据\n' +
+          'verifyLogin=>subroutine: 登录验证\n' +
+          'isSuccess=>condition: 验证成功？\n' +
+          'respondSuccess=>operation: 响应成功\n' +
+          'responseFailure=>operation: 响应失败\n' +
+          'end=>end: 结束\n' +
+          '\n' +
+          'start->loginInfo->verifyLogin->isSuccess\n' +
+          'isSuccess(yes)->respondSuccess->end\n' +
+          'isSuccess(no)->responseFailure->end\n' +
+          '```\n' +
+          '\n' +
+          '# 视频、音频\n' +
+          '\n' +
+          '<video id="video"\n' +
+          '           controls=""\n' +
+          '           preload="none"\n' +
+          '           width="100%"\n' +
+          '           >\n' +
+          '    <source id="mp4"\n' +
+          '              src="https://www.w3school.com.cn/i/movie.ogg"\n' +
+          '              type="video/mp4">\n' +
+          '</video>\n' +
+          '\n' +
+          '<audio id="audio"\n' +
+          '        controls=""\n' +
+          '        preload="none">\n' +
+          '    <source id="mp3"\n' +
+          '          src="http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_849867&response=res&type=convert_url&">\n' +
+          '</audio>\n' +
+          '\n' +
+          '# 脚注\n' +
+          '生成一个脚注1[^footnote].\n' +
+          '生成一个脚注2[^foot].\n' +
+          '[^footnote]: 这里是 **脚注** 的 *内容*.\n' +
+          ' [^foot]:这里是**脚注2**的*内容*.\n',
+        appStyle: {
+          // width: document.documentElement.clientWidth + 'px',
+          // height: document.documentElement.clientHeight + 'px'
+        },
+        // 自定义
+        // imageUploader: {
+        //   custom: true,
+        //   fileType: 'file',
+        //   fileNameType: 'uuid',
+        //   imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
+        // }
+        imageUploader: {
+          custom: false,
+          fileType: 'file',
+          fileNameType: '',
+          imagePrefix: 'http://47.100.125.98', // 图片前缀地址
+          type: 'server',
+          url: 'http://47.100.125.98:82/upload'
+        }
+      }
+    },
+    methods: {},
+  })
+</script>
+<style>
+  #app {
+    width: 1200px;
+    height: 500px;
+    margin: 50px auto;
+  }
+
+  #main {
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #left {
+    width: 47%;
+  }
+
+  #right {
+    width: 47%;
+  }
+</style>
+
+</html>

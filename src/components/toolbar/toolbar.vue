@@ -1,4 +1,4 @@
-<style lang="css">
+<style lang="css" scoped>
 @import "./index.css";
 </style>
 <template>
@@ -111,19 +111,19 @@
       <li v-if="toolbar.alignLeft"><a href="javascript:;"
            title="居左（Ctrl+Alt+L）"
            unselectable="on"
-           @click.stop="toolbarClick('align-left')"><i class="fa fa-align-left"
+           @click.stop="toolbarClick('alignLeft')"><i class="fa fa-align-left"
              name="align-left"
              unselectable="on"></i></a></li>
       <li v-if="toolbar.alignCenter"><a href="javascript:;"
            title="居中（Ctrl+Alt+C）"
            unselectable="on"
-           @click.stop="toolbarClick('align-center')"><i class="fa fa-align-center"
+           @click.stop="toolbarClick('alignCenter')"><i class="fa fa-align-center"
              name="align-center"
              unselectable="on"></i></a></li>
       <li v-if="toolbar.alignRight"><a href="javascript:;"
            title="居右（Ctrl+Alt+R）"
            unselectable="on"
-           @click.stop="toolbarClick('align-right')"><i class="fa fa-align-right"
+           @click.stop="toolbarClick('alignRight')"><i class="fa fa-align-right"
              name="align-right"
              unselectable="on"></i></a></li>
       <li v-if="toolbar.ol"><a href="javascript:;"

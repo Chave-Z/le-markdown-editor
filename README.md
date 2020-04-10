@@ -30,14 +30,19 @@
 - ...
 
 ### 更新
-- 2020-04-06 (v0.0.8)添加v-model，如果需要在保存时获取markdown内容，请替换:value为v-model
+- 2020-04-10 新增`le-preview`组件,方便显示，新增`:hljs-css属性，可修改代码高亮样式，具体用法请参考下文
+- 2020-04-08 修复失效的菜单功能项,修复样式覆盖的问题
+- 2020-04-07 (v0.0.9+)添加v-model，如果需要在保存时获取markdown内容，请替换:value为v-model
 - 2020-03-08 优化插件、修复bug
 - 2019-12-11 添加演示地址[点击访问](http://47.100.125.98/)
 - 2019-12-09 修复了打开控制台点击全屏后再关闭控制台，编辑器大小不对的问题
 
 ###  插件使用
 #### 使用cdn
-有的人可能不太喜欢用webpack或者就是写个小demo，用不到webpack，可以点击访问[这个文件](./src/dev/notes.html)，参考这个文件即可使用
+有的人可能不太喜欢用webpack或者就是写个小demo，用不到webpack
+编辑器组件参考：[这个文件](./src/dev/notes.html)
+预览组件参考：[这个文件](./src/dev/preview.html)
+
 #### 在webpack构建的项目中
 - 下载插件
 
@@ -61,7 +66,7 @@ new Vue({
   template: '<App/>'
 }).$mount('#app')
 ```
-- `index.html`
+- `index.html` (编辑器)
 
 ```vue
 <div id="editor-main">
@@ -83,22 +88,48 @@ new Vue({
 }
 </style>
 ```
-#### 我该如何了解插件语法？
-打开项目根目录下的test.txt，将其拷贝到编辑区，对比右侧看到的预览文本，就能知道如何使用了
+
+- `index.html` (预览组件)
+
+```vue
+<div id="main">
+      <le-preview></le-preview>
+</div>
+
+<style>
+#app {
+    width: 1200px;
+    height: 500px;
+    margin: 50px auto;
+}
+
+/*设置编辑器宽高*/
+#main {
+	color: #2c3e50;
+	width: 100%;
+	height: 100%;
+}
+</style>
+```
+#### 我该如何了解markdown语法？
+百度或打开项目根目录下的test.txt，将其拷贝到编辑区，对比右侧看到的预览文本，就能知道如何使用了
 
 ### API
+
+### le-editor 相关
 
 #### props(自定义配置)
 
 | 属性        | 说明                                           | 类型    | 默认值                               |
 | :---------- | :--------------------------------------------- | :------ | :----------------------------------- |
-| value       | 可以使用 v-model 双向绑定数据                  | Sting   | ''                                   |
-| theme       | 编辑器主题                                         | Sting   | 'base16-dark'                                   |
+| value       | 可以使用 v-model 双向绑定数据                  | String  | ''                                   |
+| theme       | 编辑器主题                                         | String  | 'base16-dark'                                   |
 | font        | 设置编辑区和展示区的文字大小   | Object  | {editor: 16, preview: 16} |
 | shadow      | 编辑器是否带阴影效果                           | Boolean | true                                 |
 | dragUpload  | 是否允许拖拽上传图片，需要结合图片上传配置使用 | Boolean | true                                 |
 | showToolbar | 是否显示工具栏                                 | Boolean | true                                 |
 | toolbar     | 菜单栏及快捷键的功能                           | Object  | 见下文                               |
+| hljs-css | html显示区域代码高亮样式 | String | 'github' |
 
 ##### 菜单栏配置配置
 
@@ -167,6 +198,116 @@ export default {
 | save        | 保存预览文本               | 预览区的html文本             |
 | uploadImg   | 上传图片                   | 组件对象、文件以及文件名，详细内容见下文|
 
+### le-preview 相关
+
+#### props(自定义配置)
+
+| 属性     | 说明                                                         | 类型   | 默认值   |
+| :------- | :----------------------------------------------------------- | :----- | :------- |
+| value    | 显示的文本，可传入markdown和html，根据is-md来区分            | String | ''       |
+| is-md    | value格式，为true则传入的为markdown格式文本，为false则为编辑器保存的html | String | False    |
+| hljs-css | html显示区域代码高亮样式                                     | String | 'github' |
+
+##### hljs-css可用属性值
+
+>  用法参考 `/src/dev/note.html或/src/dev/preview.html`
+>
+> 样式提取自highlight.js，显示效果可参考：https://highlightjs.org/
+
+```json
+a11yDark
+a11yLight
+agate
+anOldHope
+androidstudio
+arduinoLight
+arta
+ascetic
+atelierCaveDark
+atelierCaveLight
+atelierDuneDark
+atelierDuneLight
+atelierEstuaryDark
+atelierEstuaryLight
+atelierForestDark
+atelierForestLight
+atelierHeathDark
+atelierHeathLight
+atelierLakesideDark
+atelierLakesideLight
+atelierPlateauDark
+atelierPlateauLight
+atelierSavannaDark
+atelierSavannaLight
+atelierSeasideDark
+atelierSeasideLight
+atelierSulphurpoolDark
+atelierSulphurpoolLight
+atomOneDarkReasonable
+atomOneDark
+atomOneLight
+brownPaper
+codepenEmbed
+colorBrewer
+darcula
+dark
+darkula
+default
+docco
+dracula
+far
+foundation
+githubGist
+github
+gml
+googlecode
+gradientDark
+grayscale
+gruvboxDark
+gruvboxLight
+hopscotch
+hybrid
+idea
+irBlack
+isblEditorDark
+isblEditorLight
+'kimbie.dark'
+'kimbie.light'
+lightfair
+magula
+monoBlue
+monokaiSublime
+monokai
+nightOwl
+nord
+obsidian
+ocean
+paraisoDark
+paraisoLight
+pojoaque
+purebasic
+qtcreatorDark
+qtcreatorLight
+railscasts
+rainbow
+routeros
+schoolBook
+shadesOfPurple
+solarizedDark
+solarizedLight
+sunburst
+tomorrowNightBlue
+tomorrowNightBright
+tomorrowNightEighties
+tomorrowNight
+tomorrow
+vs
+vs2015
+xcode
+xt256
+zenburn
+```
+
 ### 图片上传配置
 
 本地图片上传因为没有各种云存储账号的的原因，所以暂时只支持拖拽或者粘贴剪切板图片（windows粘贴本地图片需要先预览，截图则不需要）上传到Github仓库和自己的服务器，虽然都在说Github访问有点慢，但是我这几天测试了一下，虽然上传速度不快，但是访问时感觉效果还行，但是毕竟免费的，对于没有图床和服务器的用户还是很不错的，介意的话可以传到自己的服务器或者利用拓展方法上传到自己的云存储上。
@@ -179,7 +320,7 @@ export default {
 
 详情请点击这里-->[图片上传配置详情](./image.md)
 
-### 快捷键
+### 编辑器快捷键
 **注意：** 这里除了撤销和重做两个功能以外，其它的快捷键只在菜单设置为显示时生效
 
 | 快捷键         | 功能           |

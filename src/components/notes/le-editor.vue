@@ -1,8 +1,5 @@
-<style lang="css">
+<style lang="css" scoped>
   @import "./index.css";
-  @import "../../assets/css/github-markdown.css";
-  @import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css");
-  @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css");
 </style>
 <template>
   <div class="md-container"
@@ -31,17 +28,18 @@
              v-if="fullScreenFlag"
              @click="fullScreen()">
             <i class="fa fa-window-close-o"></i></a>
-          <div class="markdown-body"
-               ref="markdownBody"
-               :style="{fontSize:config.font.preview + 'px'}"
-               v-html="html"></div>
+          <le-preview :style="{fontSize:config.font.preview + 'px'}" :hljsCss="hljsCss" :value="html" ref="markdownBody"></le-preview>
+<!--          <le-preview :style="{fontSize:config.font.preview + 'px'}" :hljsCss="hljsCss" :is-md="true" :value="origin" ref="markdownBody"></le-preview>-->
+          <!--                    <div class="markdown-body"-->
+          <!--                         ref="markdownBody"-->
+          <!--                         :style="{fontSize:config.font.preview + 'px'}"-->
+          <!--                         v-html="html"></div>-->
         </div>
       </transition>
     </div>
     <div class="loader-modal"
          v-if="loaderFlag">
       <div class="loader">
-        <!--      <span class="text">上传中</span>-->
         <span class="spinner"></span>
       </div>
     </div>
@@ -66,16 +64,16 @@
   import md from '../../lib/core/markdown'
   import config from '../../lib/config'
   import {uploadToGithub, uploadToServer} from '../../lib/utils/upload'
-  import flowchart from 'flowchart.js'
-  import 'highlight.js/styles/github.css'
+  import LePreview from "../preview/le-preview"
 
   export const themes = ['3024-day', '3024-night', 'abcdef', 'ambiance-mobile', 'ambiance', 'base16-dark', 'base16-light', 'bespin', 'blackboard', 'cobalt', 'colorforth', 'dracula', 'duotone-dark', 'duotone-light', 'eclipse', 'elegant', 'erlang-dark', 'hopscotch', 'icecoder', 'isotope', 'lesser-dark', 'liquibyte', 'material', 'mbo', 'mdn-like', 'midnight', 'monokai', 'neat', 'neo', 'night', 'panda-syntax', 'paraiso-dark', 'paraiso-light', 'pastel-on-dark', 'railscasts', 'rubyblue', 'seti', 'solarized', 'the-matrix', 'tomorrow-night-bright', 'tomorrow-night-eighties', 'ttcn', 'twilight', 'vibrant-ink', 'xq-dark', 'xq-light', 'yeti', 'zenburn']
   themes.forEach((theme) => {
-    require(`codemirror/theme/${theme}.css`)
+      require(`codemirror/theme/${theme}.css`)
   })
   export default {
     name: 'le-editor',
     components: {
+      LePreview,
       toolbar
     },
     model: {
@@ -86,6 +84,10 @@
       value: {
         type: String,
         default: ""
+      },
+      hljsCss: {
+        type: String,
+        default: "github"
       },
       font: {
         type: Object,
@@ -146,6 +148,11 @@
       origin(value) {
         this.$emit('change', value);
       },
+      value(value) {
+        if (this.origin !== value) {
+          this.editor.setValue(value)
+        }
+      },
       loaderFlag: function (val) {
         if (val) {
           document.body.style.overflow = 'hidden'
@@ -181,7 +188,7 @@
       preview(flag) {
         // 开关实时预览
         this.previewFlag = flag
-        console.log(this.previewFlag)
+        // console.log(this.previewFlag)
         document.getElementsByClassName('le-editor-left')[0].style.width = this.previewFlag ? '50%' : '100%'
       }
       ,
@@ -284,7 +291,7 @@
         // let that = this
         // 这个功能在编辑器中已经有了 所以这里去除
         // clearTimeout(this.timer)
-        // // 不延迟会存下很多没有大多意义的历史记录
+        // // 不延迟会存下很多没有太多意义的历史记录
         // if (this.historyPushFlag) {
         //   this.timer = setTimeout(() => {
         //     that.history.splice(++that.historyIndex, 1, that.origin)
@@ -292,20 +299,7 @@
         // }
         // this.historyPushFlag = true
         this.origin = this.editor.getValue()
-        this.html = md.render(this.origin);
-        // 流程图 暂时没找到更好的办法 先做个延迟吧
-        setTimeout(function () {
-          document.querySelectorAll('.md-flowchart').forEach(element => {
-            try {
-              let code = element.textContent
-              let chart = flowchart.parse(code)
-              element.textContent = ''
-              chart.drawSVG(element)
-            } catch (e) {
-              element.outerHTML = `<pre>error: ${e}</pre>`
-            }
-          })
-        }, 200)
+        this.html = md.render(this.origin)
       }
     }
     ,
