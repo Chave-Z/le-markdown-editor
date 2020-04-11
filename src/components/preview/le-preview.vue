@@ -12,6 +12,7 @@
   import flowchart from 'flowchart.js'
   import {toKebabCase, hljsCssConfig} from '../../lib/core/hljs-plugn'
   import md from '../../lib/core/markdown'
+
   export default {
     name: 'le-preview',
     props: {
@@ -30,6 +31,7 @@
     },
     data() {
       return {
+        content: '',
         oldStyle: '',
         currentStyle: '',
         html: ''
@@ -37,23 +39,27 @@
     },
     watch: {
       value(value) {
+        this.content = value
+      },
+      content(value) {
         if (this.isMd) {
           this.html = md.render(value)
         } else {
-          this.html = this.value
+          this.html = value
         }
-        // 流程图 暂时没想到更好的办法 先做个延迟吧
         this.$nextTick().then(() => {
-          document.querySelectorAll('.md-flowchart').forEach(element => {
-            try {
-              let code = element.textContent
-              let chart = flowchart.parse(code)
-              element.textContent = ''
-              chart.drawSVG(element)
-            } catch (e) {
-              element.outerHTML = `<pre>error: ${e}</pre>`
-            }
-          })
+          // setTimeout(function () {
+            document.querySelectorAll('.md-flowchart').forEach(element => {
+              try {
+                let code = element.textContent
+                let chart = flowchart.parse(code)
+                element.textContent = ''
+                chart.drawSVG(element)
+              } catch (e) {
+                element.outerHTML = `<pre>error: ${e}</pre>`
+              }
+            })
+          // }, 3000)
         })
       },
       hljsCss(value) {
@@ -93,11 +99,7 @@
     created() {
     },
     mounted() {
-      if (this.isMd) {
-        this.html = md.render(this.value)
-      } else {
-        this.html = this.value
-      }
+      this.content = this.value
       if (hljsCssConfig[`${this.hljsCss}`]) {
         this.currentStyle = toKebabCase(this.hljsCss)
       } else {

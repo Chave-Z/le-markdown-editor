@@ -7,21 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>样例</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.0.2/dist/leEditor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.1.1/dist/leEditor.js"></script>
 </head>
 
 <body>
 <div id="app">
-  <a href="http://47.100.125.98/">编辑器组件点这里</a>
   <div id="main">
-    <div id="left">
-      <h2>通过html方式显示</h2>
-      <le-preview :value="html" :hljs-css="hljsCss"></le-preview>
-    </div>
-    <div id="right">
-      <h2>通过markdown方式显示</h2>
-      <le-preview :value="mdContent" :is-md="true" :hljs-css="hljsCss"></le-preview>
-    </div>
+    <a href="http://47.100.125.98/">编辑器组件点这里</a>
+<!--    <h2>通过html方式显示</h2>-->
+<!--    <le-preview ref="html-preview" :value="html" :hljs-css="hljsCss"></le-preview>-->
+        <h2>通过markdown方式显示</h2>
+        <le-preview ref="md-preview" :is-md="true" :value="mdContent" :hljs-css="hljsCss"></le-preview>
   </div>
 </div>
 </body>
@@ -441,7 +437,7 @@
           ' [^foot]:这里是**脚注2**的*内容*.\n'
       }
     },
-    methods: {},
+    methods: {}
   })
 </script>
 <style>
@@ -455,16 +451,10 @@
     color: #2c3e50;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: space-between;
   }
 
-  #left {
-    width: 47%;
-  }
-
-  #right {
-    width: 47%;
+  #main > div {
+    width: 100%;
   }
 </style>
 
