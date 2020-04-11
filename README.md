@@ -40,7 +40,7 @@
 - ...
 
 
-###  插件使用
+###  快速上手
 #### 使用cdn
 有的人可能不太喜欢用webpack或者就是写个小demo，用不到webpack
 编辑器组件参考：[这个文件](./src/dev/notes.html)
@@ -69,49 +69,121 @@ new Vue({
   template: '<App/>'
 }).$mount('#app')
 ```
-- `index.html` (编辑器)
+- `xxx.vue` (le-editor使用)
 
 ```vue
-<div id="editor-main">
-      <le-editor></le-editor>
+<div id="app">
+  <div id="editor-main">
+        <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
+  </div>
 </div>
 
-<style>
-#app {
+<script>
+  export default {
+    // ...
+    data() {
+      return {
+        hljsCss: 'agate',
+        value: '这里放markdown内容',
+        // 自定义
+        imageUploader: {
+          custom: false,
+          fileType: 'file',
+          fileNameType: '',
+          imagePrefix: 'http://47.100.125.98', // 图片上传成功后，预览地址前缀
+          type: 'server',
+          url: 'http://47.100.125.98:82/upload' // 上传接口地址
+        }
+      }
+    },
+    methods: {
+      // 自定义图片上传
+      // uploadImg: function ($vm, file, fileName) {
+      //   console.log($vm)
+      //   console.log(file)
+      //   console.log(fileName)
+      //   // 添加图片
+      //   // 两个参数 第一个是图片访问路径 第二个是文件名
+      //   $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
+      // },
+      save: function (val) {
+        // 获取预览文本
+        console.log(this.value) // 原文本
+        console.log(val) // 解析的html
+      }
+    },
+    mounted() {
+    }
+  }
+</script>
+
+<style lang="scss">
+  #app {
     width: 1200px;
     height: 500px;
     margin: 50px auto;
-}
+  }
 
-/*设置编辑器宽高*/
-#editor-main {
-	color: #2c3e50;
-	width: 100%;
-	height: 100%;
-}
+  #editor-main {
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+  }
 </style>
 ```
 
-- `index.html` (预览组件)
-
+- `xxx.vue` (le-preview使用)
+> 这里展示了两种格式源文件的显示
 ```vue
-<div id="main">
-      <le-preview></le-preview>
+<div id="app">
+    <div id="main">
+        <div id="left">
+          <h2>通过html方式显示</h2>
+          <le-preview :value="html" :hljs-css="hljsCss"></le-preview>
+        </div>
+        <div id="right">
+          <h2>通过markdown方式显示</h2>
+          <le-preview :value="mdContent" :is-md="true" :hljs-css="hljsCss"></le-preview>
+        </div>
+     </div>
 </div>
 
+<script>
+  export default {
+    // ...
+    data() {
+      return {
+        hljsCss: 'agate',
+        html: '这里放html文本',
+        mdContent: '这里放markdown文本'
+      }
+    },
+    methods: {},
+  }
+</script>
+
 <style>
-#app {
+  #app {
     width: 1200px;
     height: 500px;
     margin: 50px auto;
-}
+  }
 
-/*设置编辑器宽高*/
-#main {
-	color: #2c3e50;
-	width: 100%;
-	height: 100%;
-}
+  #main {
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #left {
+    width: 47%;
+  }
+
+  #right {
+    width: 47%;
+  }
 </style>
 ```
 #### 我该如何了解markdown语法？
