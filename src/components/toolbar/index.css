@@ -197,7 +197,8 @@
 }
 
 /* 鼠标移上去后修改下拉菜单链接颜色 */
-.le-editor-toolbar .dropdown-content a:hover {background-color: #f1f1f1}
+.le-editor-toolbar .dropdown-content a:hover{background-color: #f1f1f1}
+.le-editor-toolbar .dropdown-content .current-skin {background-color: #e3e3e3}
 
 /* 在鼠标移上去后显示下拉菜单 */
 .le-editor-toolbar .dropdown:hover .dropdown-content {

@@ -251,7 +251,8 @@
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 500
+  background: #fff;
+  z-index: 1000;
 }
 
 /** 预览打开、关闭动画**/

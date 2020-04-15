@@ -7,6 +7,7 @@
 
 
 ### 更新
+- 2020-04-15 (version >= v1.1.2)修复全屏预览透底问题，修改弹窗描述文字，皮肤修改按钮再点击可以关闭下拉框且下拉框当前主题高亮，elementUI刷新问题解决参考文末
 - 2020-04-10 新增`le-preview`组件(version >= v1.1.1),方便显示，新增`:hljs-css`属性，可修改代码高亮样式，具体用法请参考下文
 - 2020-04-08 修复失效的菜单功能项,修复样式覆盖的问题
 - 2020-04-07 (v0.0.9+)添加v-model，如果需要在保存时获取markdown内容，请替换:value为v-model
@@ -110,8 +111,8 @@ new Vue({
       // },
       save: function (val) {
         // 获取预览文本
-        console.log(this.value) // 原文本
-        console.log(val) // 解析的html
+        console.log(this.value) // 这里是原markdown文本
+        console.log(val) // 这个是解析出的html
       }
     },
     mounted() {
@@ -139,7 +140,7 @@ new Vue({
 ```vue
 <div id="app">
     <div id="main">
-        <h2>通过html方式显示</h2>-->
+        <!--    <h2>通过html方式显示</h2>-->
         <!--    <le-preview ref="html-preview" :value="html" :hljs-css="hljsCss"></le-preview>-->
         <h2>通过markdown方式显示</h2>
         <le-preview ref="md-preview" :is-md="true" :value="mdContent" :hljs-css="hljsCss"></le-preview>
@@ -417,4 +418,12 @@ zenburn
 | Ctrl + Alt + F | 开关全窗口预览  |
 | Ctrl + S | 保存html文本  |
 
+### 常见问题
+- 问：el-form中点击图片上传或表格添加中的按钮会自动刷新问题如何解决
+答：[官方文档](https://element.eleme.cn/#/zh-CN/component/form) 中有如下一段话，设置上可以解决：
+```
+W3C 标准中有如下规定：
+When there is only one single-line text input field in a form, the user agent should accept Enter in that field as a request to submit the form.
+即：当一个 form 元素中只有一个输入框时，在该输入框中按下回车应提交该表单。如果希望阻止这一默认行为，可以在 <el-form> 标签上添加 @submit.native.prevent。
+```
 

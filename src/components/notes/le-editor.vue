@@ -242,6 +242,7 @@
           }
         }
         if (!flag) return
+        console.log(this.config.imageUploader.fileNameType)
         let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + '.' + fileType) : file.name;
         if (this.config.imageUploader.custom) {
           // 自定义
