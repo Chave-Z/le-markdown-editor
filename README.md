@@ -5,6 +5,34 @@
 编辑器演示地址：http://47.100.125.98/
 预览组件演示地址：http://47.100.125.98/preview.html
 
+### 预览图
+#### le-editor
+![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
+
+![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
+
+### 特性
+
+- 导航
+- 标题
+- 文字效果
+- 引用
+- 脚注
+- 上角标、下角标
+- 有序列表、无序列表、任务清单
+- 代码缩进、代码高亮
+- 图片上传
+- html内嵌(视频、音频等)
+- Emoji 表情
+- LaTeX 公式
+- 流程图
+- 大图查看
+- 样式替换
+- 编辑器内容折叠
+- 编辑器换肤功能
+- 滚动条同步
+- ...
+
 ### 更新
 
 > 更多内容请访问[更新记录](./change.md)或本项目的change.md文件
@@ -27,33 +55,6 @@
 - 2020-04-08 
 
   修复失效的菜单功能项,修复样式覆盖的问题
-
-### 预览图
-#### le-editor
-![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/1b010cd6c7004529bfa856b3f5ff6a67.png)
-
-![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
-
-### 特性
-
-- 导航
-- 标题
-- 文字效果
-- 引用
-- 脚注
-- 上角标、下角标
-- 有序列表、无序列表、任务清单
-- 代码缩进、代码高亮
-- 图片上传
-- html内嵌(视频、音频等)
-- Emoji 表情
-- LaTeX 公式
-- 流程图
-- 编辑器样式
-- 编辑器内容折叠
-- 编辑器换肤功能
-- 滚动条同步
-- ...
 
 
 ###  快速上手
