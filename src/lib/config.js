@@ -7,11 +7,11 @@ const config = {
     editor: 16,
     preview: 16
   },
-  imageType:['jpg','jpeg','gif','png','bmp'],
-  dragUpload:true,
+  imageType: ['jpg', 'jpeg', 'gif', 'png', 'bmp'],
+  dragUpload: true,
   imageUploader: {
     custom: false,
-    fileType:'',
+    fileType: '',
     fileNameType: 'uuid',
     imagePrefix: 'https://cdn.jsdelivr.net/gh/', // 图片前缀地址
     type: '',

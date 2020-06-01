@@ -1,0 +1,89 @@
+.le-img-preview {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.le-img-preview img {
+    background: #fff;
+}
+
+/* 大图预览 start */
+.le-img-preview-animation-enter-active {
+    -webkit-animation: bounceInDown .8s .2s ease both;
+    -moz-animation: bounceInDown .8s .2s ease both;
+}
+
+@-webkit-keyframes bounceInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-2000px)
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translateY(30px)
+    }
+    80% {
+        -webkit-transform: translateY(-10px)
+    }
+    100% {
+        -webkit-transform: translateY(0)
+    }
+}
+
+@-moz-keyframes bounceInDown {
+    0% {
+        opacity: 0;
+        -moz-transform: translateY(-2000px)
+    }
+    60% {
+        opacity: 1;
+        -moz-transform: translateY(30px)
+    }
+    80% {
+        -moz-transform: translateY(-10px)
+    }
+    100% {
+        -moz-transform: translateY(0)
+    }
+}
+
+.le-img-preview-animation-leave-active {
+    -webkit-animation: bounceOutUp 0.5s .2s ease both;
+    -moz-animation: bounceOutUp 0.5s .2s ease both;
+}
+
+@-webkit-keyframes bounceOutUp {
+    0% {
+        -webkit-transform: translateY(0)
+    }
+    20% {
+        opacity: 1;
+        -webkit-transform: translateY(20px)
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(-2000px)
+    }
+}
+
+@-moz-keyframes bounceOutUp {
+    0% {
+        -moz-transform: translateY(0)
+    }
+    20% {
+        opacity: 1;
+        -moz-transform: translateY(20px)
+    }
+    100% {
+        opacity: 0;
+        -moz-transform: translateY(-2000px)
+    }
+}
+
+/* 大图预览 end */

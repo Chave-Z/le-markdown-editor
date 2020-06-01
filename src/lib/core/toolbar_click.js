@@ -211,7 +211,7 @@ function insertText ($vm, operate, placeholder) {
     })
   } else {
     // 如果选中了文字
-    let str = $vm.editor.getRange({ line: startPos.line, ch: startPos.ch - prefix.length }, {
+    const str = $vm.editor.getRange({ line: startPos.line, ch: startPos.ch - prefix.length }, {
       line: endPos.line,
       ch: endPos.ch + suffix.length
     })

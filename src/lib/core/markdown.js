@@ -84,4 +84,18 @@ md.renderer.rules.ordered_list_open = function (tokens, idx) {
   return '<ol' + ' data-source="' + (parseInt(label.map[0] + 1)) + '">'
 }
 
+var defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+  return self.renderToken(tokens, idx, options)
+}
+md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+  // 获取属性target的索引号，如果小于0说明没有该属性
+  var aIndex = tokens[idx].attrIndex('target')
+  if (aIndex < 0) {
+    tokens[idx].attrPush(['target', '_blank']) // add new attribute
+  } else {
+    tokens[idx].attrs[aIndex][1] = '_blank' // replace value of existing attr
+  }
+  return defaultRender(tokens, idx, options, env, self)
+}
+
 export default md

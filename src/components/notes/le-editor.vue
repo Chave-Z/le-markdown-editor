@@ -28,7 +28,7 @@
              v-if="fullScreenFlag"
              @click="fullScreen()">
             <i class="fa fa-window-close-o"></i></a>
-          <le-preview :style="{fontSize:config.font.preview + 'px'}" :hljsCss="hljsCss" :value="html" ref="markdownBody"></le-preview>
+          <le-preview :style="{fontSize:font.preview + 'px'}" :hljsCss="hljsCss" :value="html" ref="markdownBody"></le-preview>
 <!--          <le-preview :style="{fontSize:config.font.preview + 'px'}" :hljsCss="hljsCss" :is-md="true" :value="origin" ref="markdownBody"></le-preview>-->
           <!--                    <div class="markdown-body"-->
           <!--                         ref="markdownBody"-->
@@ -188,8 +188,7 @@
       preview(flag) {
         // 开关实时预览
         this.previewFlag = flag
-        // console.log(this.previewFlag)
-        document.getElementsByClassName('le-editor-left')[0].style.width = this.previewFlag ? '50%' : '100%'
+        this.$el.getElementsByClassName('le-editor-left')[0].style.width = this.previewFlag ? '50%' : '100%'
       }
       ,
       fullScreen() {
@@ -242,7 +241,6 @@
           }
         }
         if (!flag) return
-        console.log(this.config.imageUploader.fileNameType)
         let fileName = this.config.imageUploader.fileNameType === 'uuid' ? (this.generateUUID() + '.' + fileType) : file.name;
         if (this.config.imageUploader.custom) {
           // 自定义
@@ -325,8 +323,7 @@
         dragDrop: true,
         matchBrackets: true
       });
-      this.font.preview = this.font.preview || 16
-      document.querySelector('.CodeMirror').style.fontSize = (this.font.editor || 16) + 'px'
+      this.$el.querySelector('.CodeMirror').style.fontSize = (this.font.editor || 16) + 'px'
       if (that.value !== "") {
         that.editor.setValue(that.value)
         that.setMdValue()
@@ -339,15 +336,16 @@
       }
       let timer = null;
       this.editor.on('scroll', (instance) => {
+        let mdBodyElement = this.$refs.markdownBody.$el;
         clearTimeout(timer);
         timer = setTimeout(() => {
-          const lineMarkers = document.querySelectorAll('.markdown-body > [data-source]')
+          const lineMarkers = mdBodyElement.querySelectorAll('.markdown-body > [data-source]')
           const lines = []
           lineMarkers.forEach((element, index) => {
             lines.push(element.getAttribute('data-source'))
           })
           const editorScrollInfo = that.editor.getScrollInfo();
-          let mdBody = document.querySelector('.markdown-body')
+          let mdBody = mdBodyElement.querySelector('.markdown-body')
           if (editorScrollInfo.clientHeight + editorScrollInfo.top === editorScrollInfo.height) {
             let clientHeight = mdBody.clientHeight;
             let scrollHeight = mdBody.scrollHeight;
@@ -374,10 +372,10 @@
             let lastPosition = 0
             let nextPosition = mdBody.scrollHeight - mdBody.clientHeight
             if (editorScroll.current) {
-              lastPosition = document.querySelector('.markdown-body > [data-source="' + editorScroll.current + '"]').offsetTop
+              lastPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.current + '"]').offsetTop
             }
             if (editorScroll.next) {
-              nextPosition = document.querySelector('.markdown-body > [data-source="' + editorScroll.next + '"]').offsetTop
+              nextPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.next + '"]').offsetTop
             }
             mdBody.scrollTop = lastPosition + (nextPosition - lastPosition) * editorScroll.percentage
           }
@@ -387,7 +385,7 @@
       if (localStorage.getItem('theme') === null) {
         localStorage.setItem('theme', this.theme)
       }
-      const dropBox = document.querySelector('.CodeMirror');
+      const dropBox = this.$el.querySelector('.CodeMirror');
       dropBox.addEventListener('dragenter', this.onDrag, false);
       dropBox.addEventListener('dragover', this.onDrag, false);
       dropBox.addEventListener('drop', this.onDrop, false);

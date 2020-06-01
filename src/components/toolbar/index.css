@@ -1,3 +1,101 @@
+.le-editor-toolbar {
+  width: 100%;
+  background: #fff;
+  z-index: 10;
+  text-align: left;
+  border-bottom: 1px solid #e6e8ea;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  flex-wrap: nowrap;
+}
+
+.le-editor-tools {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-left: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.le-left-tools{
+  flex-wrap: wrap;
+}
+
+.le-editor-tools>li {
+  margin: 0;
+  padding: 4px;
+  display: inline-block;
+  position: relative;
+}
+
+.le-editor-tools>li.divider {
+  display: inline-block;
+  text-indent: -9999px;
+  height: 20px;
+  padding: 2px;
+  margin-top: 4px;
+  border-right: 1px solid #ddd;
+}
+
+.le-editor-tools>li>a {
+  outline: 0;
+  color: #666;
+  display: inline-block;
+  min-width: 24px;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  transition: all 300ms ease-out;
+}
+
+.le-editor-tools>li+li>a {
+  margin-left: -3px;
+}
+
+.le-editor-tools>li>a:hover {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #eee;
+}
+
+.le-editor-tools>li>a:hover, .le-editor-tools>li>a {
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+}
+
+.fa {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+.le-editor-tools .fa {
+  text-align: center;
+  display: block;
+  padding: 5px;
+}
+
+.le-editor-tools .tools-bold {
+  padding: 5px 2px;
+  display: inline-block;
+  font-weight: 700;
+}
 
 /* 弹出框样式 */
 .le-editor-toolbar .slide-fade-enter-active {
@@ -210,8 +308,8 @@
   background-color: #3e8e41;
 }
 
-@media (max-width: 1100px) {
-  /* body{
-
-  } */
+@media (max-width: 800px) {
+  .le-head-tools,.le-align-tools{
+    display: none !important;
+  }
 }

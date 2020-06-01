@@ -27,6 +27,7 @@
   },
   "homepage": "https://gitee.com/Chave-Z/vue-md-editor#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "flowchart.js": "^1.13.0",
     "highlight.js": "^9.16.2"
   },
