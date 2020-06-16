@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>样例</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.1.2/dist/leEditor.js"></script>
+  <script src="../../dist/leEditor.js"></script>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 <!--    <h2>通过html方式显示</h2>-->
 <!--    <le-preview ref="html-preview" :value="html" :hljs-css="hljsCss"></le-preview>-->
         <h2>通过markdown方式显示</h2>
-        <le-preview ref="md-preview" :is-md="true" :value="mdContent" :hljs-css="hljsCss"></le-preview>
+        <le-preview ref="md-preview" :md-options="mdOptions" :is-md="true" :value="testContent" :hljs-css="hljsCss"></le-preview>
   </div>
 </div>
 </body>
@@ -26,6 +26,15 @@
     el: '#app',
     data() {
       return {
+        mdOptions: {
+          html: true,
+          linkify: true,
+          plugins: {
+            emoji: {
+              enabled: []
+            }
+          },
+        },
         hljsCss: 'agate',
         html: '<p data-source="1"><h3>导航</h3><ul><li><a href="#_2">字符效果、分隔线</a></li><li><a href="#_20">引用</a></li><li><a href="#_Links_24">锚点与链接 Links</a></li><li><a href="#_31">代码高亮</a></li><ul><li><a href="#_33">行内代码</a></li><li><a href="#_38">缩进风格</a></li><li><a href="#JS_43">JS代码</a></li><li><a href="#HTML__HTML_codes_50">HTML 代码 HTML codes</a></li></ul><li><a href="#_Images_63">图片 Images</a></li><ul><li><a href="#_Image_64">图片 Image</a></li><li><a href="#_Image__Link_67">图片加链接 (Image + Link)</a></li></ul><li><a href="#_Lists_73">列表 Lists</a></li><ul><li><a href="#Unordered_Lists__75">无序列表（减号）Unordered Lists (-)</a></li><li><a href="#Unordered_Lists__81">无序列表（星号）Unordered Lists (*)</a></li><li><a href="#Unordered_Lists__87">无序列表（加号和嵌套）Unordered Lists (+)</a></li><li><a href="#_Ordered_Lists__98">有序列表 Ordered Lists (-)</a></li></ul><li><a href="#GFM_task_list_104">GFM task list</a></li><li><a href="#_118">绘制表格</a></li><li><a href="#Emoji_141">Emoji表情</a></li><li><a href="#LaTeX__145">LaTeX 公式</a></li><li><a href="#_161">流程图</a></li><li><a href="#_177">视频、音频</a></li><li><a href="#_196">脚注</a></li></ul>\n' +
           'Markdown 语法简介</p>\n' +
@@ -434,7 +443,9 @@
           '生成一个脚注1[^footnote].\n' +
           '生成一个脚注2[^foot].\n' +
           '[^footnote]: 这里是 **脚注** 的 *内容*.\n' +
-          ' [^foot]:这里是**脚注2**的*内容*.\n'
+          ' [^foot]:这里是**脚注2**的*内容*.\n',
+        testContent: '{"clients": :) [{"dataway": "http://192.168.56.101:9528/v1/write/metrics", "query": null, "datakit_uuid": ["vvfffdkit_7f30ff4a-one", "vvvbbbbdkit_7f30ff4a-two"], "datakit_version": ["v1.0", "v1.1"], "metrics": [{"measurment": "nginx", "interval": "5s", "cache_num": 1, "tags": [{"key": "serverstatus", "value": ["running", "stop", "restarting"]}, {"key": "$parentID", "value": ["7LaR0"]}, {"key": "$operationName", "value": ["e13S0"]}, {"key": "$spanID", "value": ["SgZQR"]}, {"key": "$traceID", "value": ["Oc80X"]}, {"key": "host", "value": ["jydubuntu", "csoslinux", "wangjiaoshou"]}, {"key": "$source", "value": ["apache", "httpd", "lighttpd"]}, {"key": "$errorCode", "value": [200, 301, 302, 400, 404]}, {"key": "$class", "value": ["tracing"]}, {"key": "$serviceName", "value": ["login", "auth", "search"]}, {"key": "$env", "value": ["dev", "prod", "test"]}, {"key": "$status", "value": ["info", "warning", "error", "critical", "ok"]}], "fields": [{"key": "$content", "value": ["\u4e1c\u65b9\u7ea2"], "type": "str"}, {"key": "$duration", "value": [1000000, 10000000000], "type": "int"}, {"key": "connect_total", "value": [1, 100], "type": "int"}]}]}],"time":"12/12/12"}'
+        
       }
     },
     methods: {}
