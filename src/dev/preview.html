@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>样例</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="../../dist/leEditor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/le-markdown-editor@1.1.2/dist/leEditor.js"></script>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 <!--    <h2>通过html方式显示</h2>-->
 <!--    <le-preview ref="html-preview" :value="html" :hljs-css="hljsCss"></le-preview>-->
         <h2>通过markdown方式显示</h2>
-        <le-preview ref="md-preview" :md-options="mdOptions" :is-md="true" :value="testContent" :hljs-css="hljsCss"></le-preview>
+        <le-preview ref="md-preview" :md-options="mdOptions" :is-md="true" :value="mdContent" :hljs-css="hljsCss"></le-preview>
   </div>
 </div>
 </body>
@@ -443,9 +443,7 @@
           '生成一个脚注1[^footnote].\n' +
           '生成一个脚注2[^foot].\n' +
           '[^footnote]: 这里是 **脚注** 的 *内容*.\n' +
-          ' [^foot]:这里是**脚注2**的*内容*.\n',
-        testContent: '{"clients": :) [{"dataway": "http://192.168.56.101:9528/v1/write/metrics", "query": null, "datakit_uuid": ["vvfffdkit_7f30ff4a-one", "vvvbbbbdkit_7f30ff4a-two"], "datakit_version": ["v1.0", "v1.1"], "metrics": [{"measurment": "nginx", "interval": "5s", "cache_num": 1, "tags": [{"key": "serverstatus", "value": ["running", "stop", "restarting"]}, {"key": "$parentID", "value": ["7LaR0"]}, {"key": "$operationName", "value": ["e13S0"]}, {"key": "$spanID", "value": ["SgZQR"]}, {"key": "$traceID", "value": ["Oc80X"]}, {"key": "host", "value": ["jydubuntu", "csoslinux", "wangjiaoshou"]}, {"key": "$source", "value": ["apache", "httpd", "lighttpd"]}, {"key": "$errorCode", "value": [200, 301, 302, 400, 404]}, {"key": "$class", "value": ["tracing"]}, {"key": "$serviceName", "value": ["login", "auth", "search"]}, {"key": "$env", "value": ["dev", "prod", "test"]}, {"key": "$status", "value": ["info", "warning", "error", "critical", "ok"]}], "fields": [{"key": "$content", "value": ["\u4e1c\u65b9\u7ea2"], "type": "str"}, {"key": "$duration", "value": [1000000, 10000000000], "type": "int"}, {"key": "connect_total", "value": [1, 100], "type": "int"}]}]}],"time":"12/12/12"}'
-        
+          ' [^foot]:这里是**脚注2**的*内容*.\n'
       }
     },
     methods: {}
