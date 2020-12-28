@@ -49,9 +49,9 @@
                      :target="contextMenuTarget"
                      :show="contextMenuVisible"
                      @update:show="(show) => contextMenuVisible = show">
-<!--      <a href="javascript:;">全选</a>-->
-<!--      <a href="javascript:;">复制</a>-->
-<!--      <a href="javascript:;">粘贴</a>-->
+      <!--      <a href="javascript:;">全选</a>-->
+      <!--      <a href="javascript:;">复制</a>-->
+      <!--      <a href="javascript:;">粘贴</a>-->
       <a href="javascript:;" @mouseenter="imageSubMenuFlag=true" @mouseleave="imageSubMenuFlag=false">图片操作
         <div v-if="imageSubMenuFlag" class="img-menu">
           <a href="javascript:;" @click="changeImgSize(25)">25%</a>
@@ -123,7 +123,7 @@ export default {
     },
     theme: {
       type: String,
-      default: localStorage.getItem('theme') === null ? 'base16-dark' : localStorage.getItem('theme')
+      default: localStorage.getItem('theme') === null ? 'material' : localStorage.getItem('theme')
     },
     // 工具栏是否显示
     shadow: {
@@ -141,6 +141,11 @@ export default {
       default() {
         return config.toolbar
       }
+    },
+    // 全屏编辑
+    fullscreen: {
+      type: Boolean,
+      default: false
     },
     // 图片上传配置
     imageUploader: {
@@ -334,11 +339,26 @@ export default {
       this.origin = this.editor.getValue()
       this.html = md.render(this.origin)
     },
-    changeImgSize(val) {
+    // 校验markdown图片标签
+    checkMdImgTag() {
       let str = this.editor.getSelection().trim();
       let result = this.imagePattern.exec(str);
       let linkResult = this.linkImagePattern.exec(str);
+      let checkFlag = true;
       if ((result === null || result.length !== 3) && (linkResult === null || linkResult.length !== 3)) {
+        checkFlag = false;
+      }
+      return {
+        checkFlag: checkFlag,
+        result: result,
+        linkResult: linkResult
+      }
+    },
+    changeImgSize(val) {
+      let checkResult = this.checkMdImgTag();
+      let result = checkResult.result;
+      let linkResult = checkResult.linkResult;
+      if (!checkResult.checkFlag) {
         alert("请选择正确的markdown格式图片标签")
       } else if (result != null && result.length === 3) {
         insertImg(this, {url: result[2], title: result[1]}, 'imgTag', val);
@@ -458,7 +478,14 @@ export default {
         }
       }
     });
+    // 右键菜单
     this.contextMenuTarget = this.getEditorDom();
+    // 全屏状态检测
+    if (this.fullscreen === true) {
+      console.log(this.$refs.toolbar)
+      this.$refs.toolbar.toolbar.fullScreenEditFlag = this.fullscreen;
+      this.$refs.toolbar.fullScreenEdit();
+    }
   }
 }
 </script>

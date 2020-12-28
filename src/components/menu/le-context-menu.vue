@@ -75,12 +75,14 @@ export default {
     clickDocumentHandler(e) {
       this.$emit('update:show', false)
     },
-
     // 右键事件事件处理
     contextMenuHandler(e) {
-      this.layout(e)
-      this.$emit('update:show', true)
-      e.preventDefault()
+      let checkResult = this.$parent.checkMdImgTag();
+      if (checkResult.checkFlag) {
+        this.layout(e)
+        this.$emit('update:show', true)
+        e.preventDefault()
+      }
     },
     // 布局
     layout(evt) {

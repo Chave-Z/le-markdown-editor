@@ -300,7 +300,7 @@
       <li v-if="toolbar.fullScreenEdit">
         <a
           href="javascript:;"
-          :title="fullScreenEditFlag ? '打开全屏编辑（Ctrl+Alt+E' : '关闭实时预览（Ctrl+Alt+E）'"
+          :title="fullScreenEditFlag ? '打开全屏编辑（Ctrl+Alt+E)' : '关闭实时预览（Ctrl+Alt+E）'"
           unselectable="on"
           @click.stop="fullScreenEdit()"
         >
