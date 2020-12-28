@@ -15,7 +15,7 @@
 
 ![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
 
-[更多预览图](./doc/preview.md)
+[更多预览图](doc/cn/preview.md)
 
 ### 特性
 
