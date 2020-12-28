@@ -153,6 +153,12 @@ export default {
       default() {
         return {};
       }
+    },
+    indentUnit:{
+      type: Number,
+      default() {
+        return 2;
+      }
     }
   },
   data() {
@@ -208,6 +214,135 @@ export default {
     }
   },
   methods: {
+    newTab(cm) {
+      if (cm.somethingSelected()) {
+        cm.indentSelection('add');
+      } else {
+        cm.replaceSelection((cm.getOption) ? "\t" : Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
+      }
+    }
+    ,
+    initEditor() {
+      // 初始化
+      let that = this
+      this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
+        lineNumbers: true,
+        mode: 'markdown',
+        theme: that.theme,
+        lineWrapping: true,
+        scrollPastEnd: true,
+        autofocus: true,
+        styleActiveLine: {nonEmpty: true},
+        // tabSize: 4,
+        indentUnit: that.indentUnit,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        dragDrop: true,
+        matchBrackets: true
+      });
+      // tab
+      this.editor.setOption("extraKeys", {
+        Tab: (cm) => {
+          if (cm.somethingSelected()) {      // 存在文本选择
+            cm.indentSelection('add');    // 正向缩进文本
+          } else {                    // 无文本选择
+            //cm.indentLine(cm.getCursor().line, "add");  // 整行缩进 不符合预期
+            cm.replaceSelection(Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");  // 光标处插入 indentUnit 个空格
+          }
+        },
+        "Shift-Tab": (cm) => {              // 反向缩进
+          if (cm.somethingSelected()) {
+            cm.indentSelection('subtract');  // 反向缩进
+          } else {
+            // cm.indentLine(cm.getCursor().line, "subtract");  // 直接缩进整行
+            const cursor = cm.getCursor();
+            cm.setCursor({line: cursor.line, ch: cursor.ch - 4});  // 光标回退 indexUnit 字符
+          }
+          return;
+        },
+      });
+      this.getEditorDom().style.fontSize = (this.font.editor || 16) + 'px'
+      if (that.value !== "") {
+        that.editor.setValue(that.value)
+        that.setMdValue()
+      }
+      this.editor.on("change", () => {
+        that.setMdValue()
+      })
+      // 滚动渲染
+      let timer = null;
+      this.editor.on('scroll', (instance) => {
+        let mdBodyElement = this.$refs.markdownBody.$el;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const lineMarkers = mdBodyElement.querySelectorAll('.markdown-body > [data-source]')
+          const lines = []
+          lineMarkers.forEach((element, index) => {
+            lines.push(element.getAttribute('data-source'))
+          })
+          const editorScrollInfo = that.editor.getScrollInfo();
+          let mdBody = mdBodyElement.querySelector('.markdown-body')
+          if (editorScrollInfo.clientHeight + editorScrollInfo.top === editorScrollInfo.height) {
+            let clientHeight = mdBody.clientHeight;
+            let scrollHeight = mdBody.scrollHeight;
+            mdBody.scrollTop = scrollHeight - clientHeight
+          } else {
+            const currentPosition = editorScrollInfo.top
+            let current
+            let next
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i]
+              const height = that.editor.heightAtLine(line - 1, 'local')
+              if (height < currentPosition) {
+                current = line
+              } else {
+                next = line
+                break
+              }
+            }
+            let percentage = 0
+            if (current && next && current !== next) {
+              percentage = (currentPosition - that.editor.heightAtLine(current - 1, 'local')) / (that.editor.heightAtLine(next - 1, 'local') - that.editor.heightAtLine(current - 1, 'local'))
+            }
+            let editorScroll = {current: current, next: next, percentage}
+            let lastPosition = 0
+            let nextPosition = mdBody.scrollHeight - mdBody.clientHeight
+            if (editorScroll.current) {
+              lastPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.current + '"]').offsetTop
+            }
+            if (editorScroll.next) {
+              nextPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.next + '"]').offsetTop
+            }
+            mdBody.scrollTop = lastPosition + (nextPosition - lastPosition) * editorScroll.percentage
+          }
+        }, 125)
+      })
+      // 拖拽事件
+      const dropBox = this.getEditorDom();
+      dropBox.addEventListener('dragenter', this.onDrag, false);
+      dropBox.addEventListener('dragover', this.onDrag, false);
+      dropBox.addEventListener('drop', this.onDrop, false);
+      dropBox.addEventListener("paste", function (e) {
+        let cbd = e.clipboardData;
+        if (!(e.clipboardData && e.clipboardData.items)) {
+          return;
+        }
+        for (let i = 0; i < cbd.items.length; i++) {
+          let item = cbd.items[i];
+          if (item.kind === "file") {
+            let file = item.getAsFile();
+            if (file.size === 0) {
+              return;
+            } else {
+              that.upload(file)
+            }
+          }
+        }
+      });
+      // 右键菜单
+      this.contextMenuTarget = this.getEditorDom();
+    }
+    ,
     operate(type) {
       // 点击了工具栏 触发功能
       simpleClick(this, type)
@@ -250,6 +385,7 @@ export default {
     }
     ,
     initLang() {
+      // TODO
       let lang = config.langList.indexOf(this.language) >= 0 ? this.language : 'zh_CN';
       this.placeholders = config.words[`${lang}`].placeholders
     }
@@ -269,7 +405,7 @@ export default {
       this.upload(dt.files[0])
     }
     ,
-    // 上传
+// 上传
     upload(file) {
       let flag = false
       let fileType = file.name.substring(file.name.lastIndexOf('.') + 1).toLocaleLowerCase()
@@ -338,8 +474,9 @@ export default {
       // this.historyPushFlag = true
       this.origin = this.editor.getValue()
       this.html = md.render(this.origin)
-    },
-    // 校验markdown图片标签
+    }
+    ,
+// 校验markdown图片标签
     checkMdImgTag() {
       let str = this.editor.getSelection().trim();
       let result = this.imagePattern.exec(str);
@@ -353,7 +490,8 @@ export default {
         result: result,
         linkResult: linkResult
       }
-    },
+    }
+    ,
     changeImgSize(val) {
       let checkResult = this.checkMdImgTag();
       let result = checkResult.result;
@@ -367,7 +505,8 @@ export default {
       } else {
         alert("请选择正确的markdown格式图片标签")
       }
-    },
+    }
+    ,
     getEditorDom() {
       // 获取 编辑器组件
       return this.$el.querySelector('.CodeMirror');
@@ -379,110 +518,16 @@ export default {
   }
   ,
   mounted() {
-    let that = this
-    this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
-      lineNumbers: true,
-      mode: 'markdown',
-      theme: that.theme,
-      lineWrapping: true,
-      scrollPastEnd: true,
-      autofocus: true,
-      styleActiveLine: {nonEmpty: true},
-      tabSize: 4,
-      indentUnit: 2,
-      foldGutter: true,
-      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-      dragDrop: true,
-      matchBrackets: true
-    });
-    this.getEditorDom().style.fontSize = (this.font.editor || 16) + 'px'
-    if (that.value !== "") {
-      that.editor.setValue(that.value)
-      that.setMdValue()
-    }
-    this.editor.on("change", () => {
-      that.setMdValue()
-    })
+    this.initEditor();
     if (JSON.stringify(this.imageUploader) !== "{}") {
       this.config.imageUploader = this.imageUploader
     }
-    let timer = null;
-    this.editor.on('scroll', (instance) => {
-      let mdBodyElement = this.$refs.markdownBody.$el;
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        const lineMarkers = mdBodyElement.querySelectorAll('.markdown-body > [data-source]')
-        const lines = []
-        lineMarkers.forEach((element, index) => {
-          lines.push(element.getAttribute('data-source'))
-        })
-        const editorScrollInfo = that.editor.getScrollInfo();
-        let mdBody = mdBodyElement.querySelector('.markdown-body')
-        if (editorScrollInfo.clientHeight + editorScrollInfo.top === editorScrollInfo.height) {
-          let clientHeight = mdBody.clientHeight;
-          let scrollHeight = mdBody.scrollHeight;
-          mdBody.scrollTop = scrollHeight - clientHeight
-        } else {
-          const currentPosition = editorScrollInfo.top
-          let current
-          let next
-          for (let i = 0; i < lines.length; i++) {
-            const line = lines[i]
-            const height = that.editor.heightAtLine(line - 1, 'local')
-            if (height < currentPosition) {
-              current = line
-            } else {
-              next = line
-              break
-            }
-          }
-          let percentage = 0
-          if (current && next && current !== next) {
-            percentage = (currentPosition - that.editor.heightAtLine(current - 1, 'local')) / (that.editor.heightAtLine(next - 1, 'local') - that.editor.heightAtLine(current - 1, 'local'))
-          }
-          let editorScroll = {current: current, next: next, percentage}
-          let lastPosition = 0
-          let nextPosition = mdBody.scrollHeight - mdBody.clientHeight
-          if (editorScroll.current) {
-            lastPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.current + '"]').offsetTop
-          }
-          if (editorScroll.next) {
-            nextPosition = mdBodyElement.querySelector('.markdown-body > [data-source="' + editorScroll.next + '"]').offsetTop
-          }
-          mdBody.scrollTop = lastPosition + (nextPosition - lastPosition) * editorScroll.percentage
-        }
-      }, 125)
-    })
     // 设置主题
     if (localStorage.getItem('theme') === null) {
       localStorage.setItem('theme', this.theme)
     }
-    const dropBox = this.getEditorDom();
-    dropBox.addEventListener('dragenter', this.onDrag, false);
-    dropBox.addEventListener('dragover', this.onDrag, false);
-    dropBox.addEventListener('drop', this.onDrop, false);
-    dropBox.addEventListener("paste", function (e) {
-      let cbd = e.clipboardData;
-      if (!(e.clipboardData && e.clipboardData.items)) {
-        return;
-      }
-      for (let i = 0; i < cbd.items.length; i++) {
-        let item = cbd.items[i];
-        if (item.kind === "file") {
-          let file = item.getAsFile();
-          if (file.size === 0) {
-            return;
-          } else {
-            that.upload(file)
-          }
-        }
-      }
-    });
-    // 右键菜单
-    this.contextMenuTarget = this.getEditorDom();
     // 全屏状态检测
     if (this.fullscreen === true) {
-      console.log(this.$refs.toolbar)
       this.$refs.toolbar.toolbar.fullScreenEditFlag = this.fullscreen;
       this.$refs.toolbar.fullScreenEdit();
     }
