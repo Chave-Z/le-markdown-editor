@@ -1,8 +1,8 @@
 <template>
   <div id="app" :style="appStyle">
     <div id="editor-main">
-      <le-editor v-model="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>
-      <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
+<!--      <le-editor v-model="value" :image-uploader="imageUploader" @uploadImg="uploadImg" @save="save"></le-editor>-->
+       <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
     </div>
   </div>
 </template>

@@ -129,13 +129,29 @@ const table = {
   right: '-------: |'
 }
 
+const IMAGE_PATTERN = /^!\[(.*)\]\((.*)\)$/;
+
 // 存入图片
-export const insertImg = ($vm, url, title) => {
-  insertText($vm, {
-    type: 'image',
-    prefix: '![',
-    suffix: '](' + url + ')'
-  }, title)
+export const insertImg = ($vm, data, type = "markdown", val = -1) => {
+  if (type === "imgTag") {
+    let sizeStr = "";
+    if (val === -1) {
+      sizeStr = 'width="100" height="100"';
+    } else {
+      sizeStr = `style="zoom:${val}%"`;
+    }
+    insertText($vm, {
+      type: 'imgTag',
+      prefix: '<img src="',
+      suffix: `${data.url}" alt="${data.title}" ${sizeStr} />`
+    }, '')
+  } else {
+    insertText($vm, {
+      type: 'image',
+      prefix: '![',
+      suffix: '](' + data.url + ')'
+    }, data.title)
+  }
 }
 
 // 放入表格
@@ -196,40 +212,47 @@ export const simpleClick = ($vm, type) => {
   // }
 }
 
-function insertText ($vm, operate, placeholder) {
+function insertText($vm, operate, placeholder) {
   const startPos = $vm.editor.getCursor('from')
   const endPos = $vm.editor.getCursor('to')
   const tmpStr = $vm.editor.getSelection()
   const prefix = operate.prefix
   const suffix = operate.suffix
-  if (tmpStr === '' || operate.type === 'image' || operate.type === 'table') {
+  if (operate.type === 'imgTag') {
+    let str = `${prefix}${suffix}\n`
+    $vm.editor.replaceSelection(str)
+    // $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
+    //   line: endPos.line,
+    //   ch: endPos.ch - (endPos.line === startPos.line ? str.length : 0)
+    // })
+  } else if (tmpStr === '' || operate.type === 'image' || operate.type === 'table') {
     // 直接插入
     $vm.editor.replaceSelection(prefix + placeholder + suffix)
-    $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch + prefix.length }, {
+    $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
       line: endPos.line,
       ch: endPos.ch + placeholder.length + (endPos.line === startPos.line ? prefix.length : 0)
     })
   } else {
     // 如果选中了文字
-    const str = $vm.editor.getRange({ line: startPos.line, ch: startPos.ch - prefix.length }, {
+    const str = $vm.editor.getRange({line: startPos.line, ch: startPos.ch - prefix.length}, {
       line: endPos.line,
       ch: endPos.ch + suffix.length
     })
     if (str === prefix + tmpStr + suffix) {
       // 移除语法
-      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch - prefix.length }, {
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
         line: endPos.line,
         ch: endPos.ch + prefix.length
       })
       $vm.editor.replaceSelection(tmpStr)
-      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch - prefix.length }, {
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch - prefix.length}, {
         line: endPos.line,
         ch: endPos.ch - (endPos.line === startPos.line ? prefix.length : 0)
       })
     } else {
       // 添加语法
       $vm.editor.replaceSelection(prefix + tmpStr + suffix)
-      $vm.editor.setSelection({ line: startPos.line, ch: startPos.ch + prefix.length }, {
+      $vm.editor.setSelection({line: startPos.line, ch: startPos.ch + prefix.length}, {
         line: endPos.line,
         ch: endPos.ch + (endPos.line === startPos.line ? prefix.length : 0)
       })
