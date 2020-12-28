@@ -1,3 +1,8 @@
+- 2020-12-28  v1.1.3
+  增加选中markdown图片标签时的快捷修改图片大小的功能: [效果图参考查看](https://cdn.jsdelivr.net/gh/Chave-Z/picture@master/data/image%20(1).gif)
+
+  增加编辑器是否默认全屏属性：fullscreen（ 默认false）
+
 - 2020-06-01 等待测试发布
 
   修复了同一页面多次引用，且已知的组件功能冲突的问题

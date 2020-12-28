@@ -15,6 +15,8 @@
 
 ![预览图](https://cdn.jsdelivr.net/gh/Chave-Z/picture/c0a3310b084d401a94ed95bc4c45969b.gif)
 
+[更多预览图](./doc/preview.md)
+
 ### 特性
 
 - 导航
@@ -39,18 +41,12 @@
 
 ### 更新
 
-> 更多内容请访问[更新记录](./change.md)或本项目的change.md文件
+> 更多内容请访问[更新记录](doc/cn/change.md)或本项目的change.md文件
 
 - 2020-12-28  v1.1.3
   增加选中markdown图片标签时的快捷修改图片大小的功能: [效果图参考查看](https://cdn.jsdelivr.net/gh/Chave-Z/picture@master/data/image%20(1).gif)
 
   增加编辑器是否默认全屏属性：fullscreen（ 默认false）
-
-- 2020-06-01 等待测试发布
-
-  修复了同一页面多次引用时组件功能冲突的问题
-
-  增加图片预览功能
 
 - 2020-04-15  v1.1.2
   修复全屏预览透底问题
@@ -61,9 +57,6 @@
 
   新增`le-preview`组件，新增`:hljs-css`属性，可修改代码高亮样式，具体用法请参考readme
 
-- 2020-04-08
-
-  修复失效的菜单功能项,修复样式覆盖的问题
 
 ###  快速上手
 #### 使用cdn
@@ -206,16 +199,17 @@ new Vue({
 
 #### props(自定义配置)
 
-| 属性        | 说明                                           | 类型    | 默认值                               |
-| :---------- | :--------------------------------------------- | :------ | :----------------------------------- |
-| value       | 可以使用 v-model 双向绑定数据                  | String  | ''                                   |
-| theme       | 编辑器主题                                         | String  | 'base16-dark'                                   |
-| font        | 设置编辑区和展示区的文字大小   | Object  | {editor: 16, preview: 16} |
-| shadow      | 编辑器是否带阴影效果                           | Boolean | true                                 |
-| dragUpload  | 是否允许拖拽上传图片，需要结合图片上传配置使用 | Boolean | true                                 |
-| showToolbar | 是否显示工具栏                                 | Boolean | true                                 |
-| toolbar     | 菜单栏及快捷键的功能                           | Object  | 见下文                               |
-| hljs-css | html显示区域代码高亮样式 | String | 'github' |
+| 属性        | 说明                                           | 类型    | 默认值                               | 最小版本                           |
+| :---------- | :--------------------------------------------- | :------ | :----------------------------------- | ------------------------------------ |
+| value       | 可以使用 v-model 双向绑定数据                  | String  | ''                                   |                                    |
+| theme       | 编辑器主题                                         | String  | 'base16-dark'                                   |                                    |
+| font        | 设置编辑区和展示区的文字大小   | Object  | {editor: 16, preview: 16} |  |
+| shadow      | 编辑器是否带阴影效果                           | Boolean | true                                 |                                  |
+| dragUpload  | 是否允许拖拽上传图片，需要结合图片上传配置使用 | Boolean | true                                 |                                  |
+| showToolbar | 是否显示工具栏                                 | Boolean | true                                 |                                  |
+| toolbar     | 菜单栏及快捷键的功能                           | Object  | 见下文                               |                                |
+| hljs-css | html显示区域代码高亮样式 | String | 'github' | v1.1.1 |
+| fullscreen | 编辑器是否默认全屏 | boolean | false | v1.1.3 |
 
 ##### 菜单栏配置配置
 
@@ -288,12 +282,11 @@ export default {
 
 #### props(自定义配置)
 
-| 属性       | 说明                                                         | 类型    | 默认值   | 最小版本 |
-| :--------- | :----------------------------------------------------------- | :------ | :------- | -------- |
-| value      | 显示的文本，可传入markdown和html，根据is-md来区分            | String  | ''       |          |
-| is-md      | value格式，为true则传入的为markdown格式文本，为false则为编辑器保存的html | String  | False    |          |
-| hljs-css   | html显示区域代码高亮样式                                     | String  | 'github' | v1.1.1   |
-| fullscreen | 编辑器是否默认全屏                                           | boolean | false    | v1.1.3   |
+| 属性     | 说明                                                         | 类型   | 默认值   | 最小版本 |
+| :------- | :----------------------------------------------------------- | :----- | :------- | -------- |
+| value    | 显示的文本，可传入markdown和html，根据is-md来区分            | String | ''       |          |
+| is-md    | value格式，为true则传入的为markdown格式文本，为false则为编辑器保存的html | String | False    |          |
+| hljs-css | html显示区域代码高亮样式                                     | String | 'github' | v1.1.1   |
 
 ##### hljs-css可用属性值
 
@@ -407,7 +400,7 @@ zenburn
 
 ![图片上传演示](https://cdn.jsdelivr.net/gh/Chave-Z/picture/71d962718f6443abbdea6802ee995f79.gif)
 
-详情请点击这里-->[图片上传配置详情](./image.md)
+详情请点击这里-->[图片上传配置详情](doc/cn/image.md)
 
 ### 编辑器快捷键
 **注意：** 这里除了撤销和重做两个功能以外，其它的快捷键只在菜单设置为显示时生效
