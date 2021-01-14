@@ -33,6 +33,14 @@ export default {
       type: Boolean,
       default: false
     },
+    mdOptions: {
+      type: Object,
+      default: () => {return {
+        html: true,
+        linkify: true,
+        typographer: true
+      }}
+    },
     value: {
       type: String,
       default: ""
@@ -61,7 +69,7 @@ export default {
     },
     content(value) {
       if (this.isMd) {
-        this.html = md.render(value);
+        this.html = md.init(this.mdOptions).render(value);
       } else {
         this.html = value;
       }
