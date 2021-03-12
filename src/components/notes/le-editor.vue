@@ -156,9 +156,7 @@ export default {
     },
     indentUnit:{
       type: Number,
-      default() {
-        return 2;
-      }
+      default: 2
     }
   },
   data() {
@@ -214,14 +212,6 @@ export default {
     }
   },
   methods: {
-    newTab(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection('add');
-      } else {
-        cm.replaceSelection((cm.getOption) ? "\t" : Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
-      }
-    }
-    ,
     initEditor() {
       // 初始化
       let that = this

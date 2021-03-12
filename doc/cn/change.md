@@ -1,3 +1,7 @@
+- 2021-03-12 v1.1.4
+  增加indent-unit属性，可以设置编辑器缩进大小，默认为两个空格
+  修复shift+tab回缩进功能失效的问题
+
 - 2020-12-28  v1.1.3
   增加选中markdown图片标签时的快捷修改图片大小的功能: [效果图参考查看](https://cdn.jsdelivr.net/gh/Chave-Z/picture@master/data/image%20(1).gif)
 

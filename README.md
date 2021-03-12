@@ -1,6 +1,6 @@
 ## le-markdown-editor
 
-> 一款基于vue的Markdown编辑器，功能正在更新中，欢迎反馈，建议使用最新版本，当前最新版本号：1.1.3
+> 一款基于vue的Markdown编辑器，功能正在更新中，欢迎反馈，建议使用最新版本，当前最新版本号：1.1.4
 
 功能相关问题反馈或建议可以提交issues或者发邮件到chave_z@163.com，也可以留联系方式，我加你（注明问题或建议）。
 
@@ -41,8 +41,9 @@
 ### 更新
 
 > 更多内容请访问[更新记录](doc/cn/change.md)或本项目的change.md文件
-- 2020-12-28 晚
-  增加indentUnit属性，可以设置编辑器缩进大小，默认为两个空格（1.1.4再发布）
+- 2021-03-12 v1.1.4
+  增加indent-unit属性，可以设置编辑器缩进大小，默认为两个空格
+  修复shift+tab回缩进功能失效的问题
 
 - 2020-12-28  v1.1.3
   增加选中markdown图片标签时的快捷修改图片大小的功能: [效果图参考查看](https://cdn.jsdelivr.net/gh/Chave-Z/picture@master/data/image%20(1).gif)
@@ -211,7 +212,7 @@ new Vue({
 | toolbar     | 菜单栏及快捷键的功能                           | Object  | 见下文                               |                                |
 | hljs-css | html显示区域代码高亮样式 | String | 'github' | v1.1.1 |
 | fullscreen | 编辑器是否默认全屏 | boolean | false | v1.1.3 |
-| indentUnit | 编辑器缩进大小（默认两个空格） | Number | 2 | v1.1.4 |
+| indent-unit | 编辑器缩进大小（默认两个空格） | Number | 2 | v1.1.4 |
 
 ##### 菜单栏配置配置
 
