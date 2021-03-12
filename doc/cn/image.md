@@ -25,7 +25,7 @@
 ```javascript
 imageUploader: {
     // 是否使用自定义的图片上传
-    custom: false, 
+    custom: false,
     type: '',
     fileNameType: 'uuid',
     url: '',
@@ -34,7 +34,7 @@ imageUploader: {
     repo: '',
     fileType:'',
     // 图片前缀地址
-    imagePrefix: 'https://cdn.jsdelivr.net/gh/' 
+    imagePrefix: 'https://cdn.jsdelivr.net/gh/'
 }
 ```
 #### 使用内置的服务器上传，步骤如下：
@@ -56,9 +56,9 @@ imageUploader: {
                     custom: false,
                     fileType: 'file',
                     fileNameType: '',
-                    imagePrefix: 'http://47.100.125.98', // 图片前缀地址
+                    imagePrefix: 'http://106.54.92.121', // 图片前缀地址
                     type: 'server',
-                    url: 'http://47.100.125.98:82/upload' // 接口地址
+                    url: 'http://106.54.92.121:82/upload' // 接口地址
                 }
             }
         },
