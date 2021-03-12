@@ -230,9 +230,9 @@
                     custom: false,
                     fileType: 'file',
                     fileNameType: '',
-                    imagePrefix: 'http://47.100.125.98', // 图片前缀地址
+                    imagePrefix: 'http://106.54.92.121', // 图片前缀地址
                     type: 'server',
-                    url: 'http://47.100.125.98:82/upload'
+                    url: 'http://106.54.92.121:82/upload'
                 }
             }
         },
