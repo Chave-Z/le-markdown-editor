@@ -210,6 +210,17 @@ import leMarkdownEditor from 'le-markdown-editor'
 Vue.use(leMarkdownEditor)
 ```
 
+- 修改`nuxt.config.js`文件
+
+```javascript
+// ...
+plugins: [
+  '@/plugins/view-ui',
+  '@/plugins/le-markdown-editor',
+],
+//...
+```
+
 - 修改`pages/index.vue`文件
 
 ```vue
