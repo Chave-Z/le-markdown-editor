@@ -192,7 +192,90 @@ new Vue({
   }
 </style>
 ```
+#### 在nuxt项目中使用
+
+- 新建nuxt项目
+- 下载插件
+
+```shell
+npm i le-markdown-editor --save
+```
+
+- 在plugin文件夹下新建`le-markdown-editor.js`文件
+
+```javascript
+import Vue from 'vue'
+import leMarkdownEditor from 'le-markdown-editor'
+
+Vue.use(leMarkdownEditor)
+```
+
+- 修改`pages/index.vue`文件
+
+```vue
+<template>
+  <div class="container">
+    <div id="editor-main">
+      <le-editor v-model="value" :hljs-css="hljsCss" :fullscreen="true" :image-uploader="imageUploader" @save="save"></le-editor>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        hljsCss: 'agate',
+        value: '这里放markdown内容',
+        // 自定义
+        imageUploader: {
+          custom: false,
+          fileType: 'file',
+          fileNameType: '',
+          imagePrefix: 'http://106.54.92.121', // 图片上传成功后，预览地址前缀
+          type: 'server',
+          url: 'http://106.54.92.121:82/upload' // 上传接口地址
+        }
+      }
+    },
+    methods: {
+      // 自定义图片上传
+      // uploadImg: function ($vm, file, fileName) {
+      //   console.log($vm)
+      //   console.log(file)
+      //   console.log(fileName)
+      //   // 添加图片
+      //   // 两个参数 第一个是图片访问路径 第二个是文件名
+      //   $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${fileName}`, fileName)
+      // },
+      save: function (val) {
+        // 获取预览文本
+        console.log(this.value) // 这里是原markdown文本
+        console.log(val) // 这个是解析出的html
+      }
+    },
+    mounted() {
+    }
+  }
+</script>
+
+<style>
+  .container {
+    margin: 0 auto;
+    width: 1200px;
+    height: 500px;
+  }
+
+  #editor-main {
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+```
+
 #### 我该如何了解markdown语法？
+
 百度或打开项目根目录下的test.txt，将其拷贝到编辑区，对比右侧看到的预览文本，就能知道如何使用了
 
 ### API
