@@ -25,6 +25,7 @@
 import flowchart from "flowchart.js";
 import { toKebabCase, hljsCssConfig } from "../../lib/core/hljs-plugn";
 import md from "../../lib/core/markdown";
+import mermaid from "mermaid";
 
 export default {
   name: "le-preview",
@@ -73,6 +74,17 @@ export default {
             let chart = flowchart.parse(code);
             element.textContent = "";
             chart.drawSVG(element);
+          } catch (e) {
+            element.outerHTML = `<pre>error: ${e}</pre>`;
+          }
+        });
+        this.$el.querySelectorAll(".md-mermaid").forEach((element, i, nodes) => {
+          try {
+            let code = element.textContent;
+            let insertSvg = function(svgCode, bindFunctions){
+                nodes[i.toString()].innerHTML = svgCode
+            };
+            mermaid.render('mermaid' + i.toString(), code, insertSvg);
           } catch (e) {
             element.outerHTML = `<pre>error: ${e}</pre>`;
           }
